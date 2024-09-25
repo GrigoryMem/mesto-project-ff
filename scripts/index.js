@@ -15,6 +15,7 @@ function createCard(data){
   //установить значения вложенных элементов
   cardExample .querySelector('.card__image').src = data.link;
   cardExample .querySelector('.card__title').textContent = data.name;
+  cardExample.querySelector('.card__image').alt = data.name;
   // удаление карточки
   removeCard(cardExample);
   // поставить лайк
