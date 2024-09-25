@@ -1,8 +1,13 @@
 // @todo: Темплейт карточки
+
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки
+
 // @todo: DOM узлы
 
+const placesList = document.querySelector('.places__list');
+
 // @todo: Функция создания карточки
+
 function createCard(data){
   // клонировать шаблон кароточки - создал экземпляр карточки
   const cardTemplateClone = cardTemplate.cloneNode(true); 
@@ -18,8 +23,8 @@ function createCard(data){
   return cardExample;
 }
 
-
 // @todo: Функция удаления карточки
+
 function removeCard(card){
   const cardDelBtn = card.querySelector('.card__delete-button');
   cardDelBtn.addEventListener('click',()=>{
