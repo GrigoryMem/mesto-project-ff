@@ -8,7 +8,7 @@ const placesList = document.querySelector('.places__list');
 
 // @todo: Функция создания карточки
 
-function createCard(data){
+function createCard(data) {
   // клонировать шаблон кароточки - создал экземпляр карточки
   const cardTemplateClone = cardTemplate.cloneNode(true); 
   const cardExample =  cardTemplateClone.querySelector('.card');
@@ -26,7 +26,7 @@ function createCard(data){
 
 // @todo: Функция удаления карточки
 
-function removeCard(card){
+function removeCard(card) {
   const cardDelBtn = card.querySelector('.card__delete-button');
   cardDelBtn.addEventListener('click',()=>{
     cardDelBtn.closest('.card').remove();
@@ -35,7 +35,7 @@ function removeCard(card){
 
 // @todo: Функция лайка карточки
 
-function likeCard(card){
+function likeCard(card) {
   const cardLkBtn = card.querySelector('.card__like-button');
   cardLkBtn.addEventListener('click',()=>{
   cardLkBtn.classList.toggle('card__like-button_is-active');
