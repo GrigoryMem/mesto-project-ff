@@ -32,6 +32,15 @@ function removeCard(card){
   })
 }
 
+// @todo: Функция лайка карточки
+
+function likeCard(card){
+  const cardLkBtn = card.querySelector('.card__like-button');
+  cardLkBtn.addEventListener('click',()=>{
+  cardLkBtn.classList.toggle('card__like-button_is-active');
+  })
+}
+
 // @todo: Вывести карточки на страницу
 
 initialCards.forEach(item => placesList.append(createCard(item)));
