@@ -33,3 +33,5 @@ function removeCard(card){
 }
 
 // @todo: Вывести карточки на страницу
+
+initialCards.forEach(item => placesList.append(createCard(item)));
