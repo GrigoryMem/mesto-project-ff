@@ -20,5 +20,11 @@ function createCard(data){
 
 
 // @todo: Функция удаления карточки
+function removeCard(card){
+  const cardDelBtn = card.querySelector('.card__delete-button');
+  cardDelBtn.addEventListener('click',()=>{
+    cardDelBtn.closest('.card').remove();
+  })
+}
 
 // @todo: Вывести карточки на страницу
