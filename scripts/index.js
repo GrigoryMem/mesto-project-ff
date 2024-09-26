@@ -12,15 +12,22 @@ function createCard(data) {
   // клонировать шаблон кароточки - создал экземпляр карточки
   const cardTemplateClone = cardTemplate.cloneNode(true);
   const cardExample = cardTemplateClone.querySelector('.card');
-  const cardExmpImg = cardExample.querySelector('.card__image')
+  const cardExmpImg = cardExample.querySelector('.card__image');
   //установить значения вложенных элементов
   cardExmpImg.src = data.link;
   cardExample.querySelector('.card__title').textContent = data.name;
   cardExmpImg.alt = data.name;
-  // удаление карточки
-  removeCard(cardExample);
-  // поставить лайк
-  likeCard(cardExample);
+
+  // событие - удаление карточки
+ 
+  cardExample.querySelector('.card__delete-button').addEventListener('click',()=>{
+    removeCard(cardExample);
+  })
+  // событие - поставить лайк
+ 
+  cardExample.querySelector('.card__like-button').addEventListener('click',()=>{
+    likeCard(card)
+  })
 
   return cardExample;
 }
@@ -28,19 +35,13 @@ function createCard(data) {
 // @todo: Функция удаления карточки
 
 function removeCard(card) {
-  const cardDelBtn = card.querySelector('.card__delete-button');
-  cardDelBtn.addEventListener('click', () => {
-    cardDelBtn.closest('.card').remove();
-  });
+  card.closest('.card').remove();
 }
 
 // @todo: Функция лайка карточки
 
 function likeCard(card) {
-  const cardLkBtn = card.querySelector('.card__like-button');
-  cardLkBtn.addEventListener('click', () => {
-    cardLkBtn.classList.toggle('card__like-button_is-active');
-  });
+  card.classList.toggle('card__like-button_is-active');
 }
 
 // @todo: Вывести карточки на страницу
