@@ -44,11 +44,8 @@ function likeCard(card) {
 
 // @todo: Вывести карточки на страницу
 
-// initialCards.forEach((item) => placesList.append(createCard(item)));
 function renderCards() {
-  for(let i = 0; i<initialCards.length;i++) {
-    placesList.append(createCard(initialCards[i]));
-  }
+  initialCards.forEach((item) => placesList.append(createCard(item)));
 }
   
-renderCards();
+renderCards(); // отобразить карточки на странице
