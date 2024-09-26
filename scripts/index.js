@@ -8,25 +8,25 @@ const placesList = document.querySelector('.places__list');
 
 // @todo: Функция создания карточки
 
-function createCard(data) {
+function createCard(data, removeCard, likeCard) {
   // клонировать шаблон кароточки - создал экземпляр карточки
   const cardTemplateClone = cardTemplate.cloneNode(true);
   const cardExample = cardTemplateClone.querySelector('.card');
   const cardExmpImg = cardExample.querySelector('.card__image');
+  const cardLileBtn = cardExample.querySelector('.card__like-button');
   //установить значения вложенных элементов
   cardExmpImg.src = data.link;
   cardExample.querySelector('.card__title').textContent = data.name;
   cardExmpImg.alt = data.name;
 
   // событие - удаление карточки
- 
   cardExample.querySelector('.card__delete-button').addEventListener('click',()=>{
     removeCard(cardExample);
   })
+
   // событие - поставить лайк
- 
-  cardExample.querySelector('.card__like-button').addEventListener('click',()=>{
-    likeCard(card)
+  cardLileBtn.addEventListener('click',()=>{
+    likeCard(cardLileBtn);
   })
 
   return cardExample;
@@ -47,7 +47,7 @@ function likeCard(card) {
 // @todo: Вывести карточки на страницу
 
 function renderCards() {
-  initialCards.forEach((item) => placesList.append(createCard(item)));
+  initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard)));
 }
   
 renderCards(); // отобразить карточки на странице
