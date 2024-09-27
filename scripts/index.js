@@ -13,29 +13,28 @@ function createCard(data, removeCard, likeCard) {
   const cardTemplateClone = cardTemplate.cloneNode(true);
   const cardExample = cardTemplateClone.querySelector('.card');
   const cardExmpImg = cardExample.querySelector('.card__image');
-  const cardLileBtn = cardExample.querySelector('.card__like-button');
+  const cardLikeBtn = cardExample.querySelector('.card__like-button');
   //установить значения вложенных элементов
   cardExmpImg.src = data.link;
   cardExample.querySelector('.card__title').textContent = data.name;
   cardExmpImg.alt = data.name;
 
   // событие - удаление карточки
-  cardExample.querySelector('.card__delete-button').addEventListener('click',()=>{
+  cardExample.querySelector('.card__delete-button').addEventListener('click',()=> {
     removeCard(cardExample);
   })
 
   // событие - поставить лайк
-  cardLileBtn.addEventListener('click',()=>{
-    likeCard(cardLileBtn);
+  cardLikeBtn.addEventListener('click',()=> {
+    likeCard(cardLikeBtn);
   })
-
   return cardExample;
 }
 
 // @todo: Функция удаления карточки
 
 function removeCard(card) {
-  card.closest('.card').remove();
+  card.remove();
 }
 
 // @todo: Функция лайка карточки
