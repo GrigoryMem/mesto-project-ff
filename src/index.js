@@ -56,52 +56,31 @@ renderCards(); // отобразить карточки на странице
 
 
 
+// 3. Работа модальных окон
+// открытие  и закрытие модального окна
+
+// кнопки
+const btnEditPrfl = document.querySelector('.profile__edit-button');
+// const btnAddPlace = document.querySelector('.');
+
+// окна
+
+const popupEdit = document.querySelector('.popup_type_edit');
+
+popupEdit.style.cssText =
+  ` justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibilty: hidden;
+    transition: opacity .4s easy-in-out;
+  `;
+
+btnEditPrfl.addEventListener('click',(evt)=>{
+  popupEdit.style.opacity = '1';
+  popupEdit.style.visibility = 'visible';
+  popupEdit.style.display = 'flex'
+})
 
 
 
-// подключение файлов эксперимент:
 
-// теперь картинки можно импортировать,
-// вебпак добавит в переменные правильные пути
-// const arkhyz = new URl('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg');
-// const chelyabinsk = new URl('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg');
-// const ivanovo = new URl('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg');
-// const kamchatka = new URl('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg');
-// const kholmogorskyRayon = new URl('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg');
-// const baikal = new URl('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg');
-// const avatar = new URL ('./images/avatar.jpg', import.meta.url);
-// // const fontInterBlack = new URL('./vendor/fonts/Inter-Black.woff2', import.meta.url);
-// // const fontInterMedium = new URL('./vendor/fonts/Inter-Medium.woff2', import.meta.url);
-// // const fontInterRegular = new URL('./vendor/fonts/Inter-Regular.woff2', import.meta.url);
-
-// const files = [
-//   {
-//     name: "Архыз",
-//     link: arkhyz
-//   },
-//   {
-//     name: "Челябинская область",
-//     link: chelyabinsk
-//   },
-//   {
-//     name: "Иваново",
-//     link: ivanovo
-//   },
-//   {
-//     name: "Камчатка",
-//     link: kamchatka
-//   },
-//   {
-//     name: "Холмогорский район",
-//     link: kholmogorskyRayon
-//   },
-//   {
-//     name: "Байкал",
-//     link: baikal
-//   },
-//   {
-//     name: "Avatar",
-//     link: avatar
-//   }
-  
-// ];
