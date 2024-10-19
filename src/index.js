@@ -70,6 +70,14 @@ const popupEdit = document.querySelector('.popup_type_edit');
 // Задаем  стили по ум. для анимации открытия окна
 popupEdit.classList.add('popup_is-animated');
 
+// функция закрытия окна
+const closeModal = event =>{
+  const window = event.target;
+  if(window.classList.contains('popup__close')) {
+    popupEdit.classList.remove('popup_is-opened');
+  }
+}
+
 // фукнкция открытия окна
 const openModal = (window) => {
   window.classList.add('popup_is-opened');  
@@ -79,7 +87,7 @@ const openModal = (window) => {
 btnEditPrfl.addEventListener('click',()=>{
   openModal(popupEdit);
 })
-
-
+// собыитие закрытия окна при нажатии на крестик
+popupEdit.addEventListener('click',closeModal)
 
 
