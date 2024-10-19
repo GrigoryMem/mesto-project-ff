@@ -56,6 +56,7 @@ renderCards(); // отобразить карточки на странице
 
 
 
+
 // 3. Работа модальных окон
 // открытие  и закрытие модального окна
 
@@ -66,19 +67,17 @@ const btnEditPrfl = document.querySelector('.profile__edit-button');
 // окна
 
 const popupEdit = document.querySelector('.popup_type_edit');
+// Задаем  стили по ум. для анимации открытия окна
+popupEdit.classList.add('popup_is-animated');
 
-popupEdit.style.cssText =
-  ` justify-content: center;
-    align-items: center;
-    opacity: 0;
-    visibilty: hidden;
-    transition: opacity .4s easy-in-out;
-  `;
+// фукнкция открытия окна
+const openModal = (window) => {
+  window.classList.add('popup_is-opened');  
+}
 
-btnEditPrfl.addEventListener('click',(evt)=>{
-  popupEdit.style.opacity = '1';
-  popupEdit.style.visibility = 'visible';
-  popupEdit.style.display = 'flex'
+// собыитие открытия окна при нажатии на кнопку
+btnEditPrfl.addEventListener('click',()=>{
+  openModal(popupEdit);
 })
 
 
