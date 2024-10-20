@@ -23,7 +23,7 @@ renderCards(initialCards,placesList,cardTemplate); // отобразить ка�
 popup.classList.add('popup_is-animated');// Задаем  стили по ум. для анимации открытия окна
 
 // событие открытия окна при нажатии на кнопку
-btnEditPrfl.addEventListener('click',()=>{
+btnEditPrfl.addEventListener('click',() => {
   openModal(popupEdit);
   document.addEventListener('keydown', closeModal);
   // автозаполнение полей формы
@@ -32,9 +32,20 @@ btnEditPrfl.addEventListener('click',()=>{
 })
 
 // событие закрытия окна при нажатии на крестик
-popup.addEventListener('click',(event)=>{
+popup.addEventListener('click',(event) => {
   closeModal(event,popupEdit);
+  
+})
+
+//  сохранение данных формы
+
+form.addEventListener('submit',(event) => {
+  event.preventDefault();
+  // заполняем профиль данными формы
+  profTitle.textContent = form.elements.name.value;
+  profDesc.textContent = form.elements.description.value
   form.reset();
+
 })
 
 
