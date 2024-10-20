@@ -26,13 +26,15 @@ popup.classList.add('popup_is-animated');// Задаем  стили по ум. 
 btnEditPrfl.addEventListener('click',()=>{
   openModal(popupEdit);
   document.addEventListener('keydown', closeModal);
-  // автозаполнение формы
+  // автозаполнение полей формы
   form.elements.name.value = profTitle.textContent;
   form.elements.description.value = profDesc.textContent;
 })
+
 // событие закрытия окна при нажатии на крестик
 popup.addEventListener('click',(event)=>{
   closeModal(event,popupEdit);
+  form.reset();
 })
 
 
