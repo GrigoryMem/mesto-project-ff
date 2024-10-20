@@ -2,7 +2,9 @@
 export const closeModal = (event,popup) =>{
   // закрытие кнокой или оверлей:
   const targElem = event.target;
-  if(popup===targElem || targElem.classList.contains('popup__close')){
+  if(popup===targElem || 
+    targElem.classList.contains('popup__close') || 
+    targElem.classList.contains('popup__button')){
     targElem.closest('.popup').classList.remove('popup_is-opened');
   }
 
