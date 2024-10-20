@@ -11,11 +11,15 @@ const popupEdit =document.querySelector('.popup_type_edit');
 // данные профиля
 const profTitle = document.querySelector('.profile__title');
 const profDesc = document.querySelector('.profile__description');
-
 // данные формы
 const form = document.forms['edit-profile'];
-
-
+const  handleFormSubmit = (event)=> {
+  event.preventDefault();
+  // заполняем профиль данными формы
+  profTitle.textContent = form.elements.name.value;
+  profDesc.textContent = form.elements.description.value
+  form.reset();
+}
 
 renderCards(initialCards,placesList,cardTemplate); // отобразить карточки на странице
 
@@ -34,18 +38,11 @@ btnEditPrfl.addEventListener('click',() => {
 // событие закрытия окна при нажатии на крестик
 popup.addEventListener('click',(event) => {
   closeModal(event,popupEdit);
-  
 })
 
 //  сохранение данных формы
+form.addEventListener('submit',handleFormSubmit);
 
-form.addEventListener('submit',(event) => {
-  event.preventDefault();
-  // заполняем профиль данными формы
-  profTitle.textContent = form.elements.name.value;
-  profDesc.textContent = form.elements.description.value
-  form.reset();
 
-})
 
 
