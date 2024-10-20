@@ -1,5 +1,5 @@
 import './pages/index.css'; // добавьте импорт главного файла стилей 
-import { renderCards } from'./scripts/components/card'; // функции для работы с карточками
+import { renderCards,createCard,removeCard,likeCard } from'./scripts/components/card'; // функции для работы с карточками
 import { initialCards } from './scripts/components/data-cards'; //данные карточек
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 import './scripts/components/modal'
@@ -17,7 +17,7 @@ const formEditPrf = document.forms['edit-profile'];
 const btnAddCard = document.querySelector('.profile__add-button');
 const popupCard = document.querySelector('.popup_type_new-card');
 // форма добав карточки
-// const 
+const formAddCard = document.forms["new-place"];
 
 renderCards(initialCards,placesList,cardTemplate); // отобразить карточки на странице
 
@@ -48,13 +48,35 @@ function handleFormSubmit(event){
 }
 
 // действия с формой добавить новую курточку
+// открытия окна формы добав карточки
 btnAddCard.addEventListener('click',()=>{
   openModal(popupCard);
 });
 
+// закрытия окна формы добав карточки
 popupCard.addEventListener('click',(event)=>{
   closeModal(event,popupCard);
+  document.addEventListener('keydown', closeModal);
 })
+
+// работа с формой карточки
+formAddCard.addEventListener('submit',(event)=>{
+  addNewCard(event);
+})
+
+// функция добавления карточки
+function addNewCard(event){
+  event.preventDefault();
+  const formData = {
+    name: formAddCard.elements["place-name"].value,
+    link: formAddCard.elements["link"].value
+  }
+  placesList.prepend(createCard(formData,removeCard, likeCard, cardTemplate));
+  formAddCard.reset();
+  closeModal(event,popupCard);
+ }
+
+
 
 
 
