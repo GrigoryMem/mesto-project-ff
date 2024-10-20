@@ -1,17 +1,9 @@
-// @todo: Функция создания карточки
-const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
-const placesList = document.querySelector('.places__list');// @todo: DOM узлы
 
 
-// const card = {
-//   cardTemplate: document.querySelector('#card-template').content, // создал шаблон карточки (Темплейт карточки)
-//   placesList: document.querySelector('.places__list')// @todo: DOM узлы
-// }
 
-
-export function createCard(data, removeCard, likeCard) {
+export function createCard(data, removeCard, likeCard, template) {
   // клонировать шаблон кароточки - создал экземпляр карточки
-  const cardTemplateClone = cardTemplate.cloneNode(true);
+  const cardTemplateClone =  template.cloneNode(true);
   const cardExample = cardTemplateClone.querySelector('.card');
   const cardExmpImg = cardExample.querySelector('.card__image');
   const cardLikeBtn = cardExample.querySelector('.card__like-button');
@@ -46,8 +38,8 @@ export function likeCard(card) {
 
 // @todo: Вывести карточки на страницу
 
-export function renderCards(initialCards) {
-  initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard)));
+export function renderCards(initialCards,placesList,template) {
+  initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard,template)));
 }
   
 

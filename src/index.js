@@ -1,14 +1,12 @@
 import './pages/index.css'; // добавьте импорт главного файла стилей 
-import {renderCards,createCard,removeCard,likeCard} from'./scripts/components/card'; // функции для работы с карточками
+import {renderCards} from'./scripts/components/card'; // функции для работы с карточками
 import { initialCards } from './scripts/components/data-cards'; //данные карточек
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 
-const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
 const placesList = document.querySelector('.places__list');// @todo: DOM узлы
+const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
 
-
-
-renderCards(initialCards,placesList); // отобразить карточки на странице
+renderCards(initialCards,placesList,cardTemplate); // отобразить карточки на странице
 
 
 
