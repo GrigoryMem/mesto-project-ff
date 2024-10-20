@@ -15,11 +15,8 @@ export const closeModal = (event,popup) =>{
   }
 }
 
-
-
-
 // фукнкция открытия окна
 export const openModal = (popup) => {
   popup.classList.add('popup_is-opened');  
-  // закртие окна по кл Escape
+  
 }
