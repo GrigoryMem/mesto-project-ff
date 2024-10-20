@@ -71,16 +71,17 @@ const popupEdit = document.querySelector('.popup_type_edit');
 popupEdit.classList.add('popup_is-animated');
 
 // функция закрытия окна
-const closeModal = event =>{
-  const window = event.target;
-  if(window.classList.contains('popup__close')) {
-    popupEdit.classList.remove('popup_is-opened');
+const closeModal = (event,popup) =>{
+    const targElem = event.target
+  if(popup===targElem || targElem.classList.contains('popup__close')) {
+    event.target.closest('.popup_type_edit').classList.remove('popup_is-opened');
+    
   }
 }
 
 // фукнкция открытия окна
-const openModal = (window) => {
-  window.classList.add('popup_is-opened');  
+const openModal = (popup) => {
+  popup.classList.add('popup_is-opened');  
 }
 
 // собыитие открытия окна при нажатии на кнопку
@@ -88,6 +89,8 @@ btnEditPrfl.addEventListener('click',()=>{
   openModal(popupEdit);
 })
 // собыитие закрытия окна при нажатии на крестик
-popupEdit.addEventListener('click',closeModal)
+popupEdit.addEventListener('click',(event)=>{
+  closeModal(event,popupEdit)
+})
 
 
