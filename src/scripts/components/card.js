@@ -1,17 +1,15 @@
-// @todo: Темплейт карточки
-
-import {initialCards} from "./cards.js";
-
-
-const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки
-
-// @todo: DOM узлы
-
-const placesList = document.querySelector('.places__list');
-
 // @todo: Функция создания карточки
+const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
+const placesList = document.querySelector('.places__list');// @todo: DOM узлы
 
-function createCard(data, removeCard, likeCard) {
+
+// const card = {
+//   cardTemplate: document.querySelector('#card-template').content, // создал шаблон карточки (Темплейт карточки)
+//   placesList: document.querySelector('.places__list')// @todo: DOM узлы
+// }
+
+
+export function createCard(data, removeCard, likeCard) {
   // клонировать шаблон кароточки - создал экземпляр карточки
   const cardTemplateClone = cardTemplate.cloneNode(true);
   const cardExample = cardTemplateClone.querySelector('.card');
@@ -36,20 +34,20 @@ function createCard(data, removeCard, likeCard) {
 
 // @todo: Функция удаления карточки
 
-function removeCard(card) {
+export function removeCard(card) {
   card.remove();
 }
 
 // @todo: Функция лайка карточки
 
-function likeCard(card) {
+export function likeCard(card) {
   card.classList.toggle('card__like-button_is-active');
 }
 
 // @todo: Вывести карточки на страницу
 
-function renderCards() {
+export function renderCards(initialCards) {
   initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard)));
 }
   
-renderCards(); // отобразить карточки на странице
+
