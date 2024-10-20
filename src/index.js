@@ -11,21 +11,15 @@ const popupEdit =document.querySelector('.popup_type_edit');
 // данные профиля
 const profTitle = document.querySelector('.profile__title');
 const profDesc = document.querySelector('.profile__description');
-// данные формы
+// данные формы заполнения профиля
 const form = document.forms['edit-profile'];
-const  handleFormSubmit = (event)=> {
-  event.preventDefault();
-  // заполняем профиль данными формы
-  profTitle.textContent = form.elements.name.value;
-  profDesc.textContent = form.elements.description.value
-  form.reset();
-}
+// кнопка доб карточки 
+const btnAddCard = document.querySelector('.profile__add-button');
+const popupCard = document.querySelector('.popup_type_new-card');
 
 renderCards(initialCards,placesList,cardTemplate); // отобразить карточки на странице
 
 // Работа модальных окон
-popup.classList.add('popup_is-animated');// Задаем  стили по ум. для анимации открытия окна
-
 // событие открытия окна при нажатии на кнопку
 btnEditPrfl.addEventListener('click',() => {
   openModal(popupEdit);
@@ -36,12 +30,28 @@ btnEditPrfl.addEventListener('click',() => {
 })
 
 // событие закрытия окна при нажатии на крестик
-popup.addEventListener('click',(event) => {
+popupEdit.addEventListener('click',(event) => {
   closeModal(event,popupEdit);
 })
 
-//  сохранение данных формы
+//  сохранение данных формы профиля
 form.addEventListener('submit',handleFormSubmit);
+function handleFormSubmit(event){
+  event.preventDefault();
+  // заполняем профиль данными формы
+  profTitle.textContent = form.elements.name.value;
+  profDesc.textContent = form.elements.description.value
+  form.reset();
+}
+
+// действия с формой добавить новую курточку
+btnAddCard.addEventListener('click',()=>{
+  openModal(popupCard);
+});
+
+popupCard.addEventListener('click',(event)=>{
+  closeModal(event,popupCard);
+})
 
 
 
