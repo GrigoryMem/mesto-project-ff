@@ -23,15 +23,17 @@ export function createCard(data, removeCard, likeCard, template, openCard) {
   })
   // cобытие открыть картинку
   image.addEventListener('click',()=>{
-    // получаем поля зума
     openCard(cardExample,popupZoom,image)
+    // по кл escape
+    document.addEventListener('keydown', closeModal);
+    
   })
   // cобытие закрыть картинку
   popupZoom.addEventListener('click',(event)=>{
     // стандартное закрытие изображения
     closeModal(event,popupZoom);
     // по кл escape
-    document.addEventListener('keydown', closeModal);
+    document.removeEventListener('keydown', closeModal);
 })
 
   return cardExample;

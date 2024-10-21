@@ -1,6 +1,6 @@
 import './pages/index.css'; // добавьте импорт главного файла стилей 
 import { renderCards,createCard,removeCard,likeCard,openCard } from'./scripts/components/card'; // функции для работы с карточками
-import { initialCards } from './scripts/components/data-cards'; //данные карточек
+import { initialCards } from './scripts/components/cards'; //данные карточек
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 import './scripts/components/modal';
 import { handleFormSubmit, autoFillForm, addNewCard } from './scripts/components/form';
@@ -38,6 +38,7 @@ btnEditPrfl.addEventListener('click',() => {
 // событие закрытия окна при нажатии на крестик
 popupEdit.addEventListener('click',(event) => {
   closeModal(event,popupEdit);
+  document.removeEventListener('keydown', closeModal);
 })
 
 //  сохранение данных формы профиля
@@ -51,13 +52,14 @@ formEditPrf.addEventListener('submit',(event)=>{
 
 // открытия окна формы добав карточки
 btnAddCard.addEventListener('click',()=>{
+  document.addEventListener('keydown', closeModal);
   openModal(popupCard);
 });
 
 // закрытия окна формы добав карточки
 popupCard.addEventListener('click',(event)=>{
   closeModal(event,popupCard);
-  document.addEventListener('keydown', closeModal);
+  document.removeEventListener('keydown', closeModal);
 })
 
 // работа с формой карточки
