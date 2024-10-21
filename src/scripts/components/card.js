@@ -1,4 +1,4 @@
-import { openModal } from "./modal";
+import { openModal, closeModal } from "./modal";
 
 export function createCard(data, removeCard, likeCard, template, openCard) {
   // клонировать шаблон кароточки - создал экземпляр карточки
@@ -9,6 +9,8 @@ export function createCard(data, removeCard, likeCard, template, openCard) {
   const image = cardExample.querySelector('.card__image');
   // открытие картинки
   const popupZoom = document.querySelector('.popup_type_image');
+  // кнопка закрытия картинки
+  const btnCloseZoom = popupZoom.querySelector('.popup__close');
   
   //установить значения вложенных элементов
   cardExmpImg.src = data.link;
@@ -24,12 +26,16 @@ export function createCard(data, removeCard, likeCard, template, openCard) {
   cardLikeBtn.addEventListener('click',()=> {
     likeCard(cardLikeBtn);
   })
-  // cобытие открыто картинку
+  // cобытие открыть картинку
   image.addEventListener('click',()=>{
     // получаем поля зума
     openCard(cardExample,popupZoom,image)
   })
-  
+  // cобытие закрыть картинку
+  btnCloseZoom.addEventListener('click',(event)=>{
+    closeModal(event,popupZoom)
+})
+
    
 
 

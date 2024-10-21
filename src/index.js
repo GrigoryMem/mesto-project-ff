@@ -19,7 +19,8 @@ const popupCard = document.querySelector('.popup_type_new-card');
 // форма добав карточки
 const formAddCard = document.forms["new-place"];
 // popup для просмотра карточки
-const popupImage = document.querySelector('popup_type_image');
+const popupImage = document.querySelector('.popup_type_image');
+
 
 renderCards(initialCards,placesList,cardTemplate,openCard); // отобразить карточки на странице
 
@@ -78,12 +79,19 @@ function addNewCard(event){
   closeModal(event,popupCard);
  }
 
+ const popups = document.querySelectorAll('.popup')
 
-//  событие просмотр карточки картинки
+//  событие закрытие просмотра карточки картинки
+popups.forEach((item)=>{
+
+    console.log(item)
+  
+})
+
 console.log(popupImage)
-// popupImage.addEventListener('click',()=>{
-//   console.log(popupImage)
-// })
+
+
+
 
 
 
