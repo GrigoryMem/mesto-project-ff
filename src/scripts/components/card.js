@@ -28,7 +28,7 @@ export function createCard(data, removeCard, likeCard, template, openCard) {
   })
   // cобытие закрыть картинку
   popupZoom.addEventListener('click',(event)=>{
-    
+    // стандартное закрытие изображения
     closeModal(event,popupZoom);
     // по кл escape
     document.addEventListener('keydown', closeModal);

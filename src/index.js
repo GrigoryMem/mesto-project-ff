@@ -74,7 +74,7 @@ function addNewCard(event){
     name: formAddCard.elements["place-name"].value,
     link: formAddCard.elements["link"].value
   }
-  placesList.prepend(createCard(formData,removeCard, likeCard, cardTemplate));
+  placesList.prepend(createCard(formData,removeCard, likeCard, cardTemplate,openCard));
   formAddCard.reset();
   closeModal(event,popupCard);
  }
