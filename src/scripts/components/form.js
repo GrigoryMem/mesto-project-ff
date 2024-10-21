@@ -16,4 +16,15 @@ export function autoFillForm(profile, form) {
   form.elements.description.value = profDesc.textContent;
 }
 
+//  для формы добавления карточки
+export function addNewCard(form,createCard,placesList,removeCard, likeCard, cardTemplate,openCard){
+
+  const formData = {
+    name: form.elements["place-name"].value,
+    link: form.elements["link"].value
+  }
+  placesList.prepend(createCard(formData,removeCard, likeCard, cardTemplate,openCard));
+  form.reset();
+  }
+
 

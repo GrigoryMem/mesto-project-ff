@@ -3,7 +3,8 @@ import { renderCards,createCard,removeCard,likeCard,openCard } from'./scripts/co
 import { initialCards } from './scripts/components/data-cards'; //данные карточек
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 import './scripts/components/modal';
-import { handleFormSubmit, autoFillForm } from './scripts/components/form';
+import { handleFormSubmit, autoFillForm, addNewCard } from './scripts/components/form';
+
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
 const btnEditPrfl = document.querySelector('.profile__edit-button');// кнопка редактир проф
@@ -61,22 +62,12 @@ popupCard.addEventListener('click',(event)=>{
 
 // работа с формой карточки
 formAddCard.addEventListener('submit',(event)=>{
-  addNewCard(event);
+  event.preventDefault();
+  addNewCard(event,formAddCard,createCard,placesList,removeCard, likeCard, cardTemplate,openCard);
+  closeModal(event,popupCard);
 })
 
-// функция добавления карточки
-function addNewCard(event){
-  event.preventDefault();
-  const formData = {
-    name: formAddCard.elements["place-name"].value,
-    link: formAddCard.elements["link"].value
-  }
-  placesList.prepend(createCard(formData,removeCard, likeCard, cardTemplate,openCard));
-  formAddCard.reset();
-  closeModal(event,popupCard);
- }
 
- const popups = document.querySelectorAll('.popup')
 
 
 
