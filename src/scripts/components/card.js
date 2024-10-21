@@ -7,16 +7,11 @@ export function createCard(data, removeCard, likeCard, template, openCard) {
   const cardExmpImg = cardExample.querySelector('.card__image');
   const cardLikeBtn = cardExample.querySelector('.card__like-button');
   const image = cardExample.querySelector('.card__image');
-  // открытие картинки
-  const popupZoom = document.querySelector('.popup_type_image');
-  // кнопка закрытия картинки
-  const btnCloseZoom = popupZoom.querySelector('.popup__close');
-  
+  const popupZoom = document.querySelector('.popup_type_image'); // открытие картинки карточки
   //установить значения вложенных элементов
   cardExmpImg.src = data.link;
   cardExample.querySelector('.card__title').textContent = data.name;
   cardExmpImg.alt = data.name;
-
   // событие - удаление карточки
   cardExample.querySelector('.card__delete-button').addEventListener('click',()=> {
     removeCard(cardExample);
@@ -32,8 +27,11 @@ export function createCard(data, removeCard, likeCard, template, openCard) {
     openCard(cardExample,popupZoom,image)
   })
   // cобытие закрыть картинку
-  btnCloseZoom.addEventListener('click',(event)=>{
-    closeModal(event,popupZoom)
+  popupZoom.addEventListener('click',(event)=>{
+    
+    closeModal(event,popupZoom);
+    // по кл escape
+    document.addEventListener('keydown', closeModal);
 })
 
    
