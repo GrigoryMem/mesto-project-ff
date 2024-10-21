@@ -11,7 +11,6 @@ export const closeModal = (event,popup) =>{
 
   // для закрытия окна по кл Escape:
   const key = event.key;
-  console.log(event);
   if(key=== 'Escape' && openPopup){
     openPopup.classList.remove('popup_is-opened');
   }
