@@ -63,7 +63,7 @@ popupCard.addEventListener('click',(event)=>{
 // работа с формой карточки
 formAddCard.addEventListener('submit',(event)=>{
   event.preventDefault();
-  addNewCard(event,formAddCard,createCard,placesList,removeCard, likeCard, cardTemplate,openCard);
+  addNewCard(formAddCard,createCard,placesList,removeCard, likeCard, cardTemplate,openCard);
   closeModal(event,popupCard);
 })
 
