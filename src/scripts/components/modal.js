@@ -2,6 +2,7 @@
 export const closeModal = (event,popup) =>{
   // закрытие кнокой или оверлей:
   const targElem = event.target;
+  const openPopup = document.querySelector('.popup_is-opened');
   if(popup===targElem || 
     targElem.classList.contains('popup__close') ||  
     targElem.classList.contains('popup__button')
@@ -13,11 +14,11 @@ export const closeModal = (event,popup) =>{
   // для закрытия окна по кл Escape:
   const key = event.key;
  
-  if(key=== 'Escape'){
-   
-    document.querySelector('.popup_is-opened').classList.remove('popup_is-opened');
-    // удаляем обработчик на  кл Escape
-    document.removeEventListener('keydown', closeModal);
+  if(key=== 'Escape' && openPopup){
+    console.log(key)
+    openPopup.classList.remove('popup_is-opened');
+  
+    
   }
 }
 
