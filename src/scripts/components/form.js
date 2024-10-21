@@ -18,7 +18,6 @@ export function autoFillForm(profile, form) {
 
 //  для формы добавления карточки
 export function addNewCard(form,createCard,placesList,removeCard, likeCard, cardTemplate,openCard){
-
   const formData = {
     name: form.elements["place-name"].value,
     link: form.elements["link"].value

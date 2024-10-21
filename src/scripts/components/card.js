@@ -34,10 +34,6 @@ export function createCard(data, removeCard, likeCard, template, openCard) {
     document.addEventListener('keydown', closeModal);
 })
 
-   
-
-
-
   return cardExample;
 }
 
@@ -62,7 +58,6 @@ export function openCard(card,popup,image) {
   imgPopup.alt =  card.querySelector('.card__title').textContent;
   openModal(popup);
 }
-
 
 // @todo: Вывести карточки на страницу
 

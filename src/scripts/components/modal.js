@@ -5,9 +5,7 @@ export const closeModal = (event,popup) =>{
   const openPopup = document.querySelector('.popup_is-opened');
   if(popup===targElem || 
     targElem.classList.contains('popup__close') ||  
-    targElem.classList.contains('popup__button')
-    )
-    {
+    targElem.classList.contains('popup__button')){
     targElem.closest('.popup').classList.remove('popup_is-opened');
   }
 
@@ -15,15 +13,12 @@ export const closeModal = (event,popup) =>{
   const key = event.key;
  
   if(key=== 'Escape' && openPopup){
-    console.log(key)
     openPopup.classList.remove('popup_is-opened');
-  
-    
+    console.log(key);
   }
 }
 
 // фукнкция открытия окна
-export const openModal = (popup) => {
+export const openModal = (popup) =>{
   popup.classList.add('popup_is-opened');  
-  
 }
