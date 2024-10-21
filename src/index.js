@@ -1,5 +1,5 @@
 import './pages/index.css'; // добавьте импорт главного файла стилей 
-import { renderCards,createCard,removeCard,likeCard } from'./scripts/components/card'; // функции для работы с карточками
+import { renderCards,createCard,removeCard,likeCard,openCard } from'./scripts/components/card'; // функции для работы с карточками
 import { initialCards } from './scripts/components/data-cards'; //данные карточек
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 import './scripts/components/modal'
@@ -18,8 +18,10 @@ const btnAddCard = document.querySelector('.profile__add-button');
 const popupCard = document.querySelector('.popup_type_new-card');
 // форма добав карточки
 const formAddCard = document.forms["new-place"];
+// popup для просмотра карточки
+const popupImage = document.querySelector('popup_type_image');
 
-renderCards(initialCards,placesList,cardTemplate); // отобразить карточки на странице
+renderCards(initialCards,placesList,cardTemplate,openCard); // отобразить карточки на странице
 
 // Работа модальных окон
 // событие открытия окна при нажатии на кнопку
@@ -75,6 +77,13 @@ function addNewCard(event){
   formAddCard.reset();
   closeModal(event,popupCard);
  }
+
+
+//  событие просмотр карточки картинки
+console.log(popupImage)
+// popupImage.addEventListener('click',()=>{
+//   console.log(popupImage)
+// })
 
 
 
