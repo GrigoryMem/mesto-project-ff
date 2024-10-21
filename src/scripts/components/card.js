@@ -59,6 +59,7 @@ export function openCard(card,popup,image) {
   const captionPopup = popup.querySelector('.popup__caption');
   imgPopup.src = image.src;
   captionPopup.textContent = card.querySelector('.card__title').textContent;
+  imgPopup.alt =  card.querySelector('.card__title').textContent;
   openModal(popup);
 }
 
