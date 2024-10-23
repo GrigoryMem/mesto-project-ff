@@ -8,7 +8,7 @@ import { handleFormSubmit, autoFillForm, addNewCard } from './scripts/components
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
 const btnEditPrfl = document.querySelector('.profile__edit-button');// кнопка редактир проф
-const popup = document.querySelector('.popup');
+const popups = document.querySelectorAll('.popup');
 const popupEdit =document.querySelector('.popup_type_edit');
 // данные профиля
 const profile = document.querySelector('.profile');
@@ -25,6 +25,15 @@ const popupImage = document.querySelector('.popup_type_image'); // открыт�
 
 renderCards(initialCards,placesList,cardTemplate,openCard,openModal,closeModal,popupImage); // отобразить карточки на странице
 
+// Вешаем на все модалки событие закрытия карточки
+popups.forEach(popup=>{
+  popup.addEventListener('click',(event) => {
+    const target = event.target;
+    if(target === popup || target.classList.contains('popup__close')){
+      closeModal(popup);// вкл соб наж по кл escape
+    }
+  })
+})
 // Работа модальных окон
 // 1.  МО редактировать профиль
 // событие открытия окна при нажатии на кнопку
@@ -33,14 +42,14 @@ btnEditPrfl.addEventListener('click',() => {
 // автозаполнение полей формы
   autoFillForm(profile, formEditPrf);
 })
-
+// НАУДАЛЕНИЕ
 // событие закрытия окна 
-popupEdit.addEventListener('click',(event) => {
-  const target = event.target;
-  if(target === popupEdit || target.classList.contains('popup__close')){
-    closeModal(popupEdit);
-  }
-})
+// popupEdit.addEventListener('click',(event) => {
+//   const target = event.target;
+//   if(target === popupEdit || target.classList.contains('popup__close')){
+//     closeModal(popupEdit);
+//   }
+// })
 
 //  сохранение данных формы профиля
 formEditPrf.addEventListener('submit',(event)=>{
@@ -51,17 +60,17 @@ formEditPrf.addEventListener('submit',(event)=>{
 
 // 2 форма добавить новую карточку
 
+// НАУДАЛЕНИЕ
 // открытия окна формы добав карточки
 btnAddCard.addEventListener('click',()=>{
-  document.addEventListener('keydown', closeModal);
   openModal(popupCard);
 });
-
+// НАУДАЛЕНИЕ
 // закрытия окна формы добав карточки
-popupCard.addEventListener('click',(event)=>{
-  closeModal(event,popupCard);
-  document.removeEventListener('keydown', closeModal);
-})
+// popupCard.addEventListener('click',(event)=>{
+//   closeModal(event,popupCard);
+//   document.removeEventListener('keydown', closeModal);
+// })
 
 // работа с формой карточки
 formAddCard.addEventListener('submit',(event)=>{
