@@ -21,15 +21,7 @@ export function createCard(data, removeCard, likeCard, template, openCard,openMo
   image.addEventListener('click',()=>{
     openCard(cardExample,popupImage,image,openModal)
   })
-  // cобытие закрыть картинку
-  popupImage.addEventListener('click',(event)=>{
-    // стандартное закрытие изображения
-    closeModal(event,popupImage);
-   
-    // по кл escape
-    document.removeEventListener('keydown', closeModal);
-})
-
+  
   return cardExample;
 }
 
