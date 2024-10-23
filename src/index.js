@@ -1,5 +1,5 @@
 import './pages/index.css'; // добавьте импорт главного файла стилей 
-import { renderCards,createCard,removeCard,likeCard } from'./scripts/components/card'; // функции для работы с карточками
+import { createCard,removeCard,likeCard } from'./scripts/components/card'; // функции для работы с карточками
 import { initialCards } from './scripts/components/cards'; //данные карточек
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 import './scripts/components/modal';
@@ -19,11 +19,12 @@ const btnAddCard = document.querySelector('.profile__add-button');
 const popupCard = document.querySelector('.popup_type_new-card');
 // форма добав карточки
 const formAddCard = document.forms["new-place"];
-// popup для просмотра карточки
-const popupImage = document.querySelector('.popup_type_image'); // открытие картинки карточки
 
+const popupViewImgCard = document.querySelector('.popup_type_image'); // попап с картинкой
+const popCardImg = popupViewImgCard.querySelector('.popup__image'); 
+const popImgCaptionCard = popupViewImgCard.querySelector('.popup__caption'); 
 
-renderCards(initialCards,placesList,cardTemplate,openCard,openModal,closeModal,popupImage); // отобразить карточки на странице
+renderCards(initialCards,placesList,cardTemplate,openCard,openModal); // отобразить карточки на странице
 
 // Вешаем на все модалки событие закрытия карточки
 popups.forEach(popup=>{
@@ -75,7 +76,7 @@ btnAddCard.addEventListener('click',()=>{
 // работа с формой карточки
 formAddCard.addEventListener('submit',(event)=>{
   event.preventDefault();
-  addNewCard(formAddCard,createCard,placesList,removeCard, likeCard, cardTemplate,openCard,openModal,popupImage);
+  addNewCard(formAddCard,createCard,placesList,removeCard, likeCard, cardTemplate,openCard,openModal);
   closeModal(popupCard);
 })
 
@@ -83,15 +84,19 @@ formAddCard.addEventListener('submit',(event)=>{
 
 
 // Открытие попапа с картинкой
-function openCard(card,popup,image,openModal) {
-  const imgPopup = popup.querySelector('.popup__image');
-  const captionPopup = popup.querySelector('.popup__caption');
-  imgPopup.src = image.src;
-  captionPopup.textContent = card.querySelector('.card__title').textContent;
-  imgPopup.alt =  card.querySelector('.card__title').textContent;
-  openModal(popup);
+function openCard(card,image,openModal) {
+  // вставляем картинку с карточки в попап
+  popCardImg.src = image.src; 
+  popCardImg.alt =  image.alt;
+  popImgCaptionCard.textContent = card.querySelector('.card__title').textContent;
+  openModal(popupViewImgCard);
 }
-
+// @todo: Вывести карточки на страницу
+// изменить параметры входящие функции на объект
+function renderCards(initialCards,placesList,template,openCard,openModal) {
+  initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard,template,openCard,openModal)));
+}
+  
 
 
 
