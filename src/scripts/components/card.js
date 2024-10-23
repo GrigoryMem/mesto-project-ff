@@ -1,14 +1,10 @@
-import { closeModal } from "./modal";
-
-export function createCard(data, removeCard, likeCard, template, openCard,openModal,closeModal) {
+export function createCard(data, removeCard, likeCard, template, openCard,openModal,closeModal,popupImage) {
   // клонировать шаблон кароточки - создал экземпляр карточки
   const cardTemplateClone =  template.cloneNode(true);
   const cardExample = cardTemplateClone.querySelector('.card');
   const cardExmpImg = cardExample.querySelector('.card__image');
   const cardLikeBtn = cardExample.querySelector('.card__like-button');
   const image = cardExample.querySelector('.card__image');
-  const popupZoom = document.querySelector('.popup_type_image'); // открытие картинки карточки
-  //установить значения вложенных элементов
   cardExmpImg.src = data.link;
   cardExample.querySelector('.card__title').textContent = data.name;
   cardExmpImg.alt = data.name;
@@ -23,15 +19,15 @@ export function createCard(data, removeCard, likeCard, template, openCard,openMo
   })
   // cобытие открыть картинку
   image.addEventListener('click',()=>{
-    openCard(cardExample,popupZoom,image,openModal)
+    openCard(cardExample,popupImage,image,openModal)
     // по кл escape
     document.addEventListener('keydown', closeModal);
     
   })
   // cобытие закрыть картинку
-  popupZoom.addEventListener('click',(event)=>{
+  popupImage.addEventListener('click',(event)=>{
     // стандартное закрытие изображения
-    closeModal(event,popupZoom);
+    closeModal(event,popupImage);
    
     // по кл escape
     document.removeEventListener('keydown', closeModal);
@@ -64,8 +60,8 @@ export function openCard(card,popup,image,openModal) {
 
 // @todo: Вывести карточки на страницу
 // изменить параметры входящие функции на объект
-export function renderCards(initialCards,placesList,template,openCard,openModal,closeModal) {
-  initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard,template,openCard,openModal,closeModal)));
+export function renderCards(initialCards,placesList,template,openCard,openModal,closeModal,popupImage) {
+  initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard,template,openCard,openModal,closeModal,popupImage)));
 }
   
 

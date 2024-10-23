@@ -20,10 +20,10 @@ const popupCard = document.querySelector('.popup_type_new-card');
 // форма добав карточки
 const formAddCard = document.forms["new-place"];
 // popup для просмотра карточки
-const popupImage = document.querySelector('.popup_type_image');
+const popupImage = document.querySelector('.popup_type_image'); // открытие картинки карточки
 
 
-renderCards(initialCards,placesList,cardTemplate,openCard,openModal,closeModal); // отобразить карточки на странице
+renderCards(initialCards,placesList,cardTemplate,openCard,openModal,closeModal,popupImage); // отобразить карточки на странице
 
 // Работа модальных окон
 // 1.  МО редактировать профиль
@@ -65,7 +65,7 @@ popupCard.addEventListener('click',(event)=>{
 // работа с формой карточки
 formAddCard.addEventListener('submit',(event)=>{
   event.preventDefault();
-  addNewCard(formAddCard,createCard,placesList,removeCard, likeCard, cardTemplate,openCard,openModal,closeModal);
+  addNewCard(formAddCard,createCard,placesList,removeCard, likeCard, cardTemplate,openCard,openModal,closeModal,popupImage);
   closeModal(event,popupCard);
 })
 
