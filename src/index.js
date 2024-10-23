@@ -30,15 +30,16 @@ renderCards(initialCards,placesList,cardTemplate,openCard,openModal,closeModal,p
 // событие открытия окна при нажатии на кнопку
 btnEditPrfl.addEventListener('click',() => {
   openModal(popupEdit);
-  document.addEventListener('keydown', closeModal);
-  // автозаполнение полей формы
+// автозаполнение полей формы
   autoFillForm(profile, formEditPrf);
 })
 
-// событие закрытия окна при нажатии на крестик
+// событие закрытия окна 
 popupEdit.addEventListener('click',(event) => {
-  closeModal(event,popupEdit);
-  document.removeEventListener('keydown', closeModal);
+  const target = event.target;
+  if(target === popupEdit || target.classList.contains('popup__close')){
+    closeModal(popupEdit);
+  }
 })
 
 //  сохранение данных формы профиля
