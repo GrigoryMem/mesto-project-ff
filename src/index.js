@@ -1,5 +1,5 @@
 import './pages/index.css'; // добавьте импорт главного файла стилей 
-import { renderCards,createCard,removeCard,likeCard,openCard } from'./scripts/components/card'; // функции для работы с карточками
+import { renderCards,createCard,removeCard,likeCard } from'./scripts/components/card'; // функции для работы с карточками
 import { initialCards } from './scripts/components/cards'; //данные карточек
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 import './scripts/components/modal';
@@ -80,6 +80,17 @@ formAddCard.addEventListener('submit',(event)=>{
 })
 
 
+
+
+// Открытие попапа с картинкой
+function openCard(card,popup,image,openModal) {
+  const imgPopup = popup.querySelector('.popup__image');
+  const captionPopup = popup.querySelector('.popup__caption');
+  imgPopup.src = image.src;
+  captionPopup.textContent = card.querySelector('.card__title').textContent;
+  imgPopup.alt =  card.querySelector('.card__title').textContent;
+  openModal(popup);
+}
 
 
 

@@ -37,15 +37,7 @@ export function likeCard(card) {
   card.classList.toggle('card__like-button_is-active');
 }
 
-// Открытие попапа с картинкой
-export function openCard(card,popup,image,openModal) {
-  const imgPopup = popup.querySelector('.popup__image');
-  const captionPopup = popup.querySelector('.popup__caption');
-  imgPopup.src = image.src;
-  captionPopup.textContent = card.querySelector('.card__title').textContent;
-  imgPopup.alt =  card.querySelector('.card__title').textContent;
-  openModal(popup);
-}
+
 
 // @todo: Вывести карточки на страницу
 // изменить параметры входящие функции на объект
