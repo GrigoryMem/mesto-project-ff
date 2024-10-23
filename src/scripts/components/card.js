@@ -1,6 +1,6 @@
 import { closeModal } from "./modal";
 
-export function createCard(data, removeCard, likeCard, template, openCard,openModal) {
+export function createCard(data, removeCard, likeCard, template, openCard,openModal,closeModal) {
   // клонировать шаблон кароточки - создал экземпляр карточки
   const cardTemplateClone =  template.cloneNode(true);
   const cardExample = cardTemplateClone.querySelector('.card');
@@ -32,6 +32,7 @@ export function createCard(data, removeCard, likeCard, template, openCard,openMo
   popupZoom.addEventListener('click',(event)=>{
     // стандартное закрытие изображения
     closeModal(event,popupZoom);
+   
     // по кл escape
     document.removeEventListener('keydown', closeModal);
 })
@@ -63,8 +64,8 @@ export function openCard(card,popup,image,openModal) {
 
 // @todo: Вывести карточки на страницу
 // изменить параметры входящие функции на объект
-export function renderCards(initialCards,placesList,template,openCard,openModal) {
-  initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard,template,openCard,openModal)));
+export function renderCards(initialCards,placesList,template,openCard,openModal,closeModal) {
+  initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard,template,openCard,openModal,closeModal)));
 }
   
 
