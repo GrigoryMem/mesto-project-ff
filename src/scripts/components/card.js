@@ -1,6 +1,6 @@
-import { openModal, closeModal } from "./modal";
+import { closeModal } from "./modal";
 
-export function createCard(data, removeCard, likeCard, template, openCard) {
+export function createCard(data, removeCard, likeCard, template, openCard,openModal) {
   // клонировать шаблон кароточки - создал экземпляр карточки
   const cardTemplateClone =  template.cloneNode(true);
   const cardExample = cardTemplateClone.querySelector('.card');
@@ -23,7 +23,7 @@ export function createCard(data, removeCard, likeCard, template, openCard) {
   })
   // cобытие открыть картинку
   image.addEventListener('click',()=>{
-    openCard(cardExample,popupZoom,image)
+    openCard(cardExample,popupZoom,image,openModal)
     // по кл escape
     document.addEventListener('keydown', closeModal);
     
@@ -52,7 +52,7 @@ export function likeCard(card) {
 }
 
 // Открытие попапа с картинкой
-export function openCard(card,popup,image) {
+export function openCard(card,popup,image,openModal) {
   const imgPopup = popup.querySelector('.popup__image');
   const captionPopup = popup.querySelector('.popup__caption');
   imgPopup.src = image.src;
@@ -62,9 +62,9 @@ export function openCard(card,popup,image) {
 }
 
 // @todo: Вывести карточки на страницу
-
-export function renderCards(initialCards,placesList,template,openCard) {
-  initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard,template,openCard)));
+// изменить параметры входящие функции на объект
+export function renderCards(initialCards,placesList,template,openCard,openModal) {
+  initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard,template,openCard,openModal)));
 }
   
 
