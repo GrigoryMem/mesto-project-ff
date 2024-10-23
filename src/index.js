@@ -55,7 +55,7 @@ btnEditPrfl.addEventListener('click',() => {
 formEditPrf.addEventListener('submit',(event)=>{
   event.preventDefault();
   handleFormSubmit(profile,formEditPrf);
-  closeModal(event,popupEdit);
+  closeModal(popupEdit);
 });
 
 // 2 форма добавить новую карточку
@@ -75,8 +75,8 @@ btnAddCard.addEventListener('click',()=>{
 // работа с формой карточки
 formAddCard.addEventListener('submit',(event)=>{
   event.preventDefault();
-  addNewCard(formAddCard,createCard,placesList,removeCard, likeCard, cardTemplate,openCard,openModal,closeModal,popupImage);
-  closeModal(event,popupCard);
+  addNewCard(formAddCard,createCard,placesList,removeCard, likeCard, cardTemplate,openCard,openModal,popupImage);
+  closeModal(popupCard);
 })
 
 

@@ -17,12 +17,12 @@ export function autoFillForm(profile, form) {
 }
 
 //  для формы добавления карточки
-export function addNewCard(form,createCard,placesList,removeCard, likeCard, cardTemplate,openCard,openModal,closeModal,popupImage){
+export function addNewCard(form,createCard,placesList,removeCard, likeCard, cardTemplate,openCard,openModal,popupImage){
   const formData = {
     name: form.elements["place-name"].value,
     link: form.elements["link"].value
   }
-  placesList.prepend(createCard(formData,removeCard, likeCard, cardTemplate,openCard,openModal,closeModal,popupImage));
+  placesList.prepend(createCard(formData,removeCard, likeCard, cardTemplate,openCard,openModal,popupImage));
   form.reset();
   }
 

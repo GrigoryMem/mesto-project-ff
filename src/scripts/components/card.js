@@ -1,4 +1,4 @@
-export function createCard(data, removeCard, likeCard, template, openCard,openModal,closeModal,popupImage) {
+export function createCard(data, removeCard, likeCard, template, openCard,openModal,popupImage) {
   // клонировать шаблон кароточки - создал экземпляр карточки
   const cardTemplateClone =  template.cloneNode(true);
   const cardExample = cardTemplateClone.querySelector('.card');
@@ -50,7 +50,7 @@ export function openCard(card,popup,image,openModal) {
 // @todo: Вывести карточки на страницу
 // изменить параметры входящие функции на объект
 export function renderCards(initialCards,placesList,template,openCard,openModal,closeModal,popupImage) {
-  initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard,template,openCard,openModal,closeModal,popupImage)));
+  initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard,template,openCard,openModal,popupImage)));
 }
   
 
