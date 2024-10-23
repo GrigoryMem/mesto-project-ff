@@ -20,9 +20,6 @@ export function createCard(data, removeCard, likeCard, template, openCard,openMo
   // cобытие открыть картинку
   image.addEventListener('click',()=>{
     openCard(cardExample,popupImage,image,openModal)
-    // по кл escape
-    document.addEventListener('keydown', closeModal);
-    
   })
   // cобытие закрыть картинку
   popupImage.addEventListener('click',(event)=>{
