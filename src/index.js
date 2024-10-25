@@ -44,29 +44,23 @@ btnEditPrfl.addEventListener('click',() => {
 // автозаполнение полей формы
   autoFillFormProf(profile, formEditPrf);
 })
-
 //  сохранение данных формы профиля
 formEditPrf.addEventListener('submit',(event)=>{
   event.preventDefault();
   handlFormSubmProf(profile,formEditPrf);
   closeModal(popupEdit);
 });
-
 // 2 форма добавить новую карточку
-
-// НАУДАЛЕНИЕ
 // открытия окна формы добав карточки
 btnAddCard.addEventListener('click',()=>{
   openModal(popupCard);
 });
-
 // работа с формой карточки
 formAddCard.addEventListener('submit',(event)=>{
   event.preventDefault();
   addNewCard(formAddCard,createCard,placesList,removeCard, likeCard, cardTemplate,openCard,openModal);
   closeModal(popupCard);
 })
-
 // Открытие попапа с картинкой
 function openCard(card,image,openModal) {
   // вставляем картинку с карточки в попап
