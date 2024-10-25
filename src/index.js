@@ -24,6 +24,22 @@ const popupViewImgCard = document.querySelector('.popup_type_image'); // поп�
 const popCardImg = popupViewImgCard.querySelector('.popup__image'); 
 const popImgCaptionCard = popupViewImgCard.querySelector('.popup__caption'); 
 
+
+const settingCard = {
+  source:{
+    data: initialCards,
+    template: cardTemplate,
+  },
+  removeCard,
+  likeCard,
+  openCard,
+  openModal
+}
+
+console.log(createCard())
+
+
+
 //  Вывести карточки на страницу
 renderCards(initialCards,placesList,cardTemplate,openCard,openModal); // отобразить карточки на странице
 
