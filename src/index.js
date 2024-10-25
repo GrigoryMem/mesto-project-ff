@@ -3,7 +3,7 @@ import { createCard,removeCard,likeCard } from'./scripts/components/card'; // ф
 import { initialCards } from './scripts/components/cards'; //данные карточек
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 import './scripts/components/modal';
-import { handlFormSubmProf, autoFillFormProf, addNewCard } from './scripts/components/form';
+import { handlFormSubmProf, autoFillFormProf } from './scripts/components/form';
 
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
@@ -19,30 +19,28 @@ const btnAddCard = document.querySelector('.profile__add-button');
 const popupCard = document.querySelector('.popup_type_new-card');
 // форма добав карточки
 const formAddCard = document.forms["new-place"];
-
+//  поля для открытия картинки
 const popupViewImgCard = document.querySelector('.popup_type_image'); // попап с картинкой
 const popCardImg = popupViewImgCard.querySelector('.popup__image'); 
 const popImgCaptionCard = popupViewImgCard.querySelector('.popup__caption'); 
 
-
 const settingCard = {
-  src:{
-    data: initialCards, // массив карточек
-    template: cardTemplate, // шаблон создания карточки
-    getElem(elem){ 
-        return this.data[elem]; // получаем 'элемент' из массива карточек
-    }
-  },
+  template: cardTemplate, // шаблон создания карточки,
   acts:{
     remove:removeCard,
     like:likeCard, 
-    open:openCard // открываем картинку
+    open:openCard,// открываем картинку
+    getElem(elem){
+        return {
+          link:elem.link,
+          name:elem.name
+        }
+    }
   }
 }
 
-
 //  Вывести карточки на страницу
-renderCards(settingCard); // отобразить карточки на странице
+renderCards(initialCards,settingCard); // отобразить карточки на странице
 
 // Вешаем на все модалки событие закрытия карточки
 popups.forEach(popup=>{
@@ -78,9 +76,10 @@ btnAddCard.addEventListener('click',()=>{
 // работа с формой карточки
 formAddCard.addEventListener('submit',(event)=>{
   event.preventDefault();
-  addNewCard(formAddCard,createCard,placesList,removeCard, likeCard, cardTemplate,openCard,openModal);
+  addNewCard(formAddCard,settingCard);
   closeModal(popupCard);
 })
+
 // Открытие попапа с картинкой
 function openCard(card,image) {
   // вставляем картинку с карточки в попап
@@ -89,16 +88,28 @@ function openCard(card,image) {
   popImgCaptionCard.textContent = card.querySelector('.card__title').textContent;
   openModal(popupViewImgCard);
 }
+
 //  для отображения карточек
-function renderCards(settingCard) {
+function renderCards(initialCards,settingCard) {
   //  проходимся по массиву с данными для карточек... 
-  settingCard.src.data.forEach((item,index)=>{
+  initialCards.forEach((item)=>{
     if(item){
       // вставляем заполненные карточки на страницу
-      placesList.append(createCard(settingCard,index))
+      placesList.append(createCard(settingCard,item))
     }
   })
 }
+
+//  для формы добавления карточки
+function addNewCard(form,setCard){
+  const formData = {
+    name: form.elements["place-name"].value,
+    link: form.elements["link"].value
+  }
+  placesList.prepend(createCard(setCard,formData));
+  form.reset();
+}
+
   
 
 

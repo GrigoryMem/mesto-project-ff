@@ -1,14 +1,14 @@
 export function createCard(setCard,elem) {
   // клонировать шаблон кароточки - создал экземпляр карточки
-  const cardTemplateClone =  setCard.src.template.cloneNode(true);
+  const cardTemplateClone =  setCard.template.cloneNode(true);
   const cardExample = cardTemplateClone.querySelector('.card');
   const cardExmpImg = cardExample.querySelector('.card__image');
   const cardLikeBtn = cardExample.querySelector('.card__like-button');
   const image = cardExample.querySelector('.card__image');
-  // получение  данных карточки из массива объектов с  src и link
-  cardExmpImg.src = setCard.src.getElem(elem).link;
-  cardExample.querySelector('.card__title').textContent = setCard.src.getElem(elem).name;
-  cardExmpImg.alt = setCard.src.getElem(elem).name;
+  // получение  данных карточки
+  cardExmpImg.src = setCard.acts.getElem(elem).link;
+  cardExample.querySelector('.card__title').textContent = setCard.acts.getElem(elem).name;
+  cardExmpImg.alt = setCard.acts.getElem(elem).name;
   // событие - удаление карточки
   cardExample.querySelector('.card__delete-button').addEventListener('click',()=> {
     removeCard(cardExample);
@@ -20,7 +20,7 @@ export function createCard(setCard,elem) {
   })
   // cобытие открыть картинку
   image.addEventListener('click',()=>{
-    setCard.acts.open(cardExample,image,openModal) // просмотр картинки
+    setCard.acts.open(cardExample,image) // просмотр картинки
   })
   return cardExample;
 }
@@ -36,3 +36,32 @@ export function removeCard(card) {
 export function likeCard(card) {
   card.classList.toggle('card__like-button_is-active');
 }
+
+
+// export function createCard(data, removeCard, likeCard, template, openCard,openModal) {
+  //   // клонировать шаблон кароточки - создал экземпляр карточки
+  //   const cardTemplateClone =  template.cloneNode(true);
+  //   const cardExample = cardTemplateClone.querySelector('.card');
+  //   const cardExmpImg = cardExample.querySelector('.card__image');
+  //   const cardLikeBtn = cardExample.querySelector('.card__like-button');
+  //   const image = cardExample.querySelector('.card__image');
+  //   cardExmpImg.src = data.link;
+  //   cardExample.querySelector('.card__title').textContent = data.name;
+  //   cardExmpImg.alt = data.name;
+  //   // событие - удаление карточки
+  //   cardExample.querySelector('.card__delete-button').addEventListener('click',()=> {
+  //     removeCard(cardExample);
+  //   })
+  
+  //   // событие - поставить лайк
+  //   cardLikeBtn.addEventListener('click',()=> {
+  //     likeCard(cardLikeBtn);
+  //   })
+  //   // cобытие открыть картинку
+  //   image.addEventListener('click',()=>{
+  //     openCard(cardExample,image,openModal)
+  //   })
+    
+  //   return cardExample;
+  // }
+  
