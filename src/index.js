@@ -26,22 +26,23 @@ const popImgCaptionCard = popupViewImgCard.querySelector('.popup__caption');
 
 
 const settingCard = {
-  source:{
-    data: initialCards,
-    template: cardTemplate,
+  src:{
+    data: initialCards, // массив карточек
+    template: cardTemplate, // шаблон создания карточки
+    getElem(elem){ 
+        return this.data[elem]; // получаем 'элемент' из массива карточек
+    }
   },
-  remove:removeCard,
-  like:likeCard,
-  openCrd:openCard,
-  openMod:openModal
+  acts:{
+    remove:removeCard,
+    like:likeCard, 
+    open:openCard // открываем картинку
+  }
 }
 
 
-
-
-
 //  Вывести карточки на страницу
-renderCards(initialCards,placesList,cardTemplate,openCard,openModal); // отобразить карточки на странице
+renderCards(settingCard); // отобразить карточки на странице
 
 // Вешаем на все модалки событие закрытия карточки
 popups.forEach(popup=>{
@@ -52,6 +53,7 @@ popups.forEach(popup=>{
     }
   })
 })
+
 // Работа модальных окон
 // 1.  МО редактировать профиль
 // событие открытия окна при нажатии на кнопку
@@ -80,7 +82,7 @@ formAddCard.addEventListener('submit',(event)=>{
   closeModal(popupCard);
 })
 // Открытие попапа с картинкой
-function openCard(card,image,openModal) {
+function openCard(card,image) {
   // вставляем картинку с карточки в попап
   popCardImg.src = image.src; 
   popCardImg.alt =  image.alt;
@@ -88,8 +90,14 @@ function openCard(card,image,openModal) {
   openModal(popupViewImgCard);
 }
 //  для отображения карточек
-function renderCards(initialCards,placesList,template,openCard,openModal) {
-  initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard,template,openCard,openModal)));
+function renderCards(settingCard) {
+  //  проходимся по массиву с данными для карточек... 
+  settingCard.src.data.forEach((item,index)=>{
+    if(item){
+      // вставляем заполненные карточки на страницу
+      placesList.append(createCard(settingCard,index))
+    }
+  })
 }
   
 

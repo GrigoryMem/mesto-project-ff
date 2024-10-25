@@ -1,24 +1,14 @@
-const settingCard = {
-  source:{
-    data: initialCards,
-    template: cardTemplate,
-  },
-  removeCard,
-  likeCard,
-  openCard,
-  openModal
-}
-
-export function createCard(data, removeCard, likeCard, template, openCard,openModal) {
+export function createCard(setCard,elem) {
   // клонировать шаблон кароточки - создал экземпляр карточки
-  const cardTemplateClone =  template.cloneNode(true);
+  const cardTemplateClone =  setCard.src.template.cloneNode(true);
   const cardExample = cardTemplateClone.querySelector('.card');
   const cardExmpImg = cardExample.querySelector('.card__image');
   const cardLikeBtn = cardExample.querySelector('.card__like-button');
   const image = cardExample.querySelector('.card__image');
-  cardExmpImg.src = data.link;
-  cardExample.querySelector('.card__title').textContent = data.name;
-  cardExmpImg.alt = data.name;
+  // получение  данных карточки из массива объектов с  src и link
+  cardExmpImg.src = setCard.src.getElem(elem).link;
+  cardExample.querySelector('.card__title').textContent = setCard.src.getElem(elem).name;
+  cardExmpImg.alt = setCard.src.getElem(elem).name;
   // событие - удаление карточки
   cardExample.querySelector('.card__delete-button').addEventListener('click',()=> {
     removeCard(cardExample);
@@ -26,13 +16,12 @@ export function createCard(data, removeCard, likeCard, template, openCard,openMo
 
   // событие - поставить лайк
   cardLikeBtn.addEventListener('click',()=> {
-    likeCard(cardLikeBtn);
+    setCard.acts.like(cardLikeBtn) // лайк карточки
   })
   // cобытие открыть картинку
   image.addEventListener('click',()=>{
-    openCard(cardExample,image,openModal)
+    setCard.acts.open(cardExample,image,openModal) // просмотр картинки
   })
-  
   return cardExample;
 }
 
@@ -47,6 +36,3 @@ export function removeCard(card) {
 export function likeCard(card) {
   card.classList.toggle('card__like-button_is-active');
 }
-
-
-
