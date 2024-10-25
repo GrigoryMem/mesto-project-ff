@@ -1,5 +1,5 @@
-//  для формы заполнения профиля
-export function handleFormSubmit(profile,form){
+//  для событие подтверждение формы заполнения профиля
+export function handlFormSubmProf(profile,form){
   // заполняем профиль данными формы
   const profTitle = profile.querySelector('.profile__title');
   const profDesc = profile.querySelector('.profile__description');
@@ -8,8 +8,8 @@ export function handleFormSubmit(profile,form){
   form.reset();
 }
 
-export function autoFillForm(profile, form) {
-  //  автозаполняем форму с данными профиля
+//  автозаполняем форму с данными профиля
+export function autoFillFormProf(profile, form) {
   const profTitle = profile.querySelector('.profile__title');
   const profDesc = profile.querySelector('.profile__description');
   form.elements.name.value = profTitle.textContent;

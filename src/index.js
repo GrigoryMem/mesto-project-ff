@@ -3,7 +3,7 @@ import { createCard,removeCard,likeCard } from'./scripts/components/card'; // ф
 import { initialCards } from './scripts/components/cards'; //данные карточек
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 import './scripts/components/modal';
-import { handleFormSubmit, autoFillForm, addNewCard } from './scripts/components/form';
+import { handlFormSubmProf, autoFillFormProf, addNewCard } from './scripts/components/form';
 
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
@@ -24,6 +24,7 @@ const popupViewImgCard = document.querySelector('.popup_type_image'); // поп�
 const popCardImg = popupViewImgCard.querySelector('.popup__image'); 
 const popImgCaptionCard = popupViewImgCard.querySelector('.popup__caption'); 
 
+//  Вывести карточки на страницу
 renderCards(initialCards,placesList,cardTemplate,openCard,openModal); // отобразить карточки на странице
 
 // Вешаем на все модалки событие закрытия карточки
@@ -41,21 +42,13 @@ popups.forEach(popup=>{
 btnEditPrfl.addEventListener('click',() => {
   openModal(popupEdit);
 // автозаполнение полей формы
-  autoFillForm(profile, formEditPrf);
+  autoFillFormProf(profile, formEditPrf);
 })
-// НАУДАЛЕНИЕ
-// событие закрытия окна 
-// popupEdit.addEventListener('click',(event) => {
-//   const target = event.target;
-//   if(target === popupEdit || target.classList.contains('popup__close')){
-//     closeModal(popupEdit);
-//   }
-// })
 
 //  сохранение данных формы профиля
 formEditPrf.addEventListener('submit',(event)=>{
   event.preventDefault();
-  handleFormSubmit(profile,formEditPrf);
+  handlFormSubmProf(profile,formEditPrf);
   closeModal(popupEdit);
 });
 
@@ -66,12 +59,6 @@ formEditPrf.addEventListener('submit',(event)=>{
 btnAddCard.addEventListener('click',()=>{
   openModal(popupCard);
 });
-// НАУДАЛЕНИЕ
-// закрытия окна формы добав карточки
-// popupCard.addEventListener('click',(event)=>{
-//   closeModal(event,popupCard);
-//   document.removeEventListener('keydown', closeModal);
-// })
 
 // работа с формой карточки
 formAddCard.addEventListener('submit',(event)=>{
@@ -79,9 +66,6 @@ formAddCard.addEventListener('submit',(event)=>{
   addNewCard(formAddCard,createCard,placesList,removeCard, likeCard, cardTemplate,openCard,openModal);
   closeModal(popupCard);
 })
-
-
-
 
 // Открытие попапа с картинкой
 function openCard(card,image,openModal) {
@@ -91,8 +75,7 @@ function openCard(card,image,openModal) {
   popImgCaptionCard.textContent = card.querySelector('.card__title').textContent;
   openModal(popupViewImgCard);
 }
-// @todo: Вывести карточки на страницу
-// изменить параметры входящие функции на объект
+//  для отображения карточек
 function renderCards(initialCards,placesList,template,openCard,openModal) {
   initialCards.forEach((item) => placesList.append(createCard(item,removeCard,likeCard,template,openCard,openModal)));
 }
