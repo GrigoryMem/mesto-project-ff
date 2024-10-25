@@ -7,7 +7,6 @@ export function handlFormSubmProf(profile,form){
   profDesc.textContent = form.elements.description.value
   form.reset();
 }
-
 //  автозаполняем форму с данными профиля
 export function autoFillFormProf(profile, form) {
   const profTitle = profile.querySelector('.profile__title');

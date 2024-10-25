@@ -2,7 +2,6 @@ import './pages/index.css'; // добавьте импорт главного ф
 import { createCard,removeCard,likeCard } from'./scripts/components/card'; // функции для работы с карточками
 import { initialCards } from './scripts/components/cards'; //данные карточек
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
-import './scripts/components/modal';
 import { handlFormSubmProf, autoFillFormProf } from './scripts/components/form';
 
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
@@ -23,7 +22,7 @@ const formAddCard = document.forms["new-place"];
 const popupViewImgCard = document.querySelector('.popup_type_image'); // попап с картинкой
 const popCardImg = popupViewImgCard.querySelector('.popup__image'); 
 const popImgCaptionCard = popupViewImgCard.querySelector('.popup__caption'); 
-
+// настройки карточки
 const settingCard = {
   template: cardTemplate, // шаблон создания карточки,
   acts:{
@@ -42,18 +41,8 @@ const settingCard = {
 //  Вывести карточки на страницу
 renderCards(initialCards,settingCard); // отобразить карточки на странице
 
-// Вешаем на все модалки событие закрытия карточки
-popups.forEach(popup=>{
-  popup.addEventListener('click',(event) => {
-    const target = event.target;
-    if(target === popup || target.classList.contains('popup__close')){
-      closeModal(popup);// вкл соб наж по кл escape
-    }
-  })
-})
-
 // Работа модальных окон
-// 1.  МО редактировать профиль
+//   МО редактировать профиль
 // событие открытия окна при нажатии на кнопку
 btnEditPrfl.addEventListener('click',() => {
   openModal(popupEdit);
@@ -71,8 +60,6 @@ formEditPrf.addEventListener('submit',(event)=>{
 btnAddCard.addEventListener('click',()=>{
   openModal(popupCard);
 });
-
-
 // работа с формой карточки
 formAddCard.addEventListener('submit',(event)=>{
   event.preventDefault();
@@ -80,6 +67,17 @@ formAddCard.addEventListener('submit',(event)=>{
   closeModal(popupCard);
 })
 
+// Вешаем на все модалки событие закрытия карточки
+popups.forEach(popup=>{
+  popup.addEventListener('click',(event) => {
+    const target = event.target;
+    if(target === popup || target.classList.contains('popup__close')){
+      closeModal(popup);// вкл соб наж по кл escape
+    }
+  })
+})
+
+// Функции
 // Открытие попапа с картинкой
 function openCard(card,image) {
   // вставляем картинку с карточки в попап
@@ -88,7 +86,6 @@ function openCard(card,image) {
   popImgCaptionCard.textContent = card.querySelector('.card__title').textContent;
   openModal(popupViewImgCard);
 }
-
 //  для отображения карточек
 function renderCards(initialCards,settingCard) {
   //  проходимся по массиву с данными для карточек... 
@@ -99,7 +96,6 @@ function renderCards(initialCards,settingCard) {
     }
   })
 }
-
 //  для формы добавления карточки
 function addNewCard(form,setCard){
   const formData = {
