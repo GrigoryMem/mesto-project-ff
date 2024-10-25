@@ -30,13 +30,13 @@ const settingCard = {
     data: initialCards,
     template: cardTemplate,
   },
-  removeCard,
-  likeCard,
-  openCard,
-  openModal
+  remove:removeCard,
+  like:likeCard,
+  openCrd:openCard,
+  openMod:openModal
 }
 
-console.log(createCard())
+
 
 
 
@@ -71,6 +71,8 @@ formEditPrf.addEventListener('submit',(event)=>{
 btnAddCard.addEventListener('click',()=>{
   openModal(popupCard);
 });
+
+
 // работа с формой карточки
 formAddCard.addEventListener('submit',(event)=>{
   event.preventDefault();

@@ -1,3 +1,14 @@
+const settingCard = {
+  source:{
+    data: initialCards,
+    template: cardTemplate,
+  },
+  removeCard,
+  likeCard,
+  openCard,
+  openModal
+}
+
 export function createCard(data, removeCard, likeCard, template, openCard,openModal) {
   // клонировать шаблон кароточки - создал экземпляр карточки
   const cardTemplateClone =  template.cloneNode(true);
