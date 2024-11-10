@@ -40,23 +40,24 @@ const clearValidation = (profileForm, validationConfig)=>{
 
 
 // Функция, которая добавляет класс с ошибкой
-const showInputError = (elem,text)=>{
+const showInputError = (elem,message,textErr)=>{
     elem.classList.add('popup__input_type_error');
-    text.classList.add('popup__input-error_active');
+    console.log(elem.validity)
+    message.classList.add('popup__error_visible');
+    message.textContent = textErr;
 }
 // Функция, которая удаляет класс с ошибкой
-const hideInputError = (elem,text)=>{
+const hideInputError = (elem,message)=>{
   elem.classList.remove('popup__input_type_error');
-  console.log(text)
-  text.classList.remove('popup__input-error_active');
-
+  message.classList.remove('popup__error_visible');
+  message.textContent = '';
 }
 
 
 // Функция, которая проверяет валидность поля
 const isValid = (input,error)=>{
   if(!input.validity.valid){
-    showInputError(input,error)
+    showInputError(input,error,input.validationMessage)
   }else{
     hideInputError(input,error)
   }

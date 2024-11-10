@@ -10,7 +10,7 @@
   transform:translateY(-5px);
 }
 
-.popup__input-error_active {
+.popup__error_visible {
   display: block;
   visibility: visible;
   opacity: 1;
