@@ -3,7 +3,7 @@ import { createCard,removeCard,likeCard } from'./scripts/components/card'; // ф
 import { initialCards } from './scripts/components/cards'; //данные карточек
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 import { handlFormSubmProf, autoFillFormProf } from './scripts/components/form';
-
+import './scripts/components/validation'
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
 const btnEditPrfl = document.querySelector('.profile__edit-button');// кнопка редактир проф
