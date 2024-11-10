@@ -1,11 +1,13 @@
 .popup__input-error {
-  display:none;
+  display: none;
+  position: absolute;
   visibility: hidden;
   opacity: 0;
   font-size: 12px;
   line-height: 1.2;
   color:#ff0000;
   transition: opacity 0.3s ease-in-out;
+  transform:translateY(-5px);
 }
 
 .popup__input-error_active {
