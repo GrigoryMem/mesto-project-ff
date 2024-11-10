@@ -1,6 +1,11 @@
 const forms = document.forms;
 const formProf = forms['edit-profile'];
-const formProfInput = formProf.querySelector('.popup__input')
+const formProfInput = formProf.querySelector('.popup__input_type_name');
+
+const formError = formProf.querySelector(`.${formProfInput.id}-error`);
+
+
+
 
 
 
@@ -55,8 +60,8 @@ const isValid = (input)=>{
 
 // Вызовем функцию isValid на каждый ввод символа
 
-formProf.addEventListener('input', ()=>{
-  isValid(formProfInput);
-});
+// formProf.addEventListener('input', ()=>{
+//   isValid(formProfInput);
+// });
 
 

@@ -5,4 +5,11 @@
   font-size: 12px;
   line-height: 1.2;
   color:#ff0000;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.popup__input-error_active {
+  display: block;
+  visibility: visible;
+  opacity: 1;
 }
