@@ -72,10 +72,28 @@ const isValid = (form,input)=>{
   }
 }
 
+const setEventListeners = (form)=>{
+    // Находим все поля внутри формы,
+  // сделаем из них массив методом Array.from
+  const allInputs = Array.from(form.querySelectorAll('.popup__input'))
+   // Обойдём все элементы полученной коллекции
+   allInputs.forEach((input)=>{
+    input.addEventListener('input',()=>{
+       // Внутри колбэка вызовем isValid,
+      // передав ей форму и проверяемый каждый элемент
+      isValid(form,input);
+    })
+   })
+}
+
 // Вызовем функцию isValid на каждый ввод символа
 
 formProf.addEventListener('input', ()=>{
   isValid(formProf,formProfInput);
 });
+
+
+
+
 
 
