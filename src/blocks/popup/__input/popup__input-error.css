@@ -1,3 +1,5 @@
+
+
 .popup__input-error {
   display: none;
   position: absolute;
@@ -7,7 +9,8 @@
   line-height: 1.2;
   color:#ff0000;
   transition: opacity 0.3s ease-in-out;
-  transform:translateY(-5px);
+  padding-top:5px;
+  /* margin-bottom:13px; */
 }
 
 .popup__error_visible {
