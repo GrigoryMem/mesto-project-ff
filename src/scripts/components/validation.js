@@ -27,11 +27,6 @@ const formElems = {
 
 
 
-const enableValidation = (elemsValid)=>{
-// включение валидации всех форм
-
-
-};
 
 const clearValidation = (profileForm, validationConfig)=>{
   // очищает ошибки валидации формы и делает кнопку неактивной
@@ -80,19 +75,29 @@ const setEventListeners = (form)=>{
    allInputs.forEach((input)=>{
     input.addEventListener('input',()=>{
        // Внутри колбэка вызовем isValid,
-      // передав ей форму и проверяемый каждый элемент
+      // передав ей форму и проверяемый каждый элемент формы на валидность
       isValid(form,input);
     })
    })
 }
 
-// Вызовем функцию isValid на каждый ввод символа
+const enableValidation = ()=>{
+  // включение валидации всех форм
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+   // Для каждой формы вызовем функцию setEventListeners,
+    // передав ей элемент формы
+  formList.forEach((form)=>{
+    setEventListeners(form);
+  })
+};
+  
 
-// formProf.addEventListener('input', ()=>{
-//   isValid(formProf,formProfInput);
-// });
+enableValidation()
 
-setEventListeners(formProf);
+
+
+
+
 
 
 
