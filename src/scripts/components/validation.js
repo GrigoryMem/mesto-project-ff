@@ -88,11 +88,11 @@ const setEventListeners = (form)=>{
 
 // Вызовем функцию isValid на каждый ввод символа
 
-formProf.addEventListener('input', ()=>{
-  isValid(formProf,formProfInput);
-});
+// formProf.addEventListener('input', ()=>{
+//   isValid(formProf,formProfInput);
+// });
 
-
+setEventListeners(formProf);
 
 
 
