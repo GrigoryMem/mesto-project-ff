@@ -3,8 +3,6 @@
 .popup__input-error {
   display: none;
   position: absolute;
-  visibility: hidden;
-  opacity: 0;
   font-size: 12px;
   line-height: 1.2;
   color:#ff0000;
@@ -15,6 +13,4 @@
 
 .popup__error_visible {
   display: block;
-  visibility: visible;
-  opacity: 1;
 }

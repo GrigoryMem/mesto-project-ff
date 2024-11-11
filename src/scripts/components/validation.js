@@ -41,9 +41,10 @@ const showInputError = (form,input,textErr)=>{
   // добавляем стили ошибки для поля ввода
   input.classList.add('popup__input_type_error');
   // показываем элемент с ошибкой
-  errorElem .classList.add('popup__error_visible');
+  errorElem.classList.add('popup__error_visible');
   // добавляем тип ошибки в поле для ошибки
-  errorElem .textContent = textErr;
+  errorElem.textContent = textErr;
+  console.log(textErr)
 }
 // Функция, которая удаляет класс с ошибкой
 const hideInputError = (form,input)=>{
@@ -52,9 +53,9 @@ const hideInputError = (form,input)=>{
   // убираем стили ошибки для поля ввода
   input.classList.remove('popup__input_type_error');
   // скрываем элемент с ошибкой
-  errorElem .classList.remove('popup__error_visible');
+  errorElem.classList.remove('popup__error_visible');
   // очищаем поле текста ошибки
-  errorElem .textContent = '';
+  errorElem.textContent = '';
 }
 
 
@@ -92,7 +93,7 @@ const enableValidation = ()=>{
 };
   
 
-enableValidation()
+enableValidation();
 
 
 
