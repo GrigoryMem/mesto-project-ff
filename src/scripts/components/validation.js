@@ -68,20 +68,46 @@ const isValid = (form,input)=>{
   }
 }
 
+//  проверка всех полей на валидность
+const hasInvalid = (inputList)=>{
+  return inputList.some((input)=>{
+    return !input.validity.valid
+  })
+}
+
+// заблокировать кнопку отправить если есть невалидные поля
+const toggleButtonState = (inputList,buttonSubmit)=>{
+  if(hasInvalid(inputList)){ // если хотябы одно поле не валидно
+     // сделай кнопку неактивной
+    buttonSubmit.disabled = true; // блокируем кнопку
+    buttonSubmit.classList.add('popup__button_disabled');// добавлеям стили блокировки для кнопки
+  }else{
+    // иначе сделай кнопку активной
+    buttonSubmit.disabled = false; // блокируем кнопку
+    buttonSubmit.classList.remove('popup__button_disabled');// добавлеям стили блокировки для кнопки
+  }
+}
+
+// устанавливаем обработчики на все поля формы
 const setEventListeners = (form)=>{
     // Находим все поля внутри формы,
   // сделаем из них массив методом Array.from
   const allInputs = Array.from(form.querySelectorAll('.popup__input'))
+  // найдем в тек форме кнопку отправки
+  const buttonSubmit = form.querySelector('.popup__button')
+  // запускаем процесс контроля кнопки если хотябы одно из полей не валидно
+  toggleButtonState(allInputs,buttonSubmit)
    // Обойдём все элементы полученной коллекции
-   allInputs.forEach((input)=>{
+  allInputs.forEach((input)=>{
     input.addEventListener('input',()=>{
        // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый каждый элемент формы на валидность
       isValid(form,input);
+      
     })
    })
 }
-
+// устанавливаем обработчики на все поля всех форм
 const enableValidation = ()=>{
   // включение валидации всех форм
   const formList = Array.from(document.querySelectorAll('.popup__form'));
@@ -91,6 +117,8 @@ const enableValidation = ()=>{
     setEventListeners(form);
   })
 };
+
+
   
 
 enableValidation();
