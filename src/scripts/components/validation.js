@@ -28,9 +28,17 @@ const formElems = {
 
 
 
-const clearValidation = (profileForm, validationConfig)=>{
+export const clearValidation = (form)=>{
+  
   // очищает ошибки валидации формы и делает кнопку неактивной
-
+  const allInputs = Array.from(form.querySelectorAll('.popup__input'))
+  const buttonSubmit = form.querySelector('.popup__button');
+  allInputs.forEach((input)=>{
+    hideInputError(form,input);
+   
+  })
+  buttonSubmit.disabled = false;
+  buttonSubmit.classList.remove('.popup__button_disabled');
 }
 
 
@@ -44,7 +52,7 @@ const showInputError = (form,input,textErr)=>{
   errorElem.classList.add('popup__error_visible');
   // добавляем тип ошибки в поле для ошибки
   errorElem.textContent = textErr;
-  console.log(textErr)
+  
 }
 // Функция, которая удаляет класс с ошибкой
 const hideInputError = (form,input)=>{
@@ -71,6 +79,7 @@ const isValid = (form,input)=>{
 //  проверка всех полей на валидность
 const hasInvalid = (inputList)=>{
   return inputList.some((input)=>{
+    // если поле не валидно, вернет true
     return !input.validity.valid
   })
 }
@@ -95,14 +104,16 @@ const setEventListeners = (form)=>{
   const allInputs = Array.from(form.querySelectorAll('.popup__input'))
   // найдем в тек форме кнопку отправки
   const buttonSubmit = form.querySelector('.popup__button')
-  // запускаем процесс контроля кнопки если хотябы одно из полей не валидно
+  // // запускаем процесс контроля кнопки если хотябы одно из полей не валидно
   toggleButtonState(allInputs,buttonSubmit)
-   // Обойдём все элементы полученной коллекции
+  //  Обойдём все элементы полученной коллекции
   allInputs.forEach((input)=>{
     input.addEventListener('input',()=>{
        // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый каждый элемент формы на валидность
       isValid(form,input);
+       // запускаем процесс контроля кнопки если хотябы одно из полей не валидно
+  toggleButtonState(allInputs,buttonSubmit)
       
     })
    })

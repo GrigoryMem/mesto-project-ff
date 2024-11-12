@@ -3,6 +3,7 @@ import { createCard,removeCard,likeCard } from'./scripts/components/card'; // ф
 import { initialCards } from './scripts/components/cards'; //данные карточек
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 import { handlFormSubmProf, autoFillFormProf } from './scripts/components/form';
+import {clearValidation} from './scripts/components/validation';
 import './scripts/components/validation'
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
@@ -22,6 +23,11 @@ const formAddCard = document.forms["new-place"];
 const popupViewImgCard = document.querySelector('.popup_type_image'); // попап с картинкой
 const popCardImg = popupViewImgCard.querySelector('.popup__image'); 
 const popImgCaptionCard = popupViewImgCard.querySelector('.popup__caption'); 
+const forms = Array.from(document.forms);
+
+
+
+
 // настройки карточки
 const settingCard = {
   template: cardTemplate, // шаблон создания карточки,
@@ -48,6 +54,10 @@ btnEditPrfl.addEventListener('click',() => {
   openModal(popupEdit);
 // автозаполнение полей формы
   autoFillFormProf(profile, formEditPrf);
+  // запускаем  очистку валидации
+  forms.forEach((form)=>{
+    clearValidation(form);
+  })
 })
 //  сохранение данных формы профиля
 formEditPrf.addEventListener('submit',(event)=>{
