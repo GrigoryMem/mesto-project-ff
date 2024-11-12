@@ -2,18 +2,6 @@ const forms = document.forms;
 const formProf = forms['edit-profile'];
 const formProfInput = formProf.querySelector('.popup__input_type_name');
 
-
-
-
-
-
-
-
-
-
-
-
-
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове
 const formElems = {
