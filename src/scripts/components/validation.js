@@ -1,21 +1,4 @@
-const forms = document.forms;
-const formProf = forms['edit-profile'];
-const formProfInput = formProf.querySelector('.popup__input_type_name');
-
-// включение валидации вызовом enableValidation
-// все настройки передаются при вызове
-const formElems = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: '.popup__button_disabled',
-  inputErrorClass: '.popup__input_type_error',
-  errorClass: '.popup__error_visible'
-}
-
-
-
-
+// очистка валидации
 export const clearValidation = (form)=>{
   
   // очищает ошибки валидации формы и делает кнопку неактивной
@@ -118,9 +101,9 @@ const setEventListeners = (form)=>{
    })
 }
 // устанавливаем обработчики на все поля всех форм
-const enableValidation = ()=>{
+export const enableValidation = (config)=>{
   // включение валидации всех форм
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
    // Для каждой формы вызовем функцию setEventListeners,
     // передав ей элемент формы
   formList.forEach((form)=>{
@@ -131,7 +114,7 @@ const enableValidation = ()=>{
 
   
 
-enableValidation();
+
 
 
 

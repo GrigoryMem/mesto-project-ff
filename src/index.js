@@ -4,7 +4,7 @@ import { initialCards } from './scripts/components/cards'; //данные кар
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 import { handlFormSubmProf, autoFillFormProf } from './scripts/components/form';
 import {clearValidation} from './scripts/components/validation';
-import './scripts/components/validation'
+import {enableValidation} from './scripts/components/validation';
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
 const btnEditPrfl = document.querySelector('.profile__edit-button');// кнопка редактир проф
@@ -25,7 +25,16 @@ const popCardImg = popupViewImgCard.querySelector('.popup__image');
 const popImgCaptionCard = popupViewImgCard.querySelector('.popup__caption'); 
 const forms = Array.from(document.forms);
 
-
+// параметры для валидации
+const configForm = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: '.popup__button_disabled',
+  inputErrorClass: '.popup__input_type_error',
+  errorClass: '.popup__error_visible'
+}
+enableValidation(configForm)
 
 
 // настройки карточки
