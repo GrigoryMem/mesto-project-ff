@@ -55,6 +55,8 @@
                 minlength="2"
                 maxlength="40"
                 data-message-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+                pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$"
+              
               />
               <span class="name-input-error popup__input-error"></span>
             </label>
@@ -69,6 +71,7 @@
                 minlength="2"
                 maxlength="200"
                 data-message-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+                pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$"
               />
               <span class="description-input-error popup__input-error"></span>
             </label>

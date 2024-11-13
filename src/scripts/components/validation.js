@@ -58,7 +58,9 @@ const hideInputError = (form,input)=>{
 // Функция, которая проверяет валидность поля
 const isValid = (form,input)=>{
   // проверяем поле на соот-е рег выражению
+  
   if(input.validity.patternMismatch) {
+
     //показываем свое кастомное сообщение об ошибке
     input.setCustomValidity(input.dataset.messageError);
   }else {
