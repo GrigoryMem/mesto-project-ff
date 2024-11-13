@@ -96,6 +96,9 @@
                 required
                 minlength="2"
                 maxlength="30"
+                data-message-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+                pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$"
+                
               />
               <span class="place-input-error popup__input-error"></span>
             </label>
