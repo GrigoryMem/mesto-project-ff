@@ -52,12 +52,11 @@ renderCards(initialCards,settingCard); // отобразить карточки 
 // событие открытия окна при нажатии на кнопку
 btnEditPrfl.addEventListener('click',() => {
   openModal(popupEdit);
-// автозаполнение полей формы
+// автозаполнение полей формы сохр данными
   autoFillFormProf(profile, formEditPrf);
-  // запускаем  очистку валидации
-  forms.forEach((form)=>{
-    clearValidation(form);
-  })
+  // запускаем  очистку валидации 
+  clearValidation(formEditPrf);
+
 })
 //  сохранение данных формы профиля
 formEditPrf.addEventListener('submit',(event)=>{
@@ -69,6 +68,12 @@ formEditPrf.addEventListener('submit',(event)=>{
 // открытия окна формы добав карточки
 btnAddCard.addEventListener('click',()=>{
   openModal(popupCard);
+  console.log(popupCard)
+    // очистка полей формы каждыый раз при открытии формысоздания карточки
+    formAddCard.reset();
+    // очищаем валидацию каждый раз при открытии
+    clearValidation( formAddCard);
+    
 });
 // работа с формой карточки
 formAddCard.addEventListener('submit',(event)=>{
