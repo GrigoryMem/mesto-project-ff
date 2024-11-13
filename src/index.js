@@ -61,10 +61,11 @@ renderCards(initialCards,settingCard); // отобразить карточки 
 // событие открытия окна при нажатии на кнопку
 btnEditPrfl.addEventListener('click',() => {
   openModal(popupEdit);
-// автозаполнение полей формы сохр данными
-  autoFillFormProf(profile, formEditPrf);
   // запускаем  очистку валидации 
   clearValidation(formEditPrf);
+// автозаполнение полей формы сохр данными
+  autoFillFormProf(profile, formEditPrf);
+  
 
 })
 //  сохранение данных формы профиля

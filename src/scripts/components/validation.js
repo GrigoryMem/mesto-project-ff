@@ -1,3 +1,10 @@
+// актиквироватьили отключить кнопку
+const switchBtn = (button,block,style)=>{
+  button.disabled = block;
+  block ? button.classList.add(style):button.classList.remove(style)
+}
+
+
 // очистка валидации
 export const clearValidation = (form)=>{
   
@@ -8,8 +15,7 @@ export const clearValidation = (form)=>{
     hideInputError(form,input);
    
   })
-  buttonSubmit.disabled = false;
-  buttonSubmit.classList.remove('.popup__button_disabled');
+  switchBtn(buttonSubmit,true,'popup__button_disabled');
 }
 
 
@@ -70,12 +76,10 @@ const hasInvalid = (inputList)=>{
 const toggleButtonState = (inputList,buttonSubmit)=>{
   if(hasInvalid(inputList)){ // если хотябы одно поле не валидно
      // сделай кнопку неактивной
-    buttonSubmit.disabled = true; // блокируем кнопку
-    buttonSubmit.classList.add('popup__button_disabled');// добавлеям стили блокировки для кнопки
+     switchBtn(buttonSubmit,true,'popup__button_disabled');
   }else{
     // иначе сделай кнопку активной
-    buttonSubmit.disabled = false; // блокируем кнопку
-    buttonSubmit.classList.remove('popup__button_disabled');// добавлеям стили блокировки для кнопки
+    switchBtn(buttonSubmit,false,'popup__button_disabled');
   }
 }
 
