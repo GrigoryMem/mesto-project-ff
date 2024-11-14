@@ -5,6 +5,7 @@ import { openModal, closeModal } from './scripts/components/modal'; // откы�
 import { handlFormSubmProf, autoFillFormProf } from './scripts/components/form';
 import {clearValidation} from './scripts/components/validation';
 import {enableValidation} from './scripts/components/validation';
+import { getData } from "./scripts/components/api";
 import  './scripts/components/profile';
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
@@ -35,7 +36,7 @@ const configForm = {
   inputErrorClass: '.popup__input_type_error',
   errorClass: '.popup__error_visible'
 }
-enableValidation(configForm)
+enableValidation(configForm); // включаем валидацию
 
 
 // настройки карточки
@@ -54,8 +55,11 @@ const settingCard = {
   }
 }
 
+const pathCards = 'cards';
+
+
 //  Вывести карточки на страницу
-renderCards(initialCards,settingCard); // отобразить карточки на странице
+renderCards(getData,settingCard); // отобразить карточки на странице
 
 // Работа модальных окон
 //   МО редактировать профиль
@@ -113,13 +117,20 @@ function openCard(card,image) {
   openModal(popupViewImgCard);
 }
 //  для отображения карточек
-function renderCards(initialCards,settingCard) {
+function renderCards(getCards,settingCard) {
   //  проходимся по массиву с данными для карточек... 
-  initialCards.forEach((item)=>{
-    if(item){
-      // вставляем заполненные карточки на страницу
-      placesList.append(createCard(settingCard,item))
-    }
+  getCards(pathCards)
+  .then((cards)=>{
+    cards.forEach((item)=>{
+      if(item){
+        // вставляем заполненные карточки на страницу
+        placesList.append(createCard(settingCard,item))
+      }
+    })
+
+  })
+  .catch((err)=>{
+    return err
   })
 }
 //  для формы добавления карточки
