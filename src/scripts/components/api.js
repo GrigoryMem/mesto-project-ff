@@ -11,7 +11,7 @@ export function getData(path){
     
     const token= "fe60ae7a-5d46-46b6-9dc4-993d5b7ea2a2"
     
-    console.log(newUrl)
+  
     return fetch(newUrl,{
       method: 'GET',
       headers: {

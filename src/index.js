@@ -26,6 +26,13 @@ const popupViewImgCard = document.querySelector('.popup_type_image'); // поп�
 const popCardImg = popupViewImgCard.querySelector('.popup__image'); 
 const popImgCaptionCard = popupViewImgCard.querySelector('.popup__caption'); 
 const forms = Array.from(document.forms);
+// профиль пользователя
+const profileTitle = document.querySelector('.profile__title');
+const profileDesc = document.querySelector('.profile__description');
+const profileImage = document.querySelector('.profile__image');
+// пути
+const profilePATH = 'users/me';
+const pathCards = 'cards';
 
 // параметры для валидации
 const configForm = {
@@ -55,7 +62,7 @@ const settingCard = {
   }
 }
 
-const pathCards = 'cards';
+
 
 
 //  Вывести карточки на страницу
@@ -116,20 +123,29 @@ function openCard(card,image) {
   popImgCaptionCard.textContent = card.querySelector('.card__title').textContent;
   openModal(popupViewImgCard);
 }
-//  для отображения карточек
-function renderCards(getCards,settingCard) {
-  //  проходимся по массиву с данными для карточек... 
-  getCards(pathCards)
-  .then((cards)=>{
+//  для отображения карточек и профиля
+function renderCards(getData,settingCard) {
+  
+
+  Promise.all([
+    getData(profilePATH),
+    getData(pathCards)
+  ]).then((data)=>{
+    
+    const profile = data[0]; // наш профиль
+    const cards = data[1]; // данные с карточками
+    // заполняем профиль данными
+    profileTitle.textContent = profile.name;
+    profileDesc.textContent = profile.about;
+    profileImage.style.backgroundImage = `url(${profile.avatar})`;
+    //  проходимся по массиву с данными для карточек... 
     cards.forEach((item)=>{
       if(item){
         // вставляем заполненные карточки на страницу
         placesList.append(createCard(settingCard,item))
       }
     })
-
-  })
-  .catch((err)=>{
+  }).catch((err)=>{
     return err
   })
 }
