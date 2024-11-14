@@ -5,6 +5,7 @@ import { openModal, closeModal } from './scripts/components/modal'; // откы�
 import { handlFormSubmProf, autoFillFormProf } from './scripts/components/form';
 import {clearValidation} from './scripts/components/validation';
 import {enableValidation} from './scripts/components/validation';
+import  './scripts/components/profile';
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
 const btnEditPrfl = document.querySelector('.profile__edit-button');// кнопка редактир проф
