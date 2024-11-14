@@ -6,11 +6,11 @@ const switchBtn = (button,block,style)=>{
 
 
 // очистка валидации
-export const clearValidation = (form)=>{
+export const clearValidation = (form,config)=>{
   
   // очищает ошибки валидации формы и делает кнопку неактивной
-  const allInputs = Array.from(form.querySelectorAll('.popup__input'))
-  const buttonSubmit = form.querySelector('.popup__button');
+  const allInputs = Array.from(form.querySelectorAll(config.inputSelector))
+  const buttonSubmit = form.querySelector(config.submitButtonSelector);
   allInputs.forEach((input)=>{
     hideInputError(form,input);
    
@@ -84,12 +84,12 @@ const toggleButtonState = (inputList,buttonSubmit)=>{
 }
 
 // устанавливаем обработчики на все поля формы
-const setEventListeners = (form)=>{
+const setEventListeners = (form,config)=>{
     // Находим все поля внутри формы,
   // сделаем из них массив методом Array.from
-  const allInputs = Array.from(form.querySelectorAll('.popup__input'))
+  const allInputs = Array.from(form.querySelectorAll(config.inputSelector))
   // найдем в тек форме кнопку отправки
-  const buttonSubmit = form.querySelector('.popup__button')
+  const buttonSubmit = form.querySelector(config.submitButtonSelector)
   // // запускаем процесс контроля кнопки если хотябы одно из полей не валидно
   toggleButtonState(allInputs,buttonSubmit)
   //  Обойдём все элементы полученной коллекции
@@ -111,7 +111,7 @@ export const enableValidation = (config)=>{
    // Для каждой формы вызовем функцию setEventListeners,
     // передав ей элемент формы
   formList.forEach((form)=>{
-    setEventListeners(form);
+    setEventListeners(form,config);
   })
 };
 
