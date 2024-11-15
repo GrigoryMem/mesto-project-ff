@@ -5,8 +5,8 @@ import { openModal, closeModal } from './scripts/components/modal'; // откы�
 import { handlFormSubmProf, autoFillFormProf } from './scripts/components/form';
 import {clearValidation} from './scripts/components/validation';
 import {enableValidation} from './scripts/components/validation';
-import { getData } from "./scripts/components/api";
-import  './scripts/components/profile';
+import { getData, pathData,postCard } from "./scripts/components/api";
+import  './scripts/components/api';
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
 const btnEditPrfl = document.querySelector('.profile__edit-button');// кнопка редактир проф
@@ -16,6 +16,9 @@ const popupEdit =document.querySelector('.popup_type_edit');
 const profile = document.querySelector('.profile');
 // данные формы заполнения профиля
 const formEditPrf = document.forms['edit-profile'];
+const profileInputs = formEditPrf.querySelectorAll('.popup__input');
+
+
 // кнопка доб карточки 
 const btnAddCard = document.querySelector('.profile__add-button');
 const popupCard = document.querySelector('.popup_type_new-card');
@@ -76,6 +79,7 @@ btnEditPrfl.addEventListener('click',() => {
   // запускаем  очистку валидации 
   clearValidation(formEditPrf,configForm);
 // автозаполнение полей формы сохр данными
+
   autoFillFormProf(profile, formEditPrf);
   
 
@@ -83,7 +87,21 @@ btnEditPrfl.addEventListener('click',() => {
 //  сохранение данных формы профиля
 formEditPrf.addEventListener('submit',(event)=>{
   event.preventDefault();
-  handlFormSubmProf(profile,formEditPrf);
+    const valuesForm = {
+      name:formEditPrf.elements.name.value,
+      about:formEditPrf.elements.description.value
+    }
+    // изучи объект about 
+
+  pathData(valuesForm)
+    .then((formData)=>{
+      console.log(formData)
+      console.log(formData)
+      profileTitle.textContent = formData.name;
+       profileDesc.textContent = formData.about;
+
+       
+    })
   closeModal(popupEdit);
 });
 // 2 форма добавить новую карточку
@@ -125,11 +143,12 @@ function openCard(card,image) {
 }
 //  для отображения карточек и профиля
 function renderCards(getData,settingCard) {
-  
-
+  const dataProfile = getData(profilePATH);
+ 
+  const dataCards = getData(pathCards);
   Promise.all([
-    getData(profilePATH),
-    getData(pathCards)
+    dataProfile,
+    dataCards
   ]).then((data)=>{
     
     const profile = data[0]; // наш профиль
