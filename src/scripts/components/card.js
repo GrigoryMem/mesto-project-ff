@@ -13,6 +13,7 @@ export function createCard(setCard,elem) {
   cardExample.querySelector('.card__title').textContent = setCard.acts.getElem(elem).name;
   cardExmpImg.alt = setCard.acts.getElem(elem).name;
   // вставляем количество лайков
+  console.log(elem._id)
   if(elem.likes.length > 0) {
     cardLikeCount.textContent = elem.likes.length;
   } else {
@@ -20,7 +21,8 @@ export function createCard(setCard,elem) {
   }
   // событие - удаление карточки
   cardExample.querySelector('.card__delete-button').addEventListener('click',()=> {
-    setCard.acts.remove(cardExample);
+    // передаем id карточки и саму карточку
+    setCard.acts.remove(elem._id,cardExample);
   })
   // событие - поставить лайк
   cardLikeBtn.addEventListener('click',()=> {
@@ -35,8 +37,10 @@ export function createCard(setCard,elem) {
 
 // @todo: Функция удаления карточки
 
-export function removeCard(card) {
+export function removeCard(idCard,card) {
   card.remove();
+
+  return idCard
 }
 
 // @todo: Функция лайка карточки

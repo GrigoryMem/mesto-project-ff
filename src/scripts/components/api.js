@@ -52,16 +52,21 @@ export function postData(data) {
 }).then(handleResponse)
 }
 
-export function deleteCard(cardData,cardId) {
+export function deleteCard(cardId) {
   return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-26/cards/${cardId}`,{
     method: 'DELETE',
     headers: {
       authorization: token,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(cardData)
+ 
   }).then(handleResponse)
 }
+
+const buttonDelete = document.querySelectorAll('.card__delete-button')
+
+
+
 
 function handleResponse(res) {
   if(res.ok){

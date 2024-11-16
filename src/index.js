@@ -61,6 +61,9 @@ const settingCard = {
           name:elem.name
         }
     }
+  },
+  requests: {
+    delete:deleteCard
   }
 }
 
@@ -115,7 +118,7 @@ btnAddCard.addEventListener('click',()=>{
 // работа с формой карточки
 formAddCard.addEventListener('submit',(event)=>{
   event.preventDefault();
-  // addNewCard(formAddCard,settingCard);
+ 
   const valuesCard = {
     "name":formAddCard.elements['place-name'].value,
     "link":formAddCard.elements['link'].value
@@ -166,14 +169,17 @@ function renderCards(getData,settingCard) {
     //  проходимся по массиву с данными для карточек... 
     cards.forEach((item)=>{
       const card = createCard(settingCard,item)
+      const cardDeleteBtn = card.querySelector('.card__delete-button');
+      // console.log(item._id)
       if(item){
         // вставляем заполненные карточки на страницу
         if(item.owner._id !== "f5bbbfc6daa06470f1f78ec3") {
           // если я не являюсь владельцем карточки, удаляем кнопку корзины
           //  т.к. я не могу удалять чужие карточки
-          card.querySelector('.card__delete-button').classList.add('card__delete-button_type_hidden');
+          cardDeleteBtn.classList.add('card__delete-button_type_hidden');
          
         }
+  
         // вставляем заполненные карточки на страницу
         placesList.append(card)
       }
@@ -189,8 +195,14 @@ function addNewCard(formData,setCard){
  
 }
 
-  
-
+//   let cardForDelete = {};
+// const handleDeletedCard = (cardId,card) =>{
+//   cardForDelete = {
+//     id: cardId,
+//     card
+//   }
+//   openModal()
+// }
 
 
 
