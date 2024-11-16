@@ -15,5 +15,6 @@
 @import url('../blocks/popup/__label/popup__label.css');
 @import url('../blocks/popup/__button/_disabled/popup__button_disabled.css');
 @import url('../blocks/card/__like/card__like.css');
-@import url('../blocks/card/__like/-count/card__like-count.css')
+@import url('../blocks/card/__like/-count/card__like-count.css');
+@import url('../blocks/card/__delete-button/_type_hidden/card__delete-button_type_hidden.css');
 

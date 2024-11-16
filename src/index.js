@@ -150,15 +150,16 @@ function openCard(card,image) {
 }
 //  для отображения карточек и профиля
 function renderCards(getData,settingCard) {
-  const dataProfile = getData(profilePATH);
+  const dataProfile = getData(profilePATH);// получаем данные для профиля
  
-  const dataCards = getData(pathCards);
+  const dataCards = getData(pathCards); // получаем данные для карточек
   Promise.all([
     dataProfile,
     dataCards
   ]).then((data)=>{
     
     const profile = data[0]; // наш профиль
+    console.log(profile._id)
     const cards = data[1]; // данные с карточками
     // заполняем профиль данными
     profileTitle.textContent = profile.name;
@@ -166,10 +167,20 @@ function renderCards(getData,settingCard) {
     profileImage.style.backgroundImage = `url(${profile.avatar})`;
     //  проходимся по массиву с данными для карточек... 
     cards.forEach((item)=>{
+      const card = createCard(settingCard,item)
       if(item){
         // вставляем заполненные карточки на страницу
-        placesList.append(createCard(settingCard,item))
+        if(item.owner._id !== "f5bbbfc6daa06470f1f78ec3") {
+          // если я не являюсь владельцем карточки, удаляем кнопку корзины
+          //  т.к. я не могу удалять чужие карточки
+          card.querySelector('.card__delete-button').classList.add('card__delete-button_type_hidden');
+         
+        }
+        // вставляем заполненные карточки на страницу
+        placesList.append(card)
       }
+      
+      
     })
   }).catch((err)=>{
     return err
