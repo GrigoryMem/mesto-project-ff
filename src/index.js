@@ -1,11 +1,10 @@
 import './pages/index.css'; // добавьте импорт главного файла стилей 
 import { createCard,removeCard,likeCard } from'./scripts/components/card'; // функции для работы с карточками
-import { initialCards } from './scripts/components/cards'; //данные карточек
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
-import { handlFormSubmProf, autoFillFormProf } from './scripts/components/form';
+import { autoFillFormProf } from './scripts/components/form';
 import {clearValidation} from './scripts/components/validation';
 import {enableValidation} from './scripts/components/validation';
-import { getData, pathData,postData } from "./scripts/components/api";
+import { getData, pathData,postData,deleteCard } from "./scripts/components/api";
 import  './scripts/components/api';
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
@@ -159,7 +158,6 @@ function renderCards(getData,settingCard) {
   ]).then((data)=>{
     
     const profile = data[0]; // наш профиль
-    console.log(profile._id)
     const cards = data[1]; // данные с карточками
     // заполняем профиль данными
     profileTitle.textContent = profile.name;
@@ -179,8 +177,6 @@ function renderCards(getData,settingCard) {
         // вставляем заполненные карточки на страницу
         placesList.append(card)
       }
-      
-      
     })
   }).catch((err)=>{
     return err

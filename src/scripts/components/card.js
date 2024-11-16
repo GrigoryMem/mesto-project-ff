@@ -20,7 +20,7 @@ export function createCard(setCard,elem) {
   }
   // событие - удаление карточки
   cardExample.querySelector('.card__delete-button').addEventListener('click',()=> {
-    removeCard(cardExample);
+    setCard.acts.remove(cardExample);
   })
   // событие - поставить лайк
   cardLikeBtn.addEventListener('click',()=> {
