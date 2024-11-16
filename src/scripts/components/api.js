@@ -35,17 +35,26 @@ export function pathData (data) {
  
 }
 
-export function postCard(data) {
-  return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-26/users/me',{
-    method: 'POST',
-    headers: {
-      autohorization: token,
-      'Content-Type': 'application/json'
-    },
-    body:JSON.stringify(data)
-  })
-  .then(handleResponse)
+let card = {
+  "name": "Байкал",
+  "link": "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"
 }
+
+
+export function postData(data) {
+  return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-26/cards', {
+  method: 'POST',
+  headers: {
+    authorization: token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+}).then(handleResponse)
+}
+// postData(card).then((card)=>{
+//   console.log(card)
+// })
+
 
 function handleResponse(res) {
   if(res.ok){

@@ -5,7 +5,7 @@ import { openModal, closeModal } from './scripts/components/modal'; // откы�
 import { handlFormSubmProf, autoFillFormProf } from './scripts/components/form';
 import {clearValidation} from './scripts/components/validation';
 import {enableValidation} from './scripts/components/validation';
-import { getData, pathData,postCard } from "./scripts/components/api";
+import { getData, pathData,postData } from "./scripts/components/api";
 import  './scripts/components/api';
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
@@ -16,20 +16,20 @@ const popupEdit =document.querySelector('.popup_type_edit');
 const profile = document.querySelector('.profile');
 // данные формы заполнения профиля
 const formEditPrf = document.forms['edit-profile'];
-const profileInputs = formEditPrf.querySelectorAll('.popup__input');
-
-
 // кнопка доб карточки 
 const btnAddCard = document.querySelector('.profile__add-button');
 const popupCard = document.querySelector('.popup_type_new-card');
 // форма добав карточки
 const formAddCard = document.forms["new-place"];
+const inputNameCard= formAddCard.querySelector('#place-input');
+const inputLinkCard = formAddCard.querySelector('.popup__input_type_url');
+
 //  поля для открытия картинки
 const popupViewImgCard = document.querySelector('.popup_type_image'); // попап с картинкой
 const popCardImg = popupViewImgCard.querySelector('.popup__image'); 
 const popImgCaptionCard = popupViewImgCard.querySelector('.popup__caption'); 
 const forms = Array.from(document.forms);
-// профиль пользователя
+// профиль пользователя - данные полей формы редак профиля
 const profileTitle = document.querySelector('.profile__title');
 const profileDesc = document.querySelector('.profile__description');
 const profileImage = document.querySelector('.profile__image');
@@ -92,15 +92,13 @@ formEditPrf.addEventListener('submit',(event)=>{
       about:formEditPrf.elements.description.value
     }
     // изучи объект about 
-
+    // заполняем профиль данными формы
   pathData(valuesForm)
     .then((formData)=>{
       console.log(formData)
       console.log(formData)
       profileTitle.textContent = formData.name;
-       profileDesc.textContent = formData.about;
-
-       
+      profileDesc.textContent = formData.about;
     })
   closeModal(popupEdit);
 });
@@ -118,7 +116,17 @@ btnAddCard.addEventListener('click',()=>{
 // работа с формой карточки
 formAddCard.addEventListener('submit',(event)=>{
   event.preventDefault();
-  addNewCard(formAddCard,settingCard);
+  // addNewCard(formAddCard,settingCard);
+  const valuesCard = {
+    "name":formAddCard.elements['place-name'].value,
+    "link":formAddCard.elements['link'].value
+  }
+
+  postData(valuesCard).then((valuesCard)=>{
+     addNewCard(valuesCard,settingCard);
+     console.log(valuesCard)
+  })
+  formAddCard.reset();
   closeModal(popupCard);
 })
 
@@ -169,13 +177,10 @@ function renderCards(getData,settingCard) {
   })
 }
 //  для формы добавления карточки
-function addNewCard(form,setCard){
-  const formData = {
-    name: form.elements["place-name"].value,
-    link: form.elements["link"].value
-  }
+function addNewCard(formData,setCard){
+ 
   placesList.prepend(createCard(setCard,formData));
-  form.reset();
+ 
 }
 
   
