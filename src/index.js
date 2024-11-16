@@ -124,7 +124,6 @@ formAddCard.addEventListener('submit',(event)=>{
 
   postData(valuesCard).then((valuesCard)=>{
      addNewCard(valuesCard,settingCard);
-     console.log(valuesCard)
   })
   formAddCard.reset();
   closeModal(popupCard);
