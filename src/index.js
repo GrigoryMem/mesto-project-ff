@@ -6,6 +6,7 @@ import {clearValidation} from './scripts/components/validation';
 import {enableValidation} from './scripts/components/validation';
 import { getData, pathData,postData,deleteCard } from "./scripts/components/api";
 import  './scripts/components/api';
+import './scripts/components/card';
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
 const btnEditPrfl = document.querySelector('.profile__edit-button');// кнопка редактир проф
@@ -20,18 +21,18 @@ const btnAddCard = document.querySelector('.profile__add-button');
 const popupCard = document.querySelector('.popup_type_new-card');
 // форма добав карточки
 const formAddCard = document.forms["new-place"];
-const inputNameCard= formAddCard.querySelector('#place-input');
-const inputLinkCard = formAddCard.querySelector('.popup__input_type_url');
-
+//  форма подтв удаления карточки
+const formConfirmDelCard = document.forms["confirm-delete"];
 //  поля для открытия картинки
 const popupViewImgCard = document.querySelector('.popup_type_image'); // попап с картинкой
 const popCardImg = popupViewImgCard.querySelector('.popup__image'); 
 const popImgCaptionCard = popupViewImgCard.querySelector('.popup__caption'); 
-const forms = Array.from(document.forms);
+
 // профиль пользователя - данные полей формы редак профиля
 const profileTitle = document.querySelector('.profile__title');
 const profileDesc = document.querySelector('.profile__description');
 const profileImage = document.querySelector('.profile__image');
+
 // пути
 const profilePATH = 'users/me';
 const pathCards = 'cards';
@@ -62,9 +63,14 @@ const settingCard = {
         }
     }
   },
-  requests: {
-    delete:deleteCard
-  }
+  modal: {
+    openModal,
+    closeModal,
+    window:document.querySelector('.popup_type_confirm-delete')
+  },
+  handleDeleteCard,
+  handleDeleteCardSubmit,
+  deleteCard
 }
 
 
@@ -170,7 +176,7 @@ function renderCards(getData,settingCard) {
     cards.forEach((item)=>{
       const card = createCard(settingCard,item)
       const cardDeleteBtn = card.querySelector('.card__delete-button');
-      // console.log(item._id)
+    
       if(item){
         // вставляем заполненные карточки на страницу
         if(item.owner._id !== "f5bbbfc6daa06470f1f78ec3") {
@@ -179,6 +185,13 @@ function renderCards(getData,settingCard) {
           cardDeleteBtn.classList.add('card__delete-button_type_hidden');
          
         }
+        if(item.owner._id === "f5bbbfc6daa06470f1f78ec3") {
+          // если я не являюсь владельцем карточки, удаляем кнопку корзины
+          //  т.к. я не могу удалять чужие карточки
+           console.log(item)
+         
+        }
+       
   
         // вставляем заполненные карточки на страницу
         placesList.append(card)
@@ -195,16 +208,46 @@ function addNewCard(formData,setCard){
  
 }
 
-//   let cardForDelete = {};
-// const handleDeletedCard = (cardId,card) =>{
-//   cardForDelete = {
-//     id: cardId,
-//     card
-//   }
-//   openModal()
-// }
+
+const deleteBtns =  document.querySelectorAll('.card__delete-button');
+
+deleteBtns.forEach((btn)=>{
+ console.log(btn)
+})
 
 
+
+function handleDeleteCard(window,cardId,cardElement,cardForDelete) {
+  
+  cardForDelete.id = cardId;
+  
+  cardForDelete.cardElement = cardElement;
+  openModal(window)
+
+
+};
+
+
+
+
+const handleDeleteCardSubmit =(event)=>{
+  event.preventDefault();
+  if(!cardForDelete.cardElement) return;
+  deleteCard(cardId)
+    .then(()=>{
+      cardForDelete.cardElement.remove();
+    closeModal(formConfirmDelCard);
+    cardForDelete = {};
+  })
+  .catch((err) => {})
+}
+
+
+// formConfirmDelCard.addEventListener('submit',(event)=>{
+//   event.preventDefault();
+//   handleDeleteCardSubmit(event); 
+//    console.log('hi')
+// })
 
 
 
