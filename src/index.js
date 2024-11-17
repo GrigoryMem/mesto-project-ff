@@ -33,7 +33,7 @@ const profileTitle = document.querySelector('.profile__title');
 const profileDesc = document.querySelector('.profile__description');
 const profileImage = document.querySelector('.profile__image');
 // работа с аватаром 
-const avatar = document.querySelector('.profile__image');
+
 const popupUpdateAvatar = document.querySelector('.popup_type_update-avatar');
 const formUpdateAvatar = document.forms['update-avatar'];
 // пути
@@ -257,7 +257,7 @@ const handleDeleteCardSubmit =(event)=>{
 
 
 // открываем попап изменения аватара
-avatar.addEventListener('click',()=>{
+profileImage.addEventListener('click',()=>{
   openModal(popupUpdateAvatar);
   clearValidation(formUpdateAvatar,configForm);
   formUpdateAvatar.reset();
@@ -270,17 +270,18 @@ function handleUpdateavatarSubmit(event) {
 
   const valuesAvatar= {
 
-    "link":formUpdateAvatar.elements['link'].value
+    "avatar":formUpdateAvatar.elements['link'].value
   }
   // console.log(valuesAvatar.link)
   reqPatchAvatar(valuesAvatar)
     .then((res)=>{
       console.log(res)
+      profileImage.style.backgroundImage = `url(${res.avatar})`;
     })
     .catch((err)=>{
       console.log(err)
     })
-  // closeModal(popupUpdateAvatar);
+  closeModal(popupUpdateAvatar);
 }
 
 
