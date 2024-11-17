@@ -1,10 +1,10 @@
 import './pages/index.css'; // добавьте импорт главного файла стилей 
-import { createCard,removeCard,likeCard } from'./scripts/components/card'; // функции для работы с карточками
+import { createCard,removeCard,likeCard} from'./scripts/components/card'; // функции для работы с карточками
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 import { autoFillFormProf } from './scripts/components/form';
 import {clearValidation} from './scripts/components/validation';
 import {enableValidation} from './scripts/components/validation';
-import { getData, pathData,postData,deleteCard } from "./scripts/components/api";
+import { getData, pathData,postData,deleteCard,postLike} from "./scripts/components/api";
 import  './scripts/components/api';
 import './scripts/components/card';
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
@@ -70,7 +70,9 @@ const settingCard = {
   },
   handleDeleteCard,
   handleDeleteCardSubmit,
-  deleteCard
+  deleteCard,
+  postLike,
+ 
 }
 
 
@@ -188,7 +190,7 @@ function renderCards(getData,settingCard) {
         if(item.owner._id === "f5bbbfc6daa06470f1f78ec3") {
           // если я не являюсь владельцем карточки, удаляем кнопку корзины
           //  т.к. я не могу удалять чужие карточки
-           console.log(item)
+          
          
         }
        

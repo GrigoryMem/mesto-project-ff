@@ -15,6 +15,17 @@ export function createCard(setCard,elem) {
   cardExmpImg.src = setCard.acts.getElem(elem).link;
   cardExample.querySelector('.card__title').textContent = setCard.acts.getElem(elem).name;
   cardExmpImg.alt = setCard.acts.getElem(elem).name;
+  // работа с лайком карточки
+  const cardDataLikes = elem.likes
+  const isLiked = cardDataLikes.some((like)=>{
+      if(like._id === elem.owner._id){
+        return true
+      }
+  })
+  if(isLiked){
+    cardLikeBtn.classList.add('card__like-button_is-active');
+  }
+    console.log(elem)
   // вставляем количество лайков
  
   if(elem.likes.length > 0) {
@@ -30,7 +41,7 @@ export function createCard(setCard,elem) {
   setCard.modal.window.addEventListener('submit',(event)=>{
     event.preventDefault();
     if(!cardForDelete.cardElement) return;
-    console.log(elem._id)
+   
     setCard.deleteCard(elem._id)
       .then(()=>{
         cardForDelete.cardElement.remove();
@@ -42,8 +53,28 @@ export function createCard(setCard,elem) {
     })
   })
   // событие - поставить лайк
+
   cardLikeBtn.addEventListener('click',()=> {
-    setCard.acts.like(cardLikeBtn) // лайк карточки
+  
+    
+    setCard.postLike(elem._id)
+      .then((res)=>{
+        
+        res.likes.some((like)=>{
+     
+          if(!like._id === res.owner._id){
+             res.likes.push(res.likes.owner)
+            
+          }
+        })
+        return res
+      }).then((res)=>{
+        console.log(res.likes)
+        cardLikeCount.textContent = res.likes.length;
+        cardLikeBtn.classList.add('card__like-button_is-active');
+      })
+     
+     
   })
   // cобытие открыть картинку
   image.addEventListener('click',()=>{

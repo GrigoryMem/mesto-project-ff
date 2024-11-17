@@ -63,7 +63,21 @@ export function deleteCard(cardId) {
   }).then(handleResponse)
 }
 
-const buttonDelete = document.querySelectorAll('.card__delete-button')
+
+export function postLike(cardId,data) {
+  return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-26/cards/likes/${cardId}`,{
+    method: 'PUT',
+    headers: {
+      authorization: token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+ 
+  }).then(handleResponse)
+}
+
+
+
 
 
 
