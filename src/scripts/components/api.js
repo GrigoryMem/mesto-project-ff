@@ -76,6 +76,19 @@ export function postLike(cardId,data) {
   }).then(handleResponse)
 }
 
+export function reqDelLike(cardId,data) {
+  return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-26/cards/likes/${cardId}`,{
+    method: 'DELETE',
+    headers: {
+      authorization: token,
+      'Content-Type': 'application/json'
+     },
+    body: JSON.stringify(data)
+ 
+ 
+  }).then(handleResponse)
+}
+
 
 
 
