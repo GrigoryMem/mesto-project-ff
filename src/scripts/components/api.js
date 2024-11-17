@@ -102,11 +102,21 @@ export function reqPatchAvatar(data) {
   body: JSON.stringify(data)
 }).then(handleResponse)
     
- 
- 
 }
 
-
+export function reqCheckHEAD() {
+  return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-26/users/me/avatar', {
+    method: 'HEAD',
+    headers: {
+      authorization: token,
+      'Content-Type': 'application/json'
+    },
+  })
+  .then(response => {
+    console.log(response.status)
+  })
+  .catch(error => console.error(error))
+}
 
 
 

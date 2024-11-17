@@ -4,7 +4,7 @@ import { openModal, closeModal } from './scripts/components/modal'; // откы�
 import { autoFillFormProf } from './scripts/components/form';
 import {clearValidation} from './scripts/components/validation';
 import {enableValidation} from './scripts/components/validation';
-import { getData, pathData,postData,deleteCard,postLike,reqDelLike,reqPatchAvatar} from "./scripts/components/api";
+import { getData, pathData,postData,deleteCard,postLike,reqDelLike,reqPatchAvatar,reqCheckHEAD} from "./scripts/components/api";
 import  './scripts/components/api';
 import './scripts/components/card';
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
@@ -36,6 +36,7 @@ const profileImage = document.querySelector('.profile__image');
 
 const popupUpdateAvatar = document.querySelector('.popup_type_update-avatar');
 const formUpdateAvatar = document.forms['update-avatar'];
+const savUpdAvat = formUpdateAvatar.querySelector('.popup__button')
 // пути
 const profilePATH = 'users/me';
 const pathCards = 'cards';
@@ -98,9 +99,11 @@ btnEditPrfl.addEventListener('click',() => {
   
 
 })
+
 //  сохранение данных формы профиля
 formEditPrf.addEventListener('submit',(event)=>{
   event.preventDefault();
+  showLoadMessage(formEditPrf)
     const valuesForm = {
       name:formEditPrf.elements.name.value,
       about:formEditPrf.elements.description.value
@@ -109,8 +112,7 @@ formEditPrf.addEventListener('submit',(event)=>{
     // заполняем профиль данными формы
   pathData(valuesForm)
     .then((formData)=>{
-      console.log(formData)
-      console.log(formData)
+      saveInfo(formEditPrf);
       profileTitle.textContent = formData.name;
       profileDesc.textContent = formData.about;
     })
@@ -128,17 +130,21 @@ btnAddCard.addEventListener('click',()=>{
     
 });
 // работа с формой карточки
+
+
 formAddCard.addEventListener('submit',(event)=>{
   event.preventDefault();
- 
+  showLoadMessage(formAddCard)
   const valuesCard = {
     "name":formAddCard.elements['place-name'].value,
     "link":formAddCard.elements['link'].value
   }
 
-  postData(valuesCard).then((valuesCard)=>{
-     addNewCard(valuesCard,settingCard);
-  })
+  postData(valuesCard)
+    .then((valuesCard)=>{
+      saveInfo(formAddCard);
+      addNewCard(valuesCard,settingCard);
+    })
   formAddCard.reset();
   closeModal(popupCard);
 })
@@ -255,7 +261,6 @@ const handleDeleteCardSubmit =(event)=>{
 //    console.log('hi')
 // })
 
-
 // открываем попап изменения аватара
 profileImage.addEventListener('click',()=>{
   openModal(popupUpdateAvatar);
@@ -267,7 +272,7 @@ formUpdateAvatar.addEventListener('submit',handleUpdateavatarSubmit)
 
 function handleUpdateavatarSubmit(event) {
   event.preventDefault();
-
+  showLoadMessage(formUpdateAvatar)
   const valuesAvatar= {
 
     "avatar":formUpdateAvatar.elements['link'].value
@@ -275,16 +280,30 @@ function handleUpdateavatarSubmit(event) {
   // console.log(valuesAvatar.link)
   reqPatchAvatar(valuesAvatar)
     .then((res)=>{
-      console.log(res)
+      saveInfo(formUpdateAvatar);
       profileImage.style.backgroundImage = `url(${res.avatar})`;
     })
     .catch((err)=>{
       console.log(err)
     })
+    reqCheckHEAD()
+      
   closeModal(popupUpdateAvatar);
 }
 
 
+
+function saveInfo(form,style=".popup__button") {
+  const button = form.querySelector(style);
+  button.disabled = false;
+  button.textContent = 'Сохранить';
+}
+
+function showLoadMessage(form,style=".popup__button") {
+  const button = form.querySelector(style);
+  button.disabled = true;
+  button.textContent = 'Сохранение...';
+}
 
 
 
