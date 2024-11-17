@@ -89,15 +89,18 @@ export function reqDelLike(cardId) {
   }).then(handleResponse)
 }
 
-export function reqPatchAvatar(avatar,data) {
-  return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-26/users/me/${avatar}`,{
-    method: 'PATCH',
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }).then(handleResponse)
+
+
+export function reqPatchAvatar(data) {
+  
+  return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-26/users/me/avatar', {
+  method: 'PATCH',
+  headers: {
+    authorization: token,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+}).then(handleResponse)
     
  
  
@@ -109,6 +112,7 @@ export function reqPatchAvatar(avatar,data) {
 
 
 function handleResponse(res) {
+  
   if(res.ok){
     return res.json();
   }
