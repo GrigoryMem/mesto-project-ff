@@ -25,12 +25,14 @@ export function createCard(setCard,elem) {
   })
     if(isLiked){
       cardLikeBtn.classList.add('card__like-button_is-active');
+     }else{
+      cardLikeBtn.classList.remove('card__like-button_is-active');
      }
    
+     if( elem.owner._id === "f5bbbfc6daa06470f1f78ec3"){
+      console.log(elem)
+    }
 
-  if(elem.owner._id === "f5bbbfc6daa06470f1f78ec3"){
-    console.log( elem.likes.length)
-  }
  cardLikeCount.textContent = elem.likes.length;
   
   // событие - удаление карточки
@@ -67,16 +69,17 @@ export function createCard(setCard,elem) {
         res.likes.some((like)=>{
      
           if(!like._id === res.owner._id){
-             res.likes.push(res.likes.owner)
+             res.likes.push(res.owner)
             
           }
         })
-        console.log(res)
-        return res.likes.length;
+        console.log(res.likes,res.likes.length, "like",res.owner)
+        
+        return res;
       })
       .then((res)=>{
        
-        cardLikeCount.textContent = res;
+        cardLikeCount.textContent = res.likes.length;
         cardLikeBtn.classList.add('card__like-button_is-active');
       })
 
@@ -86,18 +89,21 @@ export function createCard(setCard,elem) {
 
         setCard.reqDelLike(elem._id)
           .then((res)=>{
-          
-            res.likes.find((like,index)=>{
+           
+            res.likes.some((like,index)=>{
               if(like._id === res.owner._id){
                 res.likes.splice(index,1);
+                
               }
             })
             
-           
+            console.log(res.likes,res.likes.length,'nolike',res.owner)
+            
             return res
            
           })
           .then((res)=>{
+            
            cardLikeCount.textContent = res.likes.length;
             cardLikeBtn.classList.remove('card__like-button_is-active');
           })

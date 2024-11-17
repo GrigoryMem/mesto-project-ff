@@ -76,19 +76,32 @@ export function postLike(cardId,data) {
   }).then(handleResponse)
 }
 
-export function reqDelLike(cardId,data) {
+export function reqDelLike(cardId) {
   return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-26/cards/likes/${cardId}`,{
     method: 'DELETE',
     headers: {
       authorization: token,
       'Content-Type': 'application/json'
-     },
-    body: JSON.stringify(data)
+     }
+    
  
  
   }).then(handleResponse)
 }
 
+export function reqPatchAvatar(avatar,data) {
+  return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-26/users/me/${avatar}`,{
+    method: 'PATCH',
+    headers: {
+      authorization: token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(handleResponse)
+    
+ 
+ 
+}
 
 
 
