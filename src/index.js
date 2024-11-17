@@ -4,7 +4,7 @@ import { openModal, closeModal } from './scripts/components/modal'; // откы�
 import { autoFillFormProf } from './scripts/components/form';
 import {clearValidation} from './scripts/components/validation';
 import {enableValidation} from './scripts/components/validation';
-import { getData, pathData,postData,deleteCard,postLike} from "./scripts/components/api";
+import { getData, pathData,postData,deleteCard,postLike,reqDelLike} from "./scripts/components/api";
 import  './scripts/components/api';
 import './scripts/components/card';
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
@@ -72,6 +72,7 @@ const settingCard = {
   handleDeleteCardSubmit,
   deleteCard,
   postLike,
+  reqDelLike
  
 }
 

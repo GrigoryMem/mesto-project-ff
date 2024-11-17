@@ -1,8 +1,7 @@
 export function createCard(setCard,elem) {
   // elem  JSON объект с сервера
-  // if(elem.owner._id === ){
-
-  // }
+  
+  // console.log(elem)
   // клонировать шаблон кароточки - создал экземпляр карточки
   const cardTemplateClone =  setCard.template.cloneNode(true);
   const cardExample = cardTemplateClone.querySelector('.card');
@@ -16,23 +15,24 @@ export function createCard(setCard,elem) {
   cardExample.querySelector('.card__title').textContent = setCard.acts.getElem(elem).name;
   cardExmpImg.alt = setCard.acts.getElem(elem).name;
   // работа с лайком карточки
+  // сравнивать есть ли ID пользователя в массиве лайков у карточки. 
+  // Если есть - красим лайк, иначе нет
   const cardDataLikes = elem.likes
   const isLiked = cardDataLikes.some((like)=>{
       if(like._id === elem.owner._id){
         return true
       }
   })
-  if(isLiked){
-    cardLikeBtn.classList.add('card__like-button_is-active');
+    if(isLiked){
+      cardLikeBtn.classList.add('card__like-button_is-active');
+     }
+   
+
+  if(elem.owner._id === "f5bbbfc6daa06470f1f78ec3"){
+    console.log( elem.likes.length)
   }
-    console.log(elem)
-  // вставляем количество лайков
- 
-  if(elem.likes.length > 0) {
-    cardLikeCount.textContent = elem.likes.length;
-  } else {
-    cardLikeCount.textContent = 0;
-  }
+ cardLikeCount.textContent = elem.likes.length;
+  
   // событие - удаление карточки
   let cardForDelete = {};
   cardDeleteBtn.addEventListener('click',()=> {
@@ -49,15 +49,19 @@ export function createCard(setCard,elem) {
       cardForDelete = {};
     })
     .catch((err) => {
-      console.log(err)
+      return err
     })
   })
-  // событие - поставить лайк
 
+  // событие - поставить лайк
+ 
   cardLikeBtn.addEventListener('click',()=> {
+
+   
   
-    
-    setCard.postLike(elem._id)
+    if(!cardLikeBtn.classList.contains('card__like-button_is-active')){
+      // запрос поставить лайк
+      setCard.postLike(elem._id)
       .then((res)=>{
         
         res.likes.some((like)=>{
@@ -67,15 +71,42 @@ export function createCard(setCard,elem) {
             
           }
         })
-        return res
-      }).then((res)=>{
-        console.log(res.likes)
-        cardLikeCount.textContent = res.likes.length;
+        console.log(res)
+        return res.likes.length;
+      })
+      .then((res)=>{
+       
+        cardLikeCount.textContent = res;
         cardLikeBtn.classList.add('card__like-button_is-active');
       })
-     
-     
-  })
+
+    } 
+    if(cardLikeBtn.classList.contains('card__like-button_is-active')){
+        // запрос снять лайк
+
+        setCard.reqDelLike(elem._id)
+          .then((res)=>{
+          
+            res.likes.find((like,index)=>{
+              if(like._id === res.owner._id){
+                res.likes.splice(index,1);
+              }
+            })
+            
+            console.log(res)
+            // return res
+            cardLikeCount.textContent = res.likes.length;
+            cardLikeBtn.classList.remove('card__like-button_is-active');
+          })
+          .then((res)=>{
+           
+          
+            cardLikeBtn.classList.remove('card__like-button_is-active');
+          })
+    }
+})
+
+
   // cобытие открыть картинку
   image.addEventListener('click',()=>{
     setCard.acts.open(cardExample,image) // просмотр картинки
