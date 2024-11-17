@@ -33,6 +33,7 @@ const profileTitle = document.querySelector('.profile__title');
 const profileDesc = document.querySelector('.profile__description');
 const profileImage = document.querySelector('.profile__image');
 
+const avatar = document.querySelector('.profile__image');
 // пути
 const profilePATH = 'users/me';
 const pathCards = 'cards';
@@ -254,7 +255,9 @@ const handleDeleteCardSubmit =(event)=>{
 
 
 
-
+avatar.addEventListener('click',()=>{
+  console.log("fff")
+})
 
 
 
