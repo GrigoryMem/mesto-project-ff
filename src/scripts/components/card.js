@@ -93,14 +93,12 @@ export function createCard(setCard,elem) {
               }
             })
             
-            console.log(res)
-            // return res
-            cardLikeCount.textContent = res.likes.length;
-            cardLikeBtn.classList.remove('card__like-button_is-active');
+           
+            return res
+           
           })
           .then((res)=>{
-           
-          
+           cardLikeCount.textContent = res.likes.length;
             cardLikeBtn.classList.remove('card__like-button_is-active');
           })
     }
