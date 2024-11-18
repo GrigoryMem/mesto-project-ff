@@ -19,7 +19,10 @@ export function createCard(setCard,elem) {
   // Если есть - красим лайк, иначе нет
   const cardDataLikes = elem.likes
   const isLiked = cardDataLikes.some((like)=>{
-      if(like._id === elem.owner._id){
+
+    console.log(like._id , elem.owner._id)
+      if(like._id === "f5bbbfc6daa06470f1f78ec3"){
+        
         return true
       }
   })
@@ -29,9 +32,7 @@ export function createCard(setCard,elem) {
       cardLikeBtn.classList.remove('card__like-button_is-active');
      }
    
-     if( elem.owner._id === "f5bbbfc6daa06470f1f78ec3"){
-      console.log(elem)
-    }
+  
 
  cardLikeCount.textContent = elem.likes.length;
   
@@ -58,55 +59,27 @@ export function createCard(setCard,elem) {
   // событие - поставить лайк
  
   cardLikeBtn.addEventListener('click',()=> {
-
-   
-  
     if(!cardLikeBtn.classList.contains('card__like-button_is-active')){
       // запрос поставить лайк
       setCard.postLike(elem._id)
       .then((res)=>{
-        
-        res.likes.some((like)=>{
-     
-          if(!like._id === res.owner._id){
-             res.likes.push(res.owner)
-            
-          }
-        })
-        console.log(res.likes,res.likes.length, "like",res.owner)
-        
-        return res;
-      })
-      .then((res)=>{
-       
+        console.log(res)
         cardLikeCount.textContent = res.likes.length;
         cardLikeBtn.classList.add('card__like-button_is-active');
       })
-
+      
+      
     } 
     if(cardLikeBtn.classList.contains('card__like-button_is-active')){
         // запрос снять лайк
-
+        
         setCard.reqDelLike(elem._id)
           .then((res)=>{
-           
-            res.likes.some((like,index)=>{
-              if(like._id === res.owner._id){
-                res.likes.splice(index,1);
-                
-              }
-            })
-            
-            console.log(res.likes,res.likes.length,'nolike',res.owner)
-            
-            return res
-           
-          })
-          .then((res)=>{
-            
-           cardLikeCount.textContent = res.likes.length;
+            console.log(res)
+            cardLikeCount.textContent = res.likes.length;
             cardLikeBtn.classList.remove('card__like-button_is-active');
-          })
+           })
+          
     }
 })
 
