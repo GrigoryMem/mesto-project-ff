@@ -4,7 +4,7 @@ import { openModal, closeModal } from './scripts/components/modal'; // откы�
 import { autoFillFormProf } from './scripts/components/form';
 import {clearValidation} from './scripts/components/validation';
 import {enableValidation} from './scripts/components/validation';
-import { getData, pathData,postData,reqDeleteCard,reqPostLike,reqDelLike,reqPatchAvatar,reqCheckHEAD} from "./scripts/components/api";
+import { reqGetData, pathData,postData,reqDeleteCard,reqPostLike,reqDelLike,reqPatchAvatar,reqCheckHEAD} from "./scripts/components/api";
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
 const btnEditPrfl = document.querySelector('.profile__edit-button');// кнопка редактир проф
@@ -38,8 +38,8 @@ const savUpdAvat = formUpdateAvatar.querySelector('.popup__button');
 // форма подтв для удаления карточки
 const formConfirmDelcard = document.querySelector('.popup_type_confirm-delete')
 // пути
-const profilePATH = 'users/me';
-const pathCards = 'cards';
+const profilePATH = '/users/me';
+const pathCards = '/cards';
 
 // параметры для валидации
 const configForm = {
@@ -104,7 +104,7 @@ function handleDeleteCardSubmit(event) {
 formConfirmDelcard.addEventListener('submit',handleDeleteCardSubmit);
 
 //  Вывести карточки на страницу
-renderCards(getData,settingCard); // отобразить карточки на странице
+renderCards(reqGetData,settingCard); // отобразить карточки на странице
 
 // Работа модальных окон
 //   МО редактировать профиль
@@ -191,10 +191,10 @@ function openCard(card,image) {
   openModal(popupViewImgCard);
 }
 //  для отображения карточек и профиля
-function renderCards(getData,settingCard) {
-  const dataProfile = getData(profilePATH);// получаем данные для профиля
+function renderCards(reqGetData,settingCard) {
+  const dataProfile = reqGetData(profilePATH);// получаем данные для профиля
  
-  const dataCards = getData(pathCards); // получаем данные для карточек
+  const dataCards = reqGetData(pathCards); // получаем данные для карточек
   Promise.all([
     dataProfile,
     dataCards

@@ -7,16 +7,9 @@ const config = {
   }
 }
 
-const PATH = 'https://mesto.nomoreparties.co/v1/';
-const id = 'wff-cohort-26/'
-const url = PATH+id;
-
-
-
-
-export function getData(path){
-    
-    const newUrl = url+path;
+export function reqGetData(path){
+   
+    const newUrl = config.baseUrl+path;
     
     return fetch(newUrl,{
       method: 'GET',
@@ -30,8 +23,8 @@ export function getData(path){
 
 
 export function pathData (data) {
-  // const newUrl = url+path;
-  return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-26/users/me', {
+  
+  return fetch(config.baseUrl +'/users/me', {
   method: 'PATCH',
   headers: {
     authorization: token,
@@ -43,7 +36,7 @@ export function pathData (data) {
 }
 
 export function postData(data) {
-  return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-26/cards', {
+  return fetch(config.baseUrl +'/cards', {
   method: 'POST',
   headers: {
     authorization: token,
@@ -54,7 +47,7 @@ export function postData(data) {
 }
 
 export function reqDeleteCard(cardId) {
-  return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-26/cards/${cardId}`,{
+  return fetch(`${config.baseUrl}/cards/${cardId}`,{
     method: 'DELETE',
     headers: {
       authorization: token,
@@ -66,7 +59,7 @@ export function reqDeleteCard(cardId) {
 
 
 export function reqPostLike(cardId,data) {
-  return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-26/cards/likes/${cardId}`,{
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`,{
     method: 'PUT',
     headers: {
       authorization: token,
@@ -78,7 +71,7 @@ export function reqPostLike(cardId,data) {
 }
 
 export function reqDelLike(cardId,data) {
-  return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-26/cards/likes/${cardId}`,{
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`,{
     method: 'DELETE',
     headers: {
       authorization: token,
@@ -100,7 +93,7 @@ export function reqDelLike(cardId,data) {
 
 export function reqPatchAvatar(data) {
   
-  return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-26/users/me/avatar', {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
   method: 'PATCH',
   headers: {
     authorization: token,
