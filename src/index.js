@@ -4,7 +4,7 @@ import { openModal, closeModal } from './scripts/components/modal'; // откы�
 import { autoFillFormProf } from './scripts/components/form';
 import {clearValidation} from './scripts/components/validation';
 import {enableValidation} from './scripts/components/validation';
-import { getData, pathData,postData,deleteCard,reqPostLike,reqDelLike,reqPatchAvatar,reqCheckHEAD} from "./scripts/components/api";
+import { getData, pathData,postData,reqDeleteCard,reqPostLike,reqDelLike,reqPatchAvatar,reqCheckHEAD} from "./scripts/components/api";
 import  './scripts/components/api';
 import './scripts/components/card';
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
@@ -36,7 +36,9 @@ const profileImage = document.querySelector('.profile__image');
 
 const popupUpdateAvatar = document.querySelector('.popup_type_update-avatar');
 const formUpdateAvatar = document.forms['update-avatar'];
-const savUpdAvat = formUpdateAvatar.querySelector('.popup__button')
+const savUpdAvat = formUpdateAvatar.querySelector('.popup__button');
+// форма подтв для удаления карточки
+const formConfirmDelcard = document.querySelector('.popup_type_confirm-delete')
 // пути
 const profilePATH = 'users/me';
 const pathCards = 'cards';
@@ -70,22 +72,38 @@ const settingCard = {
   modal: {
     openModal,
     closeModal,
-    window:document.querySelector('.popup_type_confirm-delete')
+  
   },
-  handleDeleteCard,
-  handleDeleteCardSubmit,
-  deleteCard,
+  reqDeleteCard,
   reqPostLike,
   reqDelLike,
   cardForDelete
 }
 let cardForDelete = {}
+
 function handleDeleteCard(cardId,cardElement,setCard) {
+  // как это происходит???
   cardForDelete.id = cardId;
   cardForDelete.cardElement = cardElement;
   setCard.modal.openModal(setCard. modal.window)
-};
+}
 
+function handleDeleteCardSubmit(event) {
+  event.preventDefault();
+  if(!cardForDelete.cardElement) return;
+ 
+  settingCard.reqDeleteCard(cardForDelete.id)
+    .then(()=>{
+      cardForDelete.cardElement.remove();
+      setCard.modal.closeModal(formConfirmDelcard);
+    cardForDelete = {};
+  })
+  .catch((err) => {
+    return err
+  })
+}
+
+formConfirmDelcard.addEventListener('submit',handleDeleteCardSubmit);
 
 //  Вывести карточки на страницу
 renderCards(getData,settingCard); // отобразить карточки на странице
@@ -148,6 +166,8 @@ formAddCard.addEventListener('submit',(event)=>{
     .then((valuesCard)=>{
       saveInfo(formAddCard);
       addNewCard(valuesCard,settingCard);
+      // для объекта удаления карточки
+      cardForDelete.cardId = valuesCard._id
     })
   formAddCard.reset();
   closeModal(popupCard);
@@ -238,17 +258,17 @@ deleteBtns.forEach((btn)=>{
 
 
 
-const handleDeleteCardSubmit =(event)=>{
-  event.preventDefault();
-  if(!cardForDelete.cardElement) return;
-  deleteCard(cardId)
-    .then(()=>{
-      cardForDelete.cardElement.remove();
-    closeModal(formConfirmDelCard);
-    cardForDelete = {};
-  })
-  .catch((err) => {})
-}
+// const handleDeleteCardSubmit =(event)=>{
+//   event.preventDefault();
+//   if(!cardForDelete.cardElement) return;
+//   deleteCard(cardId)
+//     .then(()=>{
+//       cardForDelete.cardElement.remove();
+//     closeModal(formConfirmDelCard);
+//     cardForDelete = {};
+//   })
+//   .catch((err) => {})
+// }
 
 
 // formConfirmDelCard.addEventListener('submit',(event)=>{

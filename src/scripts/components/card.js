@@ -52,20 +52,7 @@ export function createCard(setCard,elem) {
   })
 
 
-  // setCard.modal.window.addEventListener('submit',(event)=>{
-  //   event.preventDefault();
-  //   if(!cardForDelete.cardElement) return;
-   
-  //   setCard.deleteCard(elem._id)
-  //     .then(()=>{
-  //       cardForDelete.cardElement.remove();
-  //       setCard.modal.closeModal(setCard.modal.window);
-  //     cardForDelete = {};
-  //   })
-  //   .catch((err) => {
-  //     return err
-  //   })
-  // })
+ 
 
   
  

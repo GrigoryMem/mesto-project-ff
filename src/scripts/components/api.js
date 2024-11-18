@@ -52,7 +52,7 @@ export function postData(data) {
 }).then(handleResponse)
 }
 
-export function deleteCard(cardId) {
+export function reqDeleteCard(cardId) {
   return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-26/cards/${cardId}`,{
     method: 'DELETE',
     headers: {
