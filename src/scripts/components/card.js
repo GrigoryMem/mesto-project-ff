@@ -17,6 +17,10 @@ export function createCard(setCard,elem) {
   // работа с лайком карточки
   // сравнивать есть ли ID пользователя в массиве лайков у карточки. 
   // Если есть - красим лайк, иначе нет
+  const cardConfig = {
+    cardId:elem._id,
+    cardLikeCount
+}
   const cardDataLikes = elem.likes
   const isLiked = cardDataLikes.some((like)=>{
 
@@ -37,42 +41,39 @@ export function createCard(setCard,elem) {
  cardLikeCount.textContent = elem.likes.length;
   
   // событие - удаление карточки
-  let cardForDelete = {};
-  cardDeleteBtn.addEventListener('click',()=> {
-    setCard.handleDeleteCard(setCard.modal.window,elem._id,cardExample,cardForDelete)
-  })
-  setCard.modal.window.addEventListener('submit',(event)=>{
-    event.preventDefault();
-    if(!cardForDelete.cardElement) return;
-   
-    setCard.deleteCard(elem._id)
-      .then(()=>{
-        cardForDelete.cardElement.remove();
-        setCard.modal.closeModal(setCard.modal.window);
-      cardForDelete = {};
-    })
-    .catch((err) => {
-      return err
-    })
-  })
 
-  // событие - поставить лайк
-  const cardConfig ={
-      cardId:elem._id,
-      cardLikeCount
-  }
- 
-        
-   
   
 
+  cardDeleteBtn.addEventListener('click',()=> {
+    // колбэк удаления, который нам нужно будет вызвать 
+    // с данными элементом карточки (для удаления) и ее ID:
+    setCard.acts.remove(cardConfig.cardId,cardExample,setCard);
+    // setCard.handleDeleteCard(setCard.modal.window,elem._id,cardExample,cardForDelete)
+  })
+
+
+  // setCard.modal.window.addEventListener('submit',(event)=>{
+  //   event.preventDefault();
+  //   if(!cardForDelete.cardElement) return;
+   
+  //   setCard.deleteCard(elem._id)
+  //     .then(()=>{
+  //       cardForDelete.cardElement.remove();
+  //       setCard.modal.closeModal(setCard.modal.window);
+  //     cardForDelete = {};
+  //   })
+  //   .catch((err) => {
+  //     return err
+  //   })
+  // })
+
+  
  
+  // событие - поставить лайк
   cardLikeBtn.addEventListener('click',(event)=> {
     cardConfig.btn = event.target
     likeCard(cardConfig,setCard)
 })
-
-
   // cобытие открыть картинку
   image.addEventListener('click',()=>{
     setCard.acts.open(cardExample,image) // просмотр картинки
@@ -80,13 +81,19 @@ export function createCard(setCard,elem) {
   return cardExample;
 }
 
+
+
+
+
+
+
 // @todo: Функция удаления карточки
 
-export function removeCard(idCard,card) {
-  card.remove();
+// export function removeCard(idCard,card) {
+//   card.remove();
 
-  return idCard
-}
+//   return idCard
+// }
 
 // @todo: Функция лайка карточки
 

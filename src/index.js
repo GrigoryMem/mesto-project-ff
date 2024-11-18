@@ -1,5 +1,5 @@
 import './pages/index.css'; // добавьте импорт главного файла стилей 
-import { createCard,removeCard,likeCard} from'./scripts/components/card'; // функции для работы с карточками
+import { createCard,likeCard} from'./scripts/components/card'; // функции для работы с карточками
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 import { autoFillFormProf } from './scripts/components/form';
 import {clearValidation} from './scripts/components/validation';
@@ -57,7 +57,7 @@ enableValidation(configForm); // включаем валидацию
 const settingCard = {
   template: cardTemplate, // шаблон создания карточки,
   acts:{
-    remove:removeCard,
+    remove:handleDeleteCard,
     like:likeCard, 
     open:openCard,// открываем картинку
     getElem(elem){
@@ -76,11 +76,15 @@ const settingCard = {
   handleDeleteCardSubmit,
   deleteCard,
   reqPostLike,
-  reqDelLike
-  
+  reqDelLike,
+  cardForDelete
 }
-
-
+let cardForDelete = {}
+function handleDeleteCard(cardId,cardElement,setCard) {
+  cardForDelete.id = cardId;
+  cardForDelete.cardElement = cardElement;
+  setCard.modal.openModal(setCard. modal.window)
+};
 
 
 //  Вывести карточки на страницу
@@ -229,15 +233,7 @@ deleteBtns.forEach((btn)=>{
 
 
 
-function handleDeleteCard(window,cardId,cardElement,cardForDelete) {
-  
-  cardForDelete.id = cardId;
-  
-  cardForDelete.cardElement = cardElement;
-  openModal(window)
 
-
-};
 
 
 
@@ -268,9 +264,9 @@ profileImage.addEventListener('click',()=>{
   formUpdateAvatar.reset();
 })
 
-formUpdateAvatar.addEventListener('submit',handleUpdateavatarSubmit)
+formUpdateAvatar.addEventListener('submit',handleUpdateAvatarSubmit)
 
-function handleUpdateavatarSubmit(event) {
+function handleUpdateAvatarSubmit(event) {
   event.preventDefault();
   showLoadMessage(formUpdateAvatar)
   const valuesAvatar= {
@@ -307,3 +303,6 @@ function showLoadMessage(form,style=".popup__button") {
 
 
 
+
+
+ 
