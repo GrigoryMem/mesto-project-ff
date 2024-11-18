@@ -239,41 +239,7 @@ function renderCards(getData,settingCard) {
 function addNewCard(formData,setCard){
  
   placesList.prepend(createCard(setCard,formData));
- 
 }
-
-
-const deleteBtns =  document.querySelectorAll('.card__delete-button');
-
-deleteBtns.forEach((btn)=>{
- console.log(btn)
-})
-
-
-
-
-
-
-
-
-// const handleDeleteCardSubmit =(event)=>{
-//   event.preventDefault();
-//   if(!cardForDelete.cardElement) return;
-//   deleteCard(cardId)
-//     .then(()=>{
-//       cardForDelete.cardElement.remove();
-//     closeModal(formConfirmDelCard);
-//     cardForDelete = {};
-//   })
-//   .catch((err) => {})
-// }
-
-
-// formConfirmDelCard.addEventListener('submit',(event)=>{
-//   event.preventDefault();
-//   handleDeleteCardSubmit(event); 
-//    console.log('hi')
-// })
 
 // открываем попап изменения аватара
 profileImage.addEventListener('click',()=>{
@@ -304,8 +270,6 @@ function handleUpdateAvatarSubmit(event) {
       
   closeModal(popupUpdateAvatar);
 }
-
-
 
 function saveInfo(form,style=".popup__button") {
   const button = form.querySelector(style);

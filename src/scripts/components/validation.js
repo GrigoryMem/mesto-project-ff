@@ -93,12 +93,13 @@ const setEventListeners = (form,config)=>{
   const allInputs = Array.from(form.querySelectorAll(config.inputSelector))
   // найдем в тек форме кнопку отправки
   const buttonSubmit = form.querySelector(config.submitButtonSelector)
-  // // запускаем процесс контроля кнопки если хотябы одно из полей не валидно
-  toggleButtonState(allInputs,buttonSubmit)
+ 
   //  Обойдём все элементы полученной коллекции
   allInputs.forEach((input)=>{
     input.addEventListener('input',()=>{
-       // Внутри колбэка вызовем isValid,
+     
+
+      // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый каждый элемент формы на валидность
       isValid(form,input);
        // запускаем процесс контроля кнопки если хотябы одно из полей не валидно
