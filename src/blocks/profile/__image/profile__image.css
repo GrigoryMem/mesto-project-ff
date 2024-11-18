@@ -20,7 +20,8 @@
   left:0;
   background-color: rgba(0, 0, 0, 0);
   visibility: hidden;
-  transition: visibility 0s,  background-color 0.6s;
+  opacity: 0;
+  transition: all 0.6s;
 }
 
 .profile__image::after {
@@ -36,17 +37,20 @@
   background-size: 26px 26px;
   opacity: 0;
   visibility: hidden;
-  transition: visibility 0s,  opacity 0.6s;
+  transition: all 0.6s;
 }
 
 .profile__image:hover::before {
   background-color: rgba(0, 0, 0, 0.5);
   visibility: visible;
+  opacity: 1;
+
 }
 
 .profile__image:hover::after {
   opacity: 1;
   visibility: visible;
+ 
 }
 
 

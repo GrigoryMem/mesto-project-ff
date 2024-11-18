@@ -286,7 +286,7 @@ function handleUpdateavatarSubmit(event) {
     .catch((err)=>{
       console.log(err)
     })
-    reqCheckHEAD()
+    // reqCheckHEAD()
       
   closeModal(popupUpdateAvatar);
 }
