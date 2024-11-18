@@ -1,8 +1,17 @@
+const token= "fe60ae7a-5d46-46b6-9dc4-993d5b7ea2a2";
+const config = {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/wff-cohort-26',
+  headers: {
+    authorization: 'c56e30dc-2883-4270-a59e-b2f7bae969c6',
+    'Content-Type': token
+  }
+}
+
 const PATH = 'https://mesto.nomoreparties.co/v1/';
 const id = 'wff-cohort-26/'
 const url = PATH+id;
-'https://mesto.nomoreparties.co/v1/wff-cohort-26/users/me'
-const token= "fe60ae7a-5d46-46b6-9dc4-993d5b7ea2a2";
+
+
 
 
 export function getData(path){
@@ -16,11 +25,9 @@ export function getData(path){
        
       }
     })
-        .then(handleResponse)
-        
-      
-}
-const pathUser = 'users/me'
+      .then(handleResponse)
+  }
+
 
 export function pathData (data) {
   // const newUrl = url+path;
@@ -34,12 +41,6 @@ export function pathData (data) {
 }).then(handleResponse)
  
 }
-
-let card = {
-  "name": "Байкал",
-  "link": "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"
-}
-
 
 export function postData(data) {
   return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-26/cards', {
@@ -110,25 +111,7 @@ export function reqPatchAvatar(data) {
     
 }
 
-export function reqCheckHEAD() {
-  return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-26/users/me/avatar', {
-    method: 'HEAD',
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json'
-    },
-  })
-  .then(response => {
-    console.log(response.status)
-  })
-  .catch(error => console.error(error))
-}
-
-
-
-
 function handleResponse(res) {
-  
   if(res.ok){
     return res.json();
   }
