@@ -1,7 +1,5 @@
-export function createCard(setCard,elem) {
-  // elem  JSON объект с сервера
-  
-  // console.log(elem)
+export function createCard(setCard,dataCard) {
+  // dataCard JSON объект с сервера
   // клонировать шаблон кароточки - создал экземпляр карточки
   const cardTemplateClone =  setCard.template.cloneNode(true);
   const cardExample = cardTemplateClone.querySelector('.card');
@@ -11,22 +9,24 @@ export function createCard(setCard,elem) {
   const image = cardExample.querySelector('.card__image');
   const cardLikeCount = cardExample.querySelector('.card__like-count');
   // получение  данных карточки
-  cardExmpImg.src = setCard.acts.getElem(elem).link;
-  cardExample.querySelector('.card__title').textContent = setCard.acts.getElem(elem).name;
-  cardExmpImg.alt = setCard.acts.getElem(elem).name;
+ 
+ 
+  cardExmpImg.src = dataCard.link
+  cardExample.querySelector('.card__title').textContent = dataCard.name;
+  cardExmpImg.alt = dataCard.name;
   // работа с лайком карточки
   // сравнивать есть ли ID пользователя в массиве лайков у карточки. 
   // Если есть - красим лайк, иначе нет
   const cardConfig = {
-    cardId:elem._id,
+    cardId:dataCard._id,
     cardLikeCount
 }
-  const cardDataLikes = elem.likes
+  const cardDataLikes = dataCard.likes
   const isLiked = cardDataLikes.some((like)=>{
 
 
       if(like._id === "f5bbbfc6daa06470f1f78ec3"){
-        
+       
         return true
       }
   })
@@ -35,28 +35,15 @@ export function createCard(setCard,elem) {
      }else{
       cardLikeBtn.classList.remove('card__like-button_is-active');
      }
-   
-  
-
- cardLikeCount.textContent = elem.likes.length;
+  cardLikeCount.textContent = dataCard.likes.length;
   
   // событие - удаление карточки
-
-  
-
   cardDeleteBtn.addEventListener('click',()=> {
     // колбэк удаления, который нам нужно будет вызвать 
     // с данными элементом карточки (для удаления) и ее ID:
     setCard.acts.remove(cardConfig.cardId,cardExample,setCard);
-    // setCard.handleDeleteCard(setCard.modal.window,elem._id,cardExample,cardForDelete)
   })
-
-
- 
-
-  
- 
-  // событие - поставить лайк
+// событие - поставить лайк
   cardLikeBtn.addEventListener('click',(event)=> {
     cardConfig.btn = event.target
     likeCard(cardConfig,setCard)
@@ -67,20 +54,6 @@ export function createCard(setCard,elem) {
   })
   return cardExample;
 }
-
-
-
-
-
-
-
-// @todo: Функция удаления карточки
-
-// export function removeCard(idCard,card) {
-//   card.remove();
-
-//   return idCard
-// }
 
 // @todo: Функция лайка карточки
 

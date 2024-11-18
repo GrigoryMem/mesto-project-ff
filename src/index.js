@@ -5,8 +5,6 @@ import { autoFillFormProf } from './scripts/components/form';
 import {clearValidation} from './scripts/components/validation';
 import {enableValidation} from './scripts/components/validation';
 import { getData, pathData,postData,reqDeleteCard,reqPostLike,reqDelLike,reqPatchAvatar,reqCheckHEAD} from "./scripts/components/api";
-import  './scripts/components/api';
-import './scripts/components/card';
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
 const btnEditPrfl = document.querySelector('.profile__edit-button');// кнопка редактир проф
@@ -167,7 +165,7 @@ formAddCard.addEventListener('submit',(event)=>{
       saveInfo(formAddCard);
       addNewCard(valuesCard,settingCard);
       // для объекта удаления карточки
-      cardForDelete.cardId = valuesCard._id
+      // cardForDelete.cardId = valuesCard._id
     })
   formAddCard.reset();
   closeModal(popupCard);
