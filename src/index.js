@@ -72,7 +72,7 @@ const settingCard = {
   modal: {
     openModal,
     closeModal,
-  
+    window:formConfirmDelcard
   },
   reqDeleteCard,
   reqPostLike,
@@ -85,7 +85,7 @@ function handleDeleteCard(cardId,cardElement,setCard) {
   // как это происходит???
   cardForDelete.id = cardId;
   cardForDelete.cardElement = cardElement;
-  setCard.modal.openModal(setCard. modal.window)
+  setCard.modal.openModal(setCard.modal.window)
 }
 
 function handleDeleteCardSubmit(event) {
@@ -95,7 +95,7 @@ function handleDeleteCardSubmit(event) {
   settingCard.reqDeleteCard(cardForDelete.id)
     .then(()=>{
       cardForDelete.cardElement.remove();
-      setCard.modal.closeModal(formConfirmDelcard);
+      settingCard.modal.closeModal(formConfirmDelcard);
     cardForDelete = {};
   })
   .catch((err) => {
