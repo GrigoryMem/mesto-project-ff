@@ -20,7 +20,7 @@ export function createCard(setCard,elem) {
   const cardDataLikes = elem.likes
   const isLiked = cardDataLikes.some((like)=>{
 
-    console.log(like._id , elem.owner._id)
+
       if(like._id === "f5bbbfc6daa06470f1f78ec3"){
         
         return true
@@ -57,30 +57,19 @@ export function createCard(setCard,elem) {
   })
 
   // событие - поставить лайк
+  const cardConfig ={
+      cardId:elem._id,
+      cardLikeCount
+  }
  
-  cardLikeBtn.addEventListener('click',()=> {
-    if(!cardLikeBtn.classList.contains('card__like-button_is-active')){
-      // запрос поставить лайк
-      setCard.postLike(elem._id)
-      .then((res)=>{
-        console.log(res)
-        cardLikeCount.textContent = res.likes.length;
-        cardLikeBtn.classList.add('card__like-button_is-active');
-      })
-      
-      
-    } 
-    if(cardLikeBtn.classList.contains('card__like-button_is-active')){
-        // запрос снять лайк
         
-        setCard.reqDelLike(elem._id)
-          .then((res)=>{
-            console.log(res)
-            cardLikeCount.textContent = res.likes.length;
-            cardLikeBtn.classList.remove('card__like-button_is-active');
-           })
-          
-    }
+   
+  
+
+ 
+  cardLikeBtn.addEventListener('click',(event)=> {
+    cardConfig.btn = event.target
+    likeCard(cardConfig,setCard)
 })
 
 
@@ -101,8 +90,33 @@ export function removeCard(idCard,card) {
 
 // @todo: Функция лайка карточки
 
-export function likeCard(card) {
-  card.classList.toggle('card__like-button_is-active');
+export function likeCard(cardConfig,setCard) {
+  console.log(cardConfig)
+      if(!cardConfig.btn.classList.contains('card__like-button_is-active')){
+      // запрос поставить лайк
+      setCard.reqPostLike(cardConfig.cardId)
+      .then((res)=>{
+        console.log(res)
+        cardConfig.cardLikeCount.textContent = res.likes.length;
+        cardConfig.btn.classList.add('card__like-button_is-active');
+      })
+      .catch((err)=>{
+        console.error(err)
+      })
+    } 
+    if(cardConfig.btn.classList.contains('card__like-button_is-active')){
+        // запрос снять лайк
+        setCard.reqDelLike(cardConfig.cardId)
+          .then((res)=>{
+            console.log(res)
+            cardConfig.cardLikeCount.textContent = res.likes.length;
+            cardConfig.btn.classList.remove('card__like-button_is-active');
+           })
+           .catch((err)=>{
+            console.error(err)
+          })
+          
+    }
 }
 
   

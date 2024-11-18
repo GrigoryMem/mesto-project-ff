@@ -64,7 +64,7 @@ export function deleteCard(cardId) {
 }
 
 
-export function postLike(cardId,data) {
+export function reqPostLike(cardId,data) {
   return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-26/cards/likes/${cardId}`,{
     method: 'PUT',
     headers: {
