@@ -1,59 +1,44 @@
-const token= "fe60ae7a-5d46-46b6-9dc4-993d5b7ea2a2";
 const config = {
   baseUrl: 'https://mesto.nomoreparties.co/v1/wff-cohort-26',
   headers: {
-    authorization: 'c56e30dc-2883-4270-a59e-b2f7bae969c6',
-    'Content-Type': token
+    authorization: "fe60ae7a-5d46-46b6-9dc4-993d5b7ea2a2",
+    'Content-Type': 'application/json'
   }
 }
 
 export function reqGetData(path){
-   
     const newUrl = config.baseUrl+path;
-    
     return fetch(newUrl,{
       method: 'GET',
-      headers: {
-        authorization: token,
-       
-      }
+      headers: config.headers
     })
-      .then(handleResponse)
+    .then(handleResponse)
   }
 
 
 export function pathData (data) {
   
   return fetch(config.baseUrl +'/users/me', {
-  method: 'PATCH',
-  headers: {
-    authorization: token,
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-}).then(handleResponse)
- 
+    method: 'PATCH',
+    headers:config.headers,
+    body: JSON.stringify(data)
+    })
+    .then(handleResponse)
 }
 
 export function postData(data) {
   return fetch(config.baseUrl +'/cards', {
-  method: 'POST',
-  headers: {
-    authorization: token,
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-}).then(handleResponse)
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify(data)
+    })
+    .then(handleResponse)
 }
 
 export function reqDeleteCard(cardId) {
   return fetch(`${config.baseUrl}/cards/${cardId}`,{
     method: 'DELETE',
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json'
-    },
- 
+    headers: config.headers
   }).then(handleResponse)
 }
 
@@ -61,27 +46,17 @@ export function reqDeleteCard(cardId) {
 export function reqPostLike(cardId,data) {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`,{
     method: 'PUT',
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify(data)
- 
   }).then(handleResponse)
 }
 
 export function reqDelLike(cardId,data) {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`,{
     method: 'DELETE',
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json'
-     },
-     body: JSON.stringify(data)
-    
-     
- 
-  }).then((res)=>{
+    headers: config.headers,
+    body: JSON.stringify(data)
+    }).then((res)=>{
    
     if(res.ok){
       return res.json();
@@ -92,21 +67,20 @@ export function reqDelLike(cardId,data) {
 
 
 export function reqPatchAvatar(data) {
-  
   return fetch(`${config.baseUrl}/users/me/avatar`, {
-  method: 'PATCH',
-  headers: {
-    authorization: token,
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-}).then(handleResponse)
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify(data)
+    })
+    .then(handleResponse)
     
 }
 
 function handleResponse(res) {
   if(res.ok){
     return res.json();
+  }else{
+    return Promise.reject('Ошиба:'+ res.status);
   }
 }
 
