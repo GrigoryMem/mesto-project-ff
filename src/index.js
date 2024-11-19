@@ -104,7 +104,7 @@ function handleDeleteCardSubmit(event) {
 formConfirmDelcard.addEventListener('submit',handleDeleteCardSubmit);
 
 //  Вывести карточки на страницу
-renderCards(reqGetData,settingCard); // отобразить карточки на странице
+render(reqGetData,settingCard); // отобразить карточки на странице
 
 // Работа модальных окон
 //   МО редактировать профиль
@@ -191,7 +191,7 @@ function openCard(card,image) {
   openModal(popupViewImgCard);
 }
 //  для отображения карточек и профиля
-function renderCards(reqGetData,settingCard) {
+function render(reqGetData,settingCard) {
   const dataProfile = reqGetData(profilePATH);// получаем данные для профиля
  
   const dataCards = reqGetData(pathCards); // получаем данные для карточек

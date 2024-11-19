@@ -13,6 +13,9 @@ export function reqGetData(path){
       headers: config.headers
     })
     .then(handleResponse)
+    .catch((err)=>{
+      console.log(err)
+    })
   }
 
 
@@ -24,6 +27,9 @@ export function pathData (data) {
     body: JSON.stringify(data)
     })
     .then(handleResponse)
+    .catch((err)=>{
+      console.log(err)
+    })
 }
 
 export function postData(data) {
@@ -33,13 +39,20 @@ export function postData(data) {
     body: JSON.stringify(data)
     })
     .then(handleResponse)
+    .catch((err)=>{
+      console.log(err)
+    })
 }
 
 export function reqDeleteCard(cardId) {
   return fetch(`${config.baseUrl}/cards/${cardId}`,{
     method: 'DELETE',
     headers: config.headers
-  }).then(handleResponse)
+  })
+    .then(handleResponse)
+    .catch((err)=>{
+      console.log(err)
+    })
 }
 
 
@@ -48,7 +61,8 @@ export function reqPostLike(cardId,data) {
     method: 'PUT',
     headers: config.headers,
     body: JSON.stringify(data)
-  }).then(handleResponse)
+  })
+    .then(handleResponse)
 }
 
 export function reqDelLike(cardId,data) {
@@ -56,12 +70,11 @@ export function reqDelLike(cardId,data) {
     method: 'DELETE',
     headers: config.headers,
     body: JSON.stringify(data)
-    }).then((res)=>{
-   
-    if(res.ok){
-      return res.json();
-    }
-  })
+    })
+      .then(handleResponse)
+      .catch((err)=>{
+        console.log(err)
+      })
 }
 
 
@@ -73,6 +86,9 @@ export function reqPatchAvatar(data) {
     body: JSON.stringify(data)
     })
     .then(handleResponse)
+    .catch((err)=>{
+      console.log(err)
+    })
     
 }
 
@@ -80,7 +96,7 @@ function handleResponse(res) {
   if(res.ok){
     return res.json();
   }else{
-    return Promise.reject('Ошиба:'+ res.status);
+    return Promise.reject(`Ошибка сервера: ${res.status}`);
   }
 }
 
