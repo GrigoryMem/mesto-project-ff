@@ -27,7 +27,7 @@ export function createCard(setCard,dataCard) {
        return true
       }
   })
-  
+
     if(isLiked){
       cardLikeBtn.classList.add('card__like-button_is-active');
      }else{
@@ -66,7 +66,10 @@ export function likeCard(cardConfig,setCard) {
         cardConfig.btn.classList.add('card__like-button_is-active');
       })
       .catch((err)=>{
-        console.error(err)
+        console.log(`Ошибка при постановке лайка карточки ${err} `)
+      })
+      .finally(()=>{
+        console.log(`ЛАйк поставлен`);
       })
     } 
     if(cardConfig.btn.classList.contains('card__like-button_is-active')){
@@ -78,7 +81,10 @@ export function likeCard(cardConfig,setCard) {
             cardConfig.btn.classList.remove('card__like-button_is-active');
            })
            .catch((err)=>{
-            console.error(err)
+            console.log(`Ошибка при снятии лайка карточки ${err} `)
+          })
+          .finally(()=>{
+            console.log(`Лайк снят`);
           })
           
     }

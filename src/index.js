@@ -297,19 +297,6 @@ function handleUpdateAvatarSubmit(event) {
     // reqCheckHEAD()
 }
 
-function saveInfo(form,style=".popup__button") {
-  const button = form.querySelector(style);
-  button.disabled = false;
-  button.textContent = 'Сохранить';
-}
-
-function showLoadMessage(form,style=".popup__button") {
-  const button = form.querySelector(style);
-  button.disabled = true;
-  button.textContent = 'Сохранение...';
-}
-
-
 // передать в файл form.js
 //  замена saveInfo и showLoadMessage
 function showLoadProcess(form,style,text,status) {
