@@ -4,7 +4,9 @@ import { openModal, closeModal } from './scripts/components/modal'; // откы�
 import { autoFillFormProf } from './scripts/components/form';
 import {clearValidation} from './scripts/components/validation';
 import {enableValidation} from './scripts/components/validation';
+// запросы к серверу
 import { reqGetData, pathData,postData,reqDeleteCard,reqPostLike,reqDelLike,reqPatchAvatar} from "./scripts/components/api";
+//  dom узлы
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
 const btnEditPrfl = document.querySelector('.profile__edit-button');// кнопка редактир проф
@@ -19,8 +21,6 @@ const btnAddCard = document.querySelector('.profile__add-button');
 const popupCard = document.querySelector('.popup_type_new-card');
 // форма добав карточки
 const formAddCard = document.forms["new-place"];
-//  форма подтв удаления карточки
-const formConfirmDelCard = document.forms["confirm-delete"];
 //  поля для открытия картинки
 const popupViewImgCard = document.querySelector('.popup_type_image'); // попап с картинкой
 const popCardImg = popupViewImgCard.querySelector('.popup__image'); 
@@ -86,21 +86,34 @@ function handleDeleteCard(cardId,cardElement,setCard) {
   setCard.modal.openModal(setCard.modal.window)
 }
 
+   
 function handleDeleteCardSubmit(event) {
   event.preventDefault();
-  if(!cardForDelete.cardElement) return;
  
+  showLoadProcess(formConfirmDelcard,".popup__button",'Удаление карточки...',true);
+ 
+  if(!cardForDelete.cardElement) return;
+  //  удаляем карточку с сервера
+  
   settingCard.reqDeleteCard(cardForDelete.id)
     .then(()=>{
       cardForDelete.cardElement.remove();
       settingCard.modal.closeModal(formConfirmDelcard);
-    cardForDelete = {};
-  })
-  .catch((err) => {
-    return err
-  })
+      cardForDelete = {};
+    })
+    .catch((err) => {
+      return err
+    })
+    .finally((res)=>{
+      // в любом случае показываем результат
+      showLoadProcess(formConfirmDelcard,".popup__button",'Карточка удалена',true);
+      
+      
+    })
+    // восстанавливаем статус кнопки сабмита (не видно пользователю)
+    reсoverStateBtn(formConfirmDelcard);
 }
-
+// подтверждаем удаление карточки
 formConfirmDelcard.addEventListener('submit',handleDeleteCardSubmit);
 
 //  Вывести карточки на страницу
@@ -281,6 +294,22 @@ function showLoadMessage(form,style=".popup__button") {
   const button = form.querySelector(style);
   button.disabled = true;
   button.textContent = 'Сохранение...';
+}
+
+
+// передать в файл form.js
+//  замена saveInfo и showLoadMessage
+function showLoadProcess(form,style=".popup__button",text,status) {
+  const button = form.querySelector(style);
+  button.disabled = status;
+  button.textContent = text;
+}
+
+ // восстанавлием статус кнопки для следующего открытия окна в исходное состояние
+function reсoverStateBtn(form,style=".popup__button") {
+  setTimeout(()=>{
+   showLoadProcess(form,style,'Да',false);
+  },3000)
 }
 
 

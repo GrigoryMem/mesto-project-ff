@@ -13,7 +13,7 @@ export function reqGetData(path){
       headers: config.headers
     })
     .then(handleResponse)
-}
+  }
 
 
 export function pathData (data) {
@@ -24,7 +24,7 @@ export function pathData (data) {
     body: JSON.stringify(data)
     })
     .then(handleResponse)
-}
+  }
 
 export function postData(data) {
   return fetch(config.baseUrl +'/cards', {
@@ -33,7 +33,7 @@ export function postData(data) {
     body: JSON.stringify(data)
     })
     .then(handleResponse)
-}
+  }
 
 export function reqDeleteCard(cardId) {
   return fetch(`${config.baseUrl}/cards/${cardId}`,{
@@ -41,7 +41,7 @@ export function reqDeleteCard(cardId) {
     headers: config.headers
   })
     .then(handleResponse)
-}
+  }
 
 
 export function reqPostLike(cardId,data) {
@@ -51,7 +51,7 @@ export function reqPostLike(cardId,data) {
     body: JSON.stringify(data)
   })
     .then(handleResponse)
-}
+  }
 
 export function reqDelLike(cardId,data) {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`,{
@@ -60,7 +60,7 @@ export function reqDelLike(cardId,data) {
     body: JSON.stringify(data)
     })
       .then(handleResponse)
-}
+  }
 
 
 
@@ -71,7 +71,7 @@ export function reqPatchAvatar(data) {
     body: JSON.stringify(data)
     })
       .then(handleResponse)
-}
+  }
 
 function handleResponse(res) {
   if(res.ok){
