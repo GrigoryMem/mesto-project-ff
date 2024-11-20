@@ -23,13 +23,11 @@ export function createCard(setCard,dataCard) {
 }
   const cardDataLikes = dataCard.likes
   const isLiked = cardDataLikes.some((like)=>{
-
-
-      if(like._id === "f5bbbfc6daa06470f1f78ec3"){
-       
-        return true
+    if(like._id === "f5bbbfc6daa06470f1f78ec3"){
+       return true
       }
   })
+  
     if(isLiked){
       cardLikeBtn.classList.add('card__like-button_is-active');
      }else{
