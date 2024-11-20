@@ -102,18 +102,16 @@ function handleDeleteCardSubmit(event) {
       cardForDelete = {};
     })
     .catch((err) => {
-      return err
+      console.log(`Ошибка: ${err}`)
     })
     .finally((res)=>{
       // в любом случае показываем результат
       showLoadProcess(formConfirmDelcard,".popup__button",'Карточка удалена',true);
-      
-      
     })
     // восстанавливаем статус кнопки сабмита (не видно пользователю)
     reсoverStateBtn(formConfirmDelcard);
 }
-// подтверждаем удаление карточки
+// подтверждаем удаление карточки и удаляем ее
 formConfirmDelcard.addEventListener('submit',handleDeleteCardSubmit);
 
 //  Вывести карточки на страницу
@@ -136,7 +134,7 @@ btnEditPrfl.addEventListener('click',() => {
 //  сохранение данных формы профиля
 formEditPrf.addEventListener('submit',(event)=>{
   event.preventDefault();
-  showLoadMessage(formEditPrf)
+  showLoadProcess(formEditPrf,".popup__button",'Сохранение...',true);
     const valuesForm = {
       name:formEditPrf.elements.name.value,
       about:formEditPrf.elements.description.value
@@ -145,11 +143,20 @@ formEditPrf.addEventListener('submit',(event)=>{
     // заполняем профиль данными формы
   pathData(valuesForm)
     .then((formData)=>{
-      saveInfo(formEditPrf);
+      closeModal(popupEdit);
       profileTitle.textContent = formData.name;
       profileDesc.textContent = formData.about;
     })
-  closeModal(popupEdit);
+    .catch((err)=>{
+      console.log(`Ошибка: ${err}`)
+    })
+    .finally(()=>{
+      // в любом случае показываем результат
+      showLoadProcess(formEditPrf,".popup__button",'Информация сохранена',true);
+    });
+    // восстанавливаем статус кнопки сабмита (не видно пользователю)
+    reсoverStateBtn(formEditPrf);
+   
 });
 // 2 форма добавить новую карточку
 // открытия окна формы добав карточки
@@ -309,7 +316,7 @@ function showLoadProcess(form,style=".popup__button",text,status) {
 function reсoverStateBtn(form,style=".popup__button") {
   setTimeout(()=>{
    showLoadProcess(form,style,'Да',false);
-  },3000)
+  },1000)
 }
 
 
