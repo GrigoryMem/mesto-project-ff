@@ -109,7 +109,7 @@ function handleDeleteCardSubmit(event) {
       showLoadProcess(formConfirmDelcard,".popup__button",'Карточка удалена',true);
     })
     // восстанавливаем статус кнопки сабмита (не видно пользователю)
-    reсoverStateBtn(formConfirmDelcard);
+    reсoverStateBtn(formConfirmDelcard,".popup__button",'Да');
 }
 // подтверждаем удаление карточки и удаляем ее
 formConfirmDelcard.addEventListener('submit',handleDeleteCardSubmit);
@@ -155,8 +155,7 @@ formEditPrf.addEventListener('submit',(event)=>{
       showLoadProcess(formEditPrf,".popup__button",'Информация сохранена',true);
     });
     // восстанавливаем статус кнопки сабмита (не видно пользователю)
-    reсoverStateBtn(formEditPrf);
-   
+    reсoverStateBtn(formEditPrf,".popup__button",'Да');
 });
 // 2 форма добавить новую карточку
 // открытия окна формы добав карточки
@@ -174,7 +173,7 @@ btnAddCard.addEventListener('click',()=>{
 
 formAddCard.addEventListener('submit',(event)=>{
   event.preventDefault();
-  showLoadMessage(formAddCard)
+  showLoadProcess(formAddCard,".popup__button",'Сохранение...',true);
   const valuesCard = {
     "name":formAddCard.elements['place-name'].value,
     "link":formAddCard.elements['link'].value
@@ -182,13 +181,19 @@ formAddCard.addEventListener('submit',(event)=>{
 
   postData(valuesCard)
     .then((valuesCard)=>{
-      saveInfo(formAddCard);
       addNewCard(valuesCard,settingCard);
-      // для объекта удаления карточки
-      // cardForDelete.cardId = valuesCard._id
+      closeModal(popupCard);
     })
+    .catch((err)=>{
+      console.log(`Ошибка: ${err}`)
+    })
+    .finally(()=>{
+      // в любом случае показываем результат
+      showLoadProcess(formAddCard,".popup__button",'Карточка сохранена',true);
+    })
+    // восстанавливаем статус кнопки сабмита (не видно пользователю)
+    reсoverStateBtn(formAddCard,".popup__button",'Сохранить');
   formAddCard.reset();
-  closeModal(popupCard);
 })
 
 // Вешаем на все модалки событие закрытия карточки
@@ -218,42 +223,39 @@ function render(reqGetData,settingCard) {
   Promise.all([
     dataProfile,
     dataCards
-  ]).then((data)=>{
-    
-    const profile = data[0]; // наш профиль
-    const cards = data[1]; // данные с карточками
-    // заполняем профиль данными
-    profileTitle.textContent = profile.name;
-    profileDesc.textContent = profile.about;
-    profileImage.style.backgroundImage = `url(${profile.avatar})`;
-    //  проходимся по массиву с данными для карточек... 
-    cards.forEach((item)=>{
-      const card = createCard(settingCard,item)
-      const cardDeleteBtn = card.querySelector('.card__delete-button');
-    
-      if(item){
-        // вставляем заполненные карточки на страницу
-        if(item.owner._id !== "f5bbbfc6daa06470f1f78ec3") {
-          // если я не являюсь владельцем карточки, удаляем кнопку корзины
-          //  т.к. я не могу удалять чужие карточки
-          cardDeleteBtn.classList.add('card__delete-button_type_hidden');
-         
-        }
-        if(item.owner._id === "f5bbbfc6daa06470f1f78ec3") {
-          // если я не являюсь владельцем карточки, удаляем кнопку корзины
-          //  т.к. я не могу удалять чужие карточки
+  ])
+    .then((data)=>{
+      
+      const profile = data[0]; // наш профиль
+      const cards = data[1]; // данные с карточками
+      // заполняем профиль данными
+      profileTitle.textContent = profile.name;
+      profileDesc.textContent = profile.about;
+      profileImage.style.backgroundImage = `url(${profile.avatar})`;
+      //  проходимся по массиву с данными для карточек... 
+      cards.forEach((item)=>{
+        const card = createCard(settingCard,item)
+        const cardDeleteBtn = card.querySelector('.card__delete-button');
+      
+        if(item){
+          // вставляем заполненные карточки на страницу
+          if(item.owner._id !== "f5bbbfc6daa06470f1f78ec3") {
+            // если я не являюсь владельцем карточки, удаляем кнопку корзины
+            //  т.к. я не могу удалять чужие карточки
+            cardDeleteBtn.classList.add('card__delete-button_type_hidden');
           
-         
+          }
+         // вставляем заполненные карточки на страницу
+          placesList.append(card)
         }
-       
-  
-        // вставляем заполненные карточки на страницу
-        placesList.append(card)
-      }
+      })
     })
-  }).catch((err)=>{
-    return err
-  })
+    .catch((err)=>{
+      console.log(`Ошибка: ${err}`)
+    })
+    .finally(()=>{
+      console.log('Загрузка контента завершена')
+    })
 }
 //  для формы добавления карточки
 function addNewCard(formData,setCard){
@@ -272,7 +274,7 @@ formUpdateAvatar.addEventListener('submit',handleUpdateAvatarSubmit)
 
 function handleUpdateAvatarSubmit(event) {
   event.preventDefault();
-  showLoadMessage(formUpdateAvatar)
+  showLoadProcess(formUpdateAvatar,".popup__button",'Сохранение...',true);
   const valuesAvatar= {
 
     "avatar":formUpdateAvatar.elements['link'].value
@@ -280,15 +282,19 @@ function handleUpdateAvatarSubmit(event) {
   // console.log(valuesAvatar.link)
   reqPatchAvatar(valuesAvatar)
     .then((res)=>{
-      saveInfo(formUpdateAvatar);
+      closeModal(popupUpdateAvatar);
       profileImage.style.backgroundImage = `url(${res.avatar})`;
     })
     .catch((err)=>{
-      console.log(err)
+      console.log(`Ошибка: ${err}`);
     })
+    .finally(()=>{
+      // показываем результат
+      showLoadProcess(formUpdateAvatar,".popup__button",'Аватар изменен',true);
+    })
+     // восстанавливаем статус кнопки сабмита (не видно пользователю)
+     reсoverStateBtn(formUpdateAvatar,".popup__button",'Сохранить');
     // reqCheckHEAD()
-      
-  closeModal(popupUpdateAvatar);
 }
 
 function saveInfo(form,style=".popup__button") {
@@ -306,16 +312,16 @@ function showLoadMessage(form,style=".popup__button") {
 
 // передать в файл form.js
 //  замена saveInfo и showLoadMessage
-function showLoadProcess(form,style=".popup__button",text,status) {
+function showLoadProcess(form,style,text,status) {
   const button = form.querySelector(style);
   button.disabled = status;
   button.textContent = text;
 }
 
  // восстанавлием статус кнопки для следующего открытия окна в исходное состояние
-function reсoverStateBtn(form,style=".popup__button") {
+function reсoverStateBtn(form,style,message) {
   setTimeout(()=>{
-   showLoadProcess(form,style,'Да',false);
+   showLoadProcess(form,style,message,false);
   },1000)
 }
 
