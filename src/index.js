@@ -81,7 +81,6 @@ const settingCard = {
 let cardForDelete = {}
 
 function handleDeleteCard(cardId,cardElement,setCard) {
-  // как это происходит???
   cardForDelete.id = cardId;
   cardForDelete.cardElement = cardElement;
   setCard.modal.openModal(setCard.modal.window)
@@ -222,10 +221,7 @@ function render(reqGetData,settingCard) {
     dataCards
   ])
     .then((data)=>{
-      
-      const profile = data[0]; // наш профиль
-      const cards = data[1]; // данные с карточками
-      // заполняем профиль данными
+      const [profile,cards] = data; //  profile  наш профиль,cards данные с карточками
       profileTitle.textContent = profile.name;
       profileDesc.textContent = profile.about;
       profileImage.style.backgroundImage = `url(${profile.avatar})`;
