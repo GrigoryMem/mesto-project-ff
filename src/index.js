@@ -99,8 +99,8 @@ function handleDeleteCardSubmit(event) {
   settingCard.reqDeleteCard(cardForDelete.id)
     .then(()=>{
       cardForDelete.cardElement.remove();
-      settingCard.modal.closeModal(formConfirmDelcard);
       cardForDelete = {};
+      settingCard.modal.closeModal(formConfirmDelcard);
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`)
@@ -126,10 +126,7 @@ btnEditPrfl.addEventListener('click',() => {
   // запускаем  очистку валидации 
   clearValidation(formEditPrf,configForm);
 // автозаполнение полей формы сохр данными
-
   autoFillFormProf(profile, formEditPrf);
-  
-
 })
 
 //  сохранение данных формы профиля
@@ -144,9 +141,9 @@ formEditPrf.addEventListener('submit',(event)=>{
     // заполняем профиль данными формы
   pathData(valuesForm)
     .then((formData)=>{
-      closeModal(popupEdit);
       profileTitle.textContent = formData.name;
-      profileDesc.textContent = formData.about;
+      profileDesc.textContent = formData.about;  
+      closeModal(popupEdit);
     })
     .catch((err)=>{
       console.log(`Ошибка: ${err}`)
@@ -179,7 +176,6 @@ formAddCard.addEventListener('submit',(event)=>{
     "name":formAddCard.elements['place-name'].value,
     "link":formAddCard.elements['link'].value
   }
-
   postData(valuesCard)
     .then((valuesCard)=>{
       addNewCard(valuesCard,settingCard);
@@ -252,7 +248,7 @@ function render(reqGetData,settingCard) {
       })
     })
     .catch((err)=>{
-      console.log(`Ошибка: ${err}`)
+      console.log(`Ошибка загрузки контента: ${err}`)
     })
     .finally(()=>{
       console.log('Загрузка контента завершена')
@@ -283,8 +279,8 @@ function handleUpdateAvatarSubmit(event) {
   // console.log(valuesAvatar.link)
   reqPatchAvatar(valuesAvatar)
     .then((res)=>{
-      closeModal(popupUpdateAvatar);
       profileImage.style.backgroundImage = `url(${res.avatar})`;
+      closeModal(popupUpdateAvatar);
     })
     .catch((err)=>{
       console.log(`Ошибка: ${err}`);
