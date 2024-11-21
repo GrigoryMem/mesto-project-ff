@@ -83,7 +83,6 @@ const hasInvalid = (inputList)=>{
 // заблокировать кнопку отправить если есть невалидные поля
 const toggleButtonState = (inputList,buttonSubmit,config)=>{
   const disabled =config.inactiveButtonClass.slice(1);
-  console.log(disabled);
   if(hasInvalid(inputList)){ // если хотябы одно поле не валидно
      // сделай кнопку неактивной
      switchBtn(buttonSubmit,disabled,true)
