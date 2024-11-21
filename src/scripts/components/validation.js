@@ -21,7 +21,7 @@ export const clearValidation = (form,config)=>{
     hideInputError(form,input);
    
   })
-  switchBtn(buttonSubmit,'popup__button_disabled',true)
+  switchBtn(buttonSubmit,'popup__button_disabled',false)
   // buttonSubmit.disabled = true;
   // buttonSubmit.classList.add('popup__button_disabled');
 }
@@ -49,6 +49,8 @@ const hideInputError = (form,input)=>{
   errorElem.classList.remove('popup__error_visible');
   // очищаем поле текста ошибки
   errorElem.textContent = '';
+  //  очищаем метод кастомного сообщения об ошибке
+  input.setCustomValidity('');
 }
 
 
