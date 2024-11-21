@@ -21,8 +21,9 @@ export const clearValidation = (form,config)=>{
     hideInputError(form,input);
    
   })
-  buttonSubmit.disabled = true;
-  buttonSubmit.classList.add('popup__button_disabled');
+  switchBtn(buttonSubmit,'popup__button_disabled',true)
+  // buttonSubmit.disabled = true;
+  // buttonSubmit.classList.add('popup__button_disabled');
 }
 
 
