@@ -156,7 +156,7 @@ formEditPrf.addEventListener('submit',(event)=>{
       showLoadProcess(formEditPrf,".popup__button",'Информация сохранена',true);
     });
     // восстанавливаем статус кнопки сабмита (не видно пользователю)
-    reсoverStateBtn(formEditPrf,".popup__button",'Да');
+    reсoverStateBtn(formEditPrf,".popup__button",'Сохранить');
 });
 // 2 форма добавить новую карточку
 // открытия окна формы добав карточки

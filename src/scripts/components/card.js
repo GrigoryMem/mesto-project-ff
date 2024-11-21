@@ -9,8 +9,6 @@ export function createCard(setCard,dataCard) {
   const image = cardExample.querySelector('.card__image');
   const cardLikeCount = cardExample.querySelector('.card__like-count');
   // получение  данных карточки
-  console.log(setCard.authorLikeCard);
- 
   cardExmpImg.src = dataCard.link
   cardExample.querySelector('.card__title').textContent = dataCard.name;
   cardExmpImg.alt = dataCard.name;
