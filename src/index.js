@@ -56,6 +56,7 @@ enableValidation(configForm); // включаем валидацию
 // настройки карточки
 const settingCard = {
   template: cardTemplate, // шаблон создания карточки,
+  authorLikCardID: "f5bbbfc6daa06470f1f78ec3",// опознаем себя
   acts:{
     remove:handleDeleteCard,
     like:likeCard, 

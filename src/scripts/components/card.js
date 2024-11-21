@@ -9,7 +9,7 @@ export function createCard(setCard,dataCard) {
   const image = cardExample.querySelector('.card__image');
   const cardLikeCount = cardExample.querySelector('.card__like-count');
   // получение  данных карточки
- 
+  console.log(setCard.authorLikeCard);
  
   cardExmpImg.src = dataCard.link
   cardExample.querySelector('.card__title').textContent = dataCard.name;
@@ -22,8 +22,10 @@ export function createCard(setCard,dataCard) {
     cardLikeCount
 }
   const cardDataLikes = dataCard.likes
+  // console.log(dataCard.owner._id)
+  // console.log(setCard.authorCard)
   const isLiked = cardDataLikes.some((like)=>{
-    if(like._id === "f5bbbfc6daa06470f1f78ec3"){
+    if(like._id === setCard.authorLikCardID){
        return true
       }
   })

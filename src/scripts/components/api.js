@@ -5,6 +5,8 @@ const config = {
     'Content-Type': 'application/json'
   }
 }
+// 
+
 
 export function reqGetData(path){
     const newUrl = config.baseUrl+path;
