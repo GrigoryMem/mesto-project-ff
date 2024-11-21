@@ -1,6 +1,5 @@
 // актиквироватьили отключить кнопку
 const switchBtn = (button,style,block)=>{
-
   if(block) {
     button.disabled = block;
     button.classList.add(style);
@@ -9,44 +8,45 @@ const switchBtn = (button,style,block)=>{
     button.classList.remove(style);
   }
 }
-
-
 // очистка валидации
 export const clearValidation = (form,config)=>{
-  
+  const disabled = config.inactiveButtonClass.slice(1);
   // очищает ошибки валидации формы и делает кнопку неактивной
   const allInputs = Array.from(form.querySelectorAll(config.inputSelector))
   const buttonSubmit = form.querySelector(config.submitButtonSelector);
   allInputs.forEach((input)=>{
-    hideInputError(form,input);
+    hideInputError(form,input,config);
    
   })
-  switchBtn(buttonSubmit,'popup__button_disabled',false)
-  // buttonSubmit.disabled = true;
-  // buttonSubmit.classList.add('popup__button_disabled');
+  switchBtn(buttonSubmit,disabled,false)
 }
-
-
 // Функция, которая добавляет класс с ошибкой
-const showInputError = (form,input,textErr)=>{
+const showInputError = (form,input,textErr,config)=>{
+  // класс показа ошибки для поля ввода
+  const classInpError = config.inputErrorClass.slice(1);
+  // класс для показа  содержания ошибки
+  const classELemError =config.errorClass.slice(1);
   // Находим элемент с ошибкой через форму по id input
   const errorElem = form.querySelector(`.${input.id}-error`);
   // добавляем стили ошибки для поля ввода
-  input.classList.add('popup__input_type_error');
+  input.classList.add(classInpError);
   // показываем элемент с ошибкой
-  errorElem.classList.add('popup__error_visible');
+  errorElem.classList.add(classELemError);
   // добавляем тип ошибки в поле для ошибки
   errorElem.textContent = textErr;
-  
 }
 // Функция, которая удаляет класс с ошибкой
-const hideInputError = (form,input)=>{
+const hideInputError = (form,input,config)=>{
+  // класс скрытия ошибки для поля ввода
+  const classInpError = config.inputErrorClass.slice(1);
+  // класс для скрытия  содержания ошибки
+  const classELemError =config.errorClass.slice(1);
   // Находим элемент с ошибкой через форму по id input
   const errorElem = form.querySelector(`.${input.id}-error`);
   // убираем стили ошибки для поля ввода
-  input.classList.remove('popup__input_type_error');
+  input.classList.remove(classInpError);
   // скрываем элемент с ошибкой
-  errorElem.classList.remove('popup__error_visible');
+  errorElem.classList.remove(classELemError);
   // очищаем поле текста ошибки
   errorElem.textContent = '';
   //  очищаем метод кастомного сообщения об ошибке
@@ -55,11 +55,9 @@ const hideInputError = (form,input)=>{
 
 
 // Функция, которая проверяет валидность поля
-const isValid = (form,input)=>{
+const isValid = (form,input,config)=>{
   // проверяем поле на соот-е рег выражению
-  
   if(input.validity.patternMismatch) {
-
     //показываем свое кастомное сообщение об ошибке
     input.setCustomValidity(input.dataset.messageError);
   }else {
@@ -68,9 +66,9 @@ const isValid = (form,input)=>{
   }
   //  простая проверка на валидность
   if(!input.validity.valid) {
-    showInputError(form,input,input.validationMessage)
+    showInputError(form,input,input.validationMessage,config)
   }else{
-    hideInputError(form,input)
+    hideInputError(form,input,config)
   }
 }
 
@@ -83,17 +81,15 @@ const hasInvalid = (inputList)=>{
 }
 
 // заблокировать кнопку отправить если есть невалидные поля
-const toggleButtonState = (inputList,buttonSubmit)=>{
+const toggleButtonState = (inputList,buttonSubmit,config)=>{
+  const disabled =config.inactiveButtonClass.slice(1);
+  console.log(disabled);
   if(hasInvalid(inputList)){ // если хотябы одно поле не валидно
      // сделай кнопку неактивной
-     switchBtn(buttonSubmit,'popup__button_disabled',true)
-    //  buttonSubmit.disabled = true;
-    //  buttonSubmit.classList.add('popup__button_disabled');
+     switchBtn(buttonSubmit,disabled,true)
   }else{
     // иначе сделай кнопку активной
-    switchBtn(buttonSubmit,'popup__button_disabled',false)
-    // buttonSubmit.disabled = false;
-    // buttonSubmit.classList.remove('popup__button_disabled');
+    switchBtn(buttonSubmit,disabled,false)
   }
 }
 
@@ -112,9 +108,9 @@ const setEventListeners = (form,config)=>{
 
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый каждый элемент формы на валидность
-      isValid(form,input);
+      isValid(form,input,config);
        // запускаем процесс контроля кнопки если хотябы одно из полей не валидно
-  toggleButtonState(allInputs,buttonSubmit)
+  toggleButtonState(allInputs,buttonSubmit,config)
       
     })
    })
