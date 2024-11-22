@@ -65,7 +65,7 @@ export function createCard(setCard,dataCard) {
 // @todo: Функция лайка карточки
 
 export function likeCard(cardConfig,setCard) {
-    // если нет лайка(если класс лайка есть)
+    // если нет лайка(если класс лайка у иконки есть)
       if(!cardConfig.btn.classList.contains(cardConfig.classActive)){
       // запрос поставить лайк
       setCard.reqPostLike(cardConfig.cardId)
@@ -79,7 +79,7 @@ export function likeCard(cardConfig,setCard) {
         console.log(`Лайк поставлен`);
       })
     } 
-    // если лайк стоит(если класса лайка нет)
+    // если лайк стоит(если класса лайка  у иконки нет)
     if(cardConfig.btn.classList.contains(cardConfig.classActive)){
         // запрос снять лайк
         setCard.reqDelLike(cardConfig.cardId)
@@ -101,7 +101,7 @@ function toggleLike(switcher,res,cardConfig) {
   if(switcher) {
     // красим лайк
     cardConfig.btn.classList.add(cardConfig.classActive);
-  }else{
+  }else {
     // стираем лайк
     cardConfig.btn.classList.remove(cardConfig.classActive);
   }

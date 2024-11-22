@@ -1,11 +1,18 @@
 // актиквироватьили отключить кнопку
-const switchBtn = (button,style,block)=>{
+export const switchBtn = (button,style,block)=>{
   if(block) {
+    // блокируем кнопку
     button.disabled = block;
-    button.classList.add(style);
-  }else{
+    if(style) { // если нужно добавить стиль кнопки
+      button.classList.add(style);
+    }
+    
+  } else {
+    // разблокируем кнопку
     button.disabled = block;
-    button.classList.remove(style);
+    if(style) {
+      button.classList.remove(style);
+    }
   }
 }
 // очистка валидации

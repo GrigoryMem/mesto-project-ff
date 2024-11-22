@@ -2,8 +2,7 @@ import './pages/index.css'; // добавьте импорт главного ф
 import { createCard,likeCard} from'./scripts/components/card'; // функции для работы с карточками
 import { openModal, closeModal } from './scripts/components/modal'; // откытие и закрытие МО
 import { autoFillFormProf } from './scripts/components/form';
-import {clearValidation} from './scripts/components/validation';
-import {enableValidation} from './scripts/components/validation';
+import {enableValidation,switchBtn,clearValidation} from './scripts/components/validation';
 // запросы к серверу
 import { reqGetData, pathData,postData,reqDeleteCard,reqPostLike,reqDelLike,reqPatchAvatar} from "./scripts/components/api";
 //  dom узлы
@@ -286,8 +285,8 @@ function handleUpdateAvatarSubmit(event) {
 //  замена saveInfo и showLoadMessage
 function showLoadProcess(form,style,text,status) {
   const button = form.querySelector(style);
-  button.disabled = status;
   button.textContent = text;
+  switchBtn(button,"",status);
 }
 
  // восстанавлием статус кнопки для следующего открытия окна в исходное состояние
