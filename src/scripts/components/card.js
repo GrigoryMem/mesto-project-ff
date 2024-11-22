@@ -12,6 +12,13 @@ export function createCard(setCard,dataCard) {
   cardExmpImg.src = dataCard.link
   cardExample.querySelector('.card__title').textContent = dataCard.name;
   cardExmpImg.alt = dataCard.name;
+  const userID = setCard.authorLikCardID;
+  // если я не являюсь владельцем карточки, удаляем кнопку корзины
+    //  т.к. я не могу удалять чужие карточки
+    if(dataCard.owner._id !== userID) {
+            cardDeleteBtn.remove();
+    }
+
   // работа с лайком карточки
   // сравнивать есть ли ID пользователя в массиве лайков у карточки. 
   // Если есть - красим лайк, иначе нет
@@ -20,10 +27,10 @@ export function createCard(setCard,dataCard) {
     cardLikeCount
 }
   const cardDataLikes = dataCard.likes
-  // console.log(dataCard.owner._id)
-  // console.log(setCard.authorCard)
+
   const isLiked = cardDataLikes.some((like)=>{
-    if(like._id === setCard.authorLikCardID){
+    // сравнием ID пользователя с теми кто лайкнул эту карточку
+    if(like._id === userID){
        return true
       }
   })
@@ -35,6 +42,7 @@ export function createCard(setCard,dataCard) {
      }
   cardLikeCount.textContent = dataCard.likes.length;
   
+  //CОБЫТИЯ
   // событие - удаление карточки
   cardDeleteBtn.addEventListener('click',()=> {
     // колбэк удаления, который нам нужно будет вызвать 

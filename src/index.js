@@ -56,7 +56,7 @@ enableValidation(configForm); // включаем валидацию
 // настройки карточки
 const settingCard = {
   template: cardTemplate, // шаблон создания карточки,
-  authorLikCardID: "f5bbbfc6daa06470f1f78ec3",// опознаем себя
+  authorLikCardID:null,
   acts:{
     remove:handleDeleteCard,
     like:likeCard, 
@@ -224,23 +224,15 @@ function render(reqGetData,settingCard) {
       const [profile,cards] = data; //  profile  наш профиль,cards данные с карточками
       profileTitle.textContent = profile.name;
       profileDesc.textContent = profile.about;
+      settingCard.authorLikCardID = profile._id; // получаем id пользователя
       profileImage.style.backgroundImage = `url(${profile.avatar})`;
       //  проходимся по массиву с данными для карточек... 
       cards.forEach((item)=>{
         const card = createCard(settingCard,item)
         const cardDeleteBtn = card.querySelector('.card__delete-button');
-      
-        if(item){
-          // вставляем заполненные карточки на страницу
-          if(item.owner._id !== "f5bbbfc6daa06470f1f78ec3") {
-            // если я не являюсь владельцем карточки, удаляем кнопку корзины
-            //  т.к. я не могу удалять чужие карточки
-            cardDeleteBtn.classList.add('card__delete-button_type_hidden');
-          
-          }
-         // вставляем заполненные карточки на страницу
-          placesList.append(card)
-        }
+        // вставляем заполненные карточки на страницу
+        placesList.append(card)
+     
       })
     })
     .catch((err)=>{

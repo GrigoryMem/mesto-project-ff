@@ -18,7 +18,7 @@ export const clearValidation = (form,config)=>{
     hideInputError(form,input,config);
    
   })
-  switchBtn(buttonSubmit,disabled,false)
+  switchBtn(buttonSubmit,disabled,true)
 }
 // Функция, которая добавляет класс с ошибкой
 const showInputError = (form,input,textErr,config)=>{
