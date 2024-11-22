@@ -75,6 +75,15 @@ export function reqPatchAvatar(data) {
       .then(handleResponse)
   }
 
+  export function reqcheckImage(data) {
+    return fetch(`${config.baseUrl}/users/me/avatar`, {
+      method: 'HEAD',
+      headers: config.headers,
+      body: JSON.stringify(data)
+      })
+        .then(handleResponse)
+    }
+
 function handleResponse(res) {
   if(res.ok){
     return res.json();

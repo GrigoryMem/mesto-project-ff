@@ -110,13 +110,11 @@ const setEventListeners = (form,config)=>{
   //  Обойдём все элементы полученной коллекции
   allInputs.forEach((input)=>{
     input.addEventListener('input',()=>{
-     
-
-      // Внутри колбэка вызовем isValid,
+     // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый каждый элемент формы на валидность
       isValid(form,input,config);
        // запускаем процесс контроля кнопки если хотябы одно из полей не валидно
-  toggleButtonState(allInputs,buttonSubmit,config)
+      toggleButtonState(allInputs,buttonSubmit,config)
       
     })
    })
