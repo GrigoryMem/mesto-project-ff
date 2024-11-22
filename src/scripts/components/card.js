@@ -24,7 +24,8 @@ export function createCard(setCard,dataCard) {
   // Если есть - красим лайк, иначе нет
   const cardConfig = {
     cardId:dataCard._id,
-    cardLikeCount
+    cardLikeCount,
+    classActive:'card__like-button_is-active'
 }
   const cardDataLikes = dataCard.likes
 
@@ -36,9 +37,9 @@ export function createCard(setCard,dataCard) {
   })
 
     if(isLiked){
-      cardLikeBtn.classList.add('card__like-button_is-active');
+      cardLikeBtn.classList.add(cardConfig.classActive);
      }else{
-      cardLikeBtn.classList.remove('card__like-button_is-active');
+      cardLikeBtn.classList.remove(cardConfig.classActive);
      }
   cardLikeCount.textContent = dataCard.likes.length;
   
@@ -64,29 +65,26 @@ export function createCard(setCard,dataCard) {
 // @todo: Функция лайка карточки
 
 export function likeCard(cardConfig,setCard) {
-  console.log(cardConfig)
-      if(!cardConfig.btn.classList.contains('card__like-button_is-active')){
+    // если нет лайка(если класс лайка есть)
+      if(!cardConfig.btn.classList.contains(cardConfig.classActive)){
       // запрос поставить лайк
       setCard.reqPostLike(cardConfig.cardId)
       .then((res)=>{
-        console.log(res)
-        cardConfig.cardLikeCount.textContent = res.likes.length;
-        cardConfig.btn.classList.add('card__like-button_is-active');
+        toggleLike(true,res,cardConfig)
       })
       .catch((err)=>{
         console.log(`Ошибка при постановке лайка карточки ${err} `)
       })
       .finally(()=>{
-        console.log(`ЛАйк поставлен`);
+        console.log(`Лайк поставлен`);
       })
     } 
-    if(cardConfig.btn.classList.contains('card__like-button_is-active')){
+    // если лайк стоит(если класса лайка нет)
+    if(cardConfig.btn.classList.contains(cardConfig.classActive)){
         // запрос снять лайк
         setCard.reqDelLike(cardConfig.cardId)
           .then((res)=>{
-            console.log(res)
-            cardConfig.cardLikeCount.textContent = res.likes.length;
-            cardConfig.btn.classList.remove('card__like-button_is-active');
+            toggleLike(false,res,cardConfig)
            })
            .catch((err)=>{
             console.log(`Ошибка при снятии лайка карточки ${err} `)
@@ -98,6 +96,18 @@ export function likeCard(cardConfig,setCard) {
     }
 }
 
+// только для запроса снять/поставить лайк
+function toggleLike(switcher,res,cardConfig) {
+  if(switcher) {
+    // красим лайк
+    cardConfig.btn.classList.add(cardConfig.classActive);
+  }else{
+    // стираем лайк
+    cardConfig.btn.classList.remove(cardConfig.classActive);
+  }
+  // в любом случае обновляем количество лайков
+  cardConfig.cardLikeCount.textContent = res.likes.length;
+}
   
 
 
