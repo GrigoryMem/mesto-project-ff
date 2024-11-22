@@ -16,7 +16,7 @@ export const switchBtn = (button,style,block)=>{
   }
 }
 // очистка валидации
-export const clearValidation = (form,config)=>{
+export const clearValidation = (form,config,switcher)=>{
   const disabled = config.inactiveButtonClass.slice(1);
   // очищает ошибки валидации формы и делает кнопку неактивной
   const allInputs = Array.from(form.querySelectorAll(config.inputSelector))
@@ -25,7 +25,7 @@ export const clearValidation = (form,config)=>{
     hideInputError(form,input,config);
    
   })
-  switchBtn(buttonSubmit,disabled,true)
+  switchBtn(buttonSubmit,disabled,switcher)
 }
 // Функция, которая добавляет класс с ошибкой
 const showInputError = (form,input,textErr,config)=>{

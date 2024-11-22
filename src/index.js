@@ -121,7 +121,7 @@ render(reqGetData,settingCard); // отобразить карточки на с
 btnEditPrfl.addEventListener('click',() => {
   openModal(popupEdit);
   // запускаем  очистку валидации 
-  clearValidation(formEditPrf,configForm);
+  clearValidation(formEditPrf,configForm,false);
 // автозаполнение полей формы сохр данными
   autoFillFormProf(profile, formEditPrf);
 })
@@ -161,7 +161,7 @@ btnAddCard.addEventListener('click',()=>{
     // очистка полей формы каждыый раз при открытии формысоздания карточки
     formAddCard.reset();
     // очищаем валидацию каждый раз при открытии
-    clearValidation( formAddCard,configForm);
+    clearValidation( formAddCard,configForm,true);
     
 });
 // работа с формой карточки
@@ -251,7 +251,7 @@ function addNewCard(formData,setCard){
 // открываем попап изменения аватара
 profileImage.addEventListener('click',()=>{
   openModal(popupUpdateAvatar);
-  clearValidation(formUpdateAvatar,configForm);
+  clearValidation(formUpdateAvatar,configForm,true);
   formUpdateAvatar.reset();
 })
 
