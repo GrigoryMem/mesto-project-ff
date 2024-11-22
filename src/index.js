@@ -88,18 +88,18 @@ function handleDeleteCard(cardId,cardElement,setCard) {
    
 function handleDeleteCardSubmit(event) {
   event.preventDefault();
- 
-  showLoadProcess(formConfirmDelcard,".popup__button",'Удаление карточки...',true);
- 
+  showLoadProcess(formConfirmDelcard,".popup__button",'Удаление карточки',true);
   if(!cardForDelete.cardElement) return;
   //  удаляем карточку с сервера
   
   settingCard.reqDeleteCard(cardForDelete.id)
     .then(()=>{
       cardForDelete.cardElement.remove();
-      showLoadProcess(formConfirmDelcard,".popup__button",'Карточка удалена',true);
       cardForDelete = {};
-      settingCard.modal.closeModal(formConfirmDelcard);
+      setTimeout(()=>{
+        showLoadProcess(formConfirmDelcard,".popup__button",'Карточка удалена',true);
+        settingCard.modal.closeModal(formConfirmDelcard);
+      },250)
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`)
@@ -129,7 +129,7 @@ btnEditPrfl.addEventListener('click',() => {
 //  сохранение данных формы профиля
 formEditPrf.addEventListener('submit',(event)=>{
   event.preventDefault();
-  showLoadProcess(formEditPrf,".popup__button",'Сохранение...',true);
+  showLoadProcess(formEditPrf,".popup__button",'Сохранение',true);
     const valuesForm = {
       name:formEditPrf.elements.name.value,
       about:formEditPrf.elements.description.value
@@ -140,8 +140,10 @@ formEditPrf.addEventListener('submit',(event)=>{
     .then((formData)=>{
       profileTitle.textContent = formData.name;
       profileDesc.textContent = formData.about;
-      showLoadProcess(formEditPrf,".popup__button",'Информация сохранена',true); 
-      closeModal(popupEdit);
+      setTimeout(()=>{
+        showLoadProcess(formEditPrf,".popup__button",'Информация сохранена',true); 
+        closeModal(popupEdit);
+      },250)
     })
     .catch((err)=>{
       console.log(`Ошибка: ${err}`)
@@ -167,7 +169,7 @@ btnAddCard.addEventListener('click',()=>{
 
 formAddCard.addEventListener('submit',(event)=>{
   event.preventDefault();
-  showLoadProcess(formAddCard,".popup__button",'Сохранение...',true);
+  showLoadProcess(formAddCard,".popup__button",'Сохранение',true);
   const valuesCard = {
     "name":formAddCard.elements['place-name'].value,
     "link":formAddCard.elements['link'].value
@@ -175,9 +177,11 @@ formAddCard.addEventListener('submit',(event)=>{
   postData(valuesCard)
     .then((valuesCard)=>{
       addNewCard(valuesCard,settingCard);
-      showLoadProcess(formAddCard,".popup__button",'Карточка сохранена',true);
-      closeModal(popupCard);
       formAddCard.reset();
+      setTimeout(()=>{
+        showLoadProcess(formAddCard,".popup__button",'Карточка сохранена',true);
+        closeModal(popupCard);
+      },250)
     })
     .catch((err)=>{
       console.log(`Ошибка: ${err}`)
@@ -255,7 +259,8 @@ formUpdateAvatar.addEventListener('submit',handleUpdateAvatarSubmit)
 
 function handleUpdateAvatarSubmit(event) {
   event.preventDefault();
-  showLoadProcess(formUpdateAvatar,".popup__button",'Сохранение...',true);
+  
+  showLoadProcess(formUpdateAvatar,".popup__button",'Сохранение',true);
   const valuesAvatar= {
 
     "avatar":formUpdateAvatar.elements['link'].value
@@ -263,10 +268,14 @@ function handleUpdateAvatarSubmit(event) {
  
   reqPatchAvatar(valuesAvatar)
     .then((res)=>{
+      // показываем результат
       profileImage.style.backgroundImage = `url(${res.avatar})`;
-       // показываем результат
-       showLoadProcess(formUpdateAvatar,".popup__button",'Аватар изменен',true);
-      closeModal(popupUpdateAvatar);
+       setTimeout(()=>{
+        showLoadProcess(formUpdateAvatar,".popup__button",'Аватар изменен',true);
+        closeModal(popupUpdateAvatar);
+       },250)
+      
+    
     })
     .catch((err)=>{
       console.log(`Ошибка: ${err}`);
@@ -278,11 +287,21 @@ function handleUpdateAvatarSubmit(event) {
    // reqCheckHEAD()
 }
 
-// передать в файл form.js
-//  замена saveInfo и showLoadMessage
+
+//  работа loaderа анимации 
 function showLoadProcess(form,style,text,status) {
   const button = form.querySelector(style);
-  button.textContent = text;
+  const textBtn = form.querySelector('.popup__button-text');
+  const dotsBtn = form.querySelector('.popup__button-loading');
+  textBtn.textContent = text;
+   if(textBtn.textContent === 'Сохранение' || textBtn.textContent === 'Удаление карточки') {
+    dotsBtn.style.display = 'block';
+    dotsBtn.textContent = '...'
+  }else{
+    dotsBtn.style.display = 'none';
+    dotsBtn.textContent = ''
+  }
+  // восстанавливаем текст кнопки
   switchBtn(button,"",status);
 }
 
@@ -297,4 +316,3 @@ function reсoverStateBtn(form,style,message) {
 
 
 
- 
