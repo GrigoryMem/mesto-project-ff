@@ -97,6 +97,7 @@ function handleDeleteCardSubmit(event) {
   settingCard.reqDeleteCard(cardForDelete.id)
     .then(()=>{
       cardForDelete.cardElement.remove();
+      showLoadProcess(formConfirmDelcard,".popup__button",'Карточка удалена',true);
       cardForDelete = {};
       settingCard.modal.closeModal(formConfirmDelcard);
     })
@@ -104,11 +105,9 @@ function handleDeleteCardSubmit(event) {
       console.log(`Ошибка: ${err}`)
     })
     .finally((res)=>{
-      // в любом случае показываем результат
-      showLoadProcess(formConfirmDelcard,".popup__button",'Карточка удалена',true);
+      // восстанавливаем статус кнопки сабмита (не видно пользователю)
+      reсoverStateBtn(formConfirmDelcard,".popup__button",'Да');
     })
-    // восстанавливаем статус кнопки сабмита (не видно пользователю)
-    reсoverStateBtn(formConfirmDelcard,".popup__button",'Да');
 }
 // подтверждаем удаление карточки и удаляем ее
 formConfirmDelcard.addEventListener('submit',handleDeleteCardSubmit);
@@ -140,18 +139,17 @@ formEditPrf.addEventListener('submit',(event)=>{
   pathData(valuesForm)
     .then((formData)=>{
       profileTitle.textContent = formData.name;
-      profileDesc.textContent = formData.about;  
+      profileDesc.textContent = formData.about;
+      showLoadProcess(formEditPrf,".popup__button",'Информация сохранена',true); 
       closeModal(popupEdit);
     })
     .catch((err)=>{
       console.log(`Ошибка: ${err}`)
     })
     .finally(()=>{
-      // в любом случае показываем результат
-      showLoadProcess(formEditPrf,".popup__button",'Информация сохранена',true);
+      // Восстанавливаем текст кнопки
+      reсoverStateBtn(formEditPrf,".popup__button",'Сохранить');
     });
-    // восстанавливаем статус кнопки сабмита (не видно пользователю)
-    reсoverStateBtn(formEditPrf,".popup__button",'Сохранить');
 });
 // 2 форма добавить новую карточку
 // открытия окна формы добав карточки
@@ -177,18 +175,17 @@ formAddCard.addEventListener('submit',(event)=>{
   postData(valuesCard)
     .then((valuesCard)=>{
       addNewCard(valuesCard,settingCard);
+      showLoadProcess(formAddCard,".popup__button",'Карточка сохранена',true);
       closeModal(popupCard);
+      formAddCard.reset();
     })
     .catch((err)=>{
       console.log(`Ошибка: ${err}`)
     })
     .finally(()=>{
-      // в любом случае показываем результат
-      showLoadProcess(formAddCard,".popup__button",'Карточка сохранена',true);
+      // восстанавливаем статус кнопки сабмита (не видно пользователю)
+      reсoverStateBtn(formAddCard,".popup__button",'Сохранить');
     })
-    // восстанавливаем статус кнопки сабмита (не видно пользователю)
-    reсoverStateBtn(formAddCard,".popup__button",'Сохранить');
-  formAddCard.reset();
 })
 
 // Вешаем на все модалки событие закрытия карточки
@@ -263,22 +260,22 @@ function handleUpdateAvatarSubmit(event) {
 
     "avatar":formUpdateAvatar.elements['link'].value
   }
-  // console.log(valuesAvatar.link)
+ 
   reqPatchAvatar(valuesAvatar)
     .then((res)=>{
       profileImage.style.backgroundImage = `url(${res.avatar})`;
+       // показываем результат
+       showLoadProcess(formUpdateAvatar,".popup__button",'Аватар изменен',true);
       closeModal(popupUpdateAvatar);
     })
     .catch((err)=>{
       console.log(`Ошибка: ${err}`);
     })
     .finally(()=>{
-      // показываем результат
-      showLoadProcess(formUpdateAvatar,".popup__button",'Аватар изменен',true);
+       // восстанавливаем статус кнопки сабмита (не видно пользователю)
+       reсoverStateBtn(formUpdateAvatar,".popup__button",'Сохранить');
     })
-     // восстанавливаем статус кнопки сабмита (не видно пользователю)
-     reсoverStateBtn(formUpdateAvatar,".popup__button",'Сохранить');
-    // reqCheckHEAD()
+   // reqCheckHEAD()
 }
 
 // передать в файл form.js
