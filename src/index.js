@@ -284,14 +284,6 @@ function handleUpdateAvatarSubmit(event) {
        // восстанавливаем статус кнопки сабмита (не видно пользователю)
        reсoverStateBtn(formUpdateAvatar,".popup__button",'Сохранить');
     })
-   // reqCheckHEAD()
-   reqcheckImage()
-    .then((res)=>{
-      console.log(res);
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
 }
 
 
