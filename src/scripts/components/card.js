@@ -70,13 +70,14 @@ export function likeCard(cardConfig,setCard) {
       // запрос поставить лайк
       setCard.reqPostLike(cardConfig.cardId)
       .then((res)=>{
-        toggleLike(true,res,cardConfig)
+        toggleLike(true,res,cardConfig);
+        console.log(`Лайк поставлен`);
       })
       .catch((err)=>{
         console.log(`Ошибка при постановке лайка карточки ${err} `)
       })
-      .finally(()=>{
-        console.log(`Лайк поставлен`);
+      .finally((res)=>{
+        console.log(res);
       })
     } 
     // если лайк стоит(если класса лайка  у иконки нет)
@@ -85,12 +86,13 @@ export function likeCard(cardConfig,setCard) {
         setCard.reqDelLike(cardConfig.cardId)
           .then((res)=>{
             toggleLike(false,res,cardConfig)
+            console.log(`Лайк снят`);
            })
            .catch((err)=>{
             console.log(`Ошибка при снятии лайка карточки ${err} `)
           })
-          .finally(()=>{
-            console.log(`Лайк снят`);
+          .finally((res)=>{
+            console.log(res);
           })
           
     }
