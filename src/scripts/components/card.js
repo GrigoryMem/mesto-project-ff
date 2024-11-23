@@ -76,8 +76,8 @@ export function likeCard(cardConfig,setCard) {
       .catch((err)=>{
         console.log(`Ошибка при постановке лайка карточки ${err} `)
       })
-      .finally((res)=>{
-        console.log(res);
+      .finally(()=>{
+        console.log("проверьте результат выполнения");
       })
     } 
     // если лайк стоит(если класса лайка  у иконки нет)
@@ -91,8 +91,8 @@ export function likeCard(cardConfig,setCard) {
            .catch((err)=>{
             console.log(`Ошибка при снятии лайка карточки ${err} `)
           })
-          .finally((res)=>{
-            console.log(res);
+          .finally(()=>{
+            console.log("проверьте результат выполнения");
           })
           
     }
