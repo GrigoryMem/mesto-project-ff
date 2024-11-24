@@ -11,7 +11,7 @@ export const openModal = (popup) =>{
   document.addEventListener('keydown', closeEscModal);
 }
 // для закрытия окна по кл Escape:
-export const closeEscModal = (event) =>{
+const closeEscModal = (event) =>{
   if(event.key === 'Escape'){
     const openPopup = document.querySelector('.popup_is-opened');
     closeModal(openPopup);
