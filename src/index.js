@@ -233,7 +233,7 @@ function render(reqGetData,settingCard) {
       console.log(`Ошибка загрузки контента: ${err}`)
     })
     .finally(()=>{
-      console.log('Загрузка контента завершена')
+      console.log('Загрузка контента завершена, проверьте результат')
     })
 }
 //  для формы добавления карточки
