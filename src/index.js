@@ -4,7 +4,7 @@ import { openModal, closeModal } from './scripts/components/modal'; // откы�
 import { autoFillFormProf } from './scripts/components/form';
 import {enableValidation,switchBtn,clearValidation} from './scripts/components/validation';
 // запросы к серверу
-import { reqGetData, pathData,postData,reqDeleteCard,reqPostLike,reqDelLike,reqPatchAvatar,reqcheckImage} from "./scripts/components/api";
+import { reqGetData, pathData,postData,reqDeleteCard,reqPostLike,reqDelLike,reqPatchAvatar} from "./scripts/components/api";
 //  dom узлы
 const placesList = document.querySelector('.places__list');// @todo: DOM узел куда доб карточки
 const cardTemplate = document.querySelector('#card-template').content; // создал шаблон карточки (Темплейт карточки)
@@ -60,12 +60,6 @@ const settingCard = {
     remove:handleDeleteCard,
     like:likeCard, 
     open:openCard,// открываем картинку
-    getElem(elem){
-        return {
-          link:elem.link,
-          name:elem.name
-        }
-    }
   },
   modal: {
     openModal,
